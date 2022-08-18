@@ -4,6 +4,7 @@ import FlexCenter from '../components/atoms/FlexCenter'
 import {IoIosCloseCircleOutline} from "react-icons/io";
 import Text from '../components/atoms/Text';
 import useMessage from '../hooks/useMessage';
+import ModalHeader from '../components/organisms/ModalHeader';
 
 const Home: NextPage = () => {
 
@@ -13,10 +14,8 @@ const Home: NextPage = () => {
     <div className='h-screen w-screen'>
       <FlexCenter>
         <Card className='relative'>
-          <div>Hello</div>
-          <IoIosCloseCircleOutline className='absolute h-8 w-8 right-0 -top-10 cursor-pointer' />
-          <Text>Upload Video</Text>
-          <IoIosCloseCircleOutline className='absolute h-8 w-8 right-0 -top-10 cursor-pointer' onClick={() => sendMessage({type: "close"})} />
+          <ModalHeader />
+          <IoIosCloseCircleOutline className='absolute text-white h-8 w-8 right-0 -top-10 cursor-pointer' onClick={() => sendMessage({type: "close"})} />
         </Card>
       </FlexCenter>
     </div>
