@@ -6,13 +6,12 @@ class FlamSDK {
             const body = document.querySelector("body");
 
             const iFrame = document.createElement("iframe");
-            iFrame.src = "../../sdk/ui/index.html"
+            iFrame.id = "flam-sdk-iframe"
+            iFrame.src = "http://localhost:3000/"
 
             body.appendChild(iFrame)
         } else {
             alert("Wrong sdk creds")
         }
     }
-
-    
 }

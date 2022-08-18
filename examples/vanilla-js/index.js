@@ -6,3 +6,7 @@ buyBtn.addEventListener("click", () => {
 
     flam.placeOrder("abc");
 })
+
+const flam = new FlamSDK();
+
+flam.placeOrder("abc");
