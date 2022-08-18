@@ -15,7 +15,7 @@ const Home: NextPage = () => {
       <FlexCenter>
         <Card className='relative'>
           <ModalHeader />
-          <IoIosCloseCircleOutline className='absolute text-white h-8 w-8 right-0 -top-10 cursor-pointer' onClick={() => sendMessage({type: "close"})} />
+          <IoIosCloseCircleOutline className='absolute md:text-white h-8 w-8 right-4 md:right-0 top-4 md:-top-10 cursor-pointer' onClick={() => sendMessage({type: "close"})} />
         </Card>
       </FlexCenter>
     </div>
