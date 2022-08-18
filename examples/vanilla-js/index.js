@@ -8,4 +8,4 @@ buyBtn.addEventListener("click", () => {
 
 const flam = new FlamSDK();
 
-flam.placeOrder("abc");
+// flam.placeOrder("abc");
