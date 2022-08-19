@@ -8,6 +8,7 @@ import type { NextPage } from "next";
 import FileContainer from "../components/atoms/FileContainer";
 import ModalHeader from "../components/organisms/ModalHeader";
 import Tooltip from "../components/atoms/Tooltip";
+import FilterBox from "../components/atoms/FilterBox";
 
 const Home: NextPage = () => {
   const { sendMessage } = useMessage();
@@ -39,6 +40,38 @@ const Home: NextPage = () => {
               placeholder="Enter your message"
               className="messageInput"
             />
+          </div>
+
+          {/* 3D Filter Section */}
+          <div>
+            <Text className="font-semibold mt-6 mb-4">Select 3D Filter</Text>
+            <div className="flex gap-4 overflow-x-auto w-auto">
+              {Array.of(
+                [1, 2, 3]
+                  .fill(1)
+                  .map((item, index) => <FilterBox key={index} />)
+              )}
+              {Array.of(
+                [1, 2, 3]
+                  .fill(1)
+                  .map((item, index) => <FilterBox key={index} />)
+              )}
+              {Array.of(
+                [1, 2, 3]
+                  .fill(1)
+                  .map((item, index) => <FilterBox key={index} />)
+              )}
+              {Array.of(
+                [1, 2, 3]
+                  .fill(1)
+                  .map((item, index) => <FilterBox key={index} />)
+              )}
+              {Array.of(
+                [1, 2, 3]
+                  .fill(1)
+                  .map((item, index) => <FilterBox key={index} />)
+              )}
+            </div>
           </div>
 
           {/* Upload Video Later Section */}
