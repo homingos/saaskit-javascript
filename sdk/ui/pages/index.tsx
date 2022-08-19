@@ -1,16 +1,16 @@
-import Card from "../components/atoms/Card";
-import FlexCenter from "../components/atoms/FlexCenter";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-import Text from "../components/atoms/Text";
-import useMessage from "../hooks/useMessage";
-import type { NextPage } from "next";
-import ModalHeader from "../components/organisms/ModalHeader";
-import VideoUpload from "../components/organisms/VideoUpload";
-import Scrollable from "../components/atoms/Scrollable";
-import CardMessage from "../components/organisms/CardMessage";
-import ThemeSelect from "../components/organisms/ThemeSelect";
-import ModalFooter from "../components/organisms/ModalFooter";
-import ProductImage from "../components/molecules/ProductImage";
+import Card from '../components/atoms/Card';
+import FlexCenter from '../components/atoms/FlexCenter';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
+import Text from '../components/atoms/Text';
+import useMessage from '../hooks/useMessage';
+import type { NextPage } from 'next';
+import ModalHeader from '../components/organisms/ModalHeader';
+import VideoUpload from '../components/organisms/VideoUpload';
+import Scrollable from '../components/atoms/Scrollable';
+import CardMessage from '../components/organisms/CardMessage';
+import ThemeSelect from '../components/organisms/ThemeSelect';
+import ModalFooter from '../components/organisms/ModalFooter';
+import ProductImage from '../components/molecules/ProductImage';
 
 const Home: NextPage = () => {
   const { sendMessage } = useMessage();
@@ -57,12 +57,13 @@ const Home: NextPage = () => {
           <ModalHeader />
 
           <Scrollable className="py-4">
-              <div className="md:hidden mb-3">
-                <h4 className="font-bold text-sm text-[#111827] mb-2">Upload Photo</h4>
-                <ProductImage /></div>
-              <VideoUpload />
-              <CardMessage />
-              <ThemeSelect />
+            <div className="md:hidden mb-3">
+              <h4 className="font-bold text-sm text-[#111827] mb-2">Upload Photo</h4>
+              <ProductImage />
+            </div>
+            <VideoUpload />
+            <CardMessage />
+            <ThemeSelect />
           </Scrollable>
 
           <ModalFooter />
