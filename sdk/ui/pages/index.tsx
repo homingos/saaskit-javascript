@@ -19,19 +19,14 @@ const Home: NextPage = () => {
     return (
       <Card className="px-10 flex flex-col justify-center items-center">
         {/* Add S3 Link for iamge */}
-        <img
-          src={"../assets/images/wifi-error.png"}
-          alt="error"
-          className="h-40 w-40"
-        />
+        <img src={'../assets/images/wifi-error.png'} alt="error" className="h-40 w-40" />
         <div className="flex justify-center flex-col text-center gap-2">
           <Text className="font-semibold" size="h3">
             Error
           </Text>
           <div>
             <Text color="secondary" size="h5" className="text-center">
-              The server encountered an error. The incident has been reported to
-              admins.
+              The server encountered an error. The incident has been reported to admins.
             </Text>
             <Text color="secondary" size="h5" className="text-center">
               Please contact the merchant for assistance.
@@ -57,7 +52,7 @@ const Home: NextPage = () => {
         <Card className="relative p-8 flex flex-col">
           <IoIosCloseCircleOutline
             className="absolute text-black md:text-white h-8 w-8 right-4 top-4 md:right-0 md:-top-10 cursor-pointer"
-            onClick={() => sendMessage({ type: "close" })}
+            onClick={() => sendMessage({ type: 'close' })}
           />
           <ModalHeader />
 
