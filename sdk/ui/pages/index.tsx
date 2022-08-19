@@ -62,7 +62,7 @@ const Home: NextPage = () => {
 
           {/* Video Section */}
           <div>
-            <Text className="font-semibold mb-4">Upload Video</Text>
+            <Text className="font-semibold my-4">Upload Video</Text>
             <FileContainer>
               <div>Hello</div>
             </FileContainer>
