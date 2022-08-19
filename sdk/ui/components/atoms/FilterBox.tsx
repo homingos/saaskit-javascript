@@ -1,10 +1,8 @@
 interface FilterBoxProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const FilterBox: React.FC<FilterBoxProps> = ({ ...props }) => {
+const FilterBox: React.FC<FilterBoxProps> = ({ }) => {
   return (
-    <div className="w-full" {...props}>
-      <img src="" alt="filter" className="h-24 w-24 border-[1px] border-[#E5E7EB] rounded-2xl bg-white shadow-sm"/>
-    </div>
+      <img src="https://images.all-free-download.com/images/graphiclarge/square_pattern_abstract_background_6819746.jpg" alt="filter" className="h-20 w-20 rounded-xl shadow-md"/>
   );
 };
 
