@@ -19,7 +19,7 @@ const Home: NextPage = () => {
         <Card className="relative p-8">
           <ModalHeader />
           <IoIosCloseCircleOutline
-            className="absolute text-white h-8 w-8 right-0 -top-10 cursor-pointer"
+            className="absolute text-black md:text-white h-8 w-8 right-4 top-4 md:right-0 md:-top-10 cursor-pointer"
             onClick={() => sendMessage({ type: "close" })}
           />
           {/* PIYUSH CODE */}

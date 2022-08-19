@@ -15,7 +15,7 @@ function ProductImage() {
         console.log(acceptedFiles)
     }, [acceptedFiles])
 
-    return <div {...getRootProps({ className: 'dropzone' })} className="border-dashed border-[#1D4ED8] border-2 rounded-xl h-36 w-full md:w-36 bg-[#EFF6FF] shrink-0 flex flex-col justify-center items-center p-2" >
+    return <div {...getRootProps({ className: 'dropzone' })} className="h-36 w-full md:w-36  shrink-0 flex flex-col justify-center items-center p-2" >
         <input {...getInputProps()} />
         <IoMdImage className="text-[#1D4ED8] w-6 md:w-5 h-6 md:h-5 mb-3 md:mb-2" />
         <p className="text-sm md:text-xs text-[#374151] font-bold">Upload Photo</p>
