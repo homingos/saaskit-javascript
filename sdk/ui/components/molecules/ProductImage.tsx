@@ -1,6 +1,7 @@
 import { IoMdImage } from "react-icons/io"
 import { useDropzone } from 'react-dropzone';
 import { useEffect } from "react";
+import FileContainer from "../atoms/FileContainer";
 
 function ProductImage() {
     const { acceptedFiles, getRootProps, getInputProps } = useDropzone({
