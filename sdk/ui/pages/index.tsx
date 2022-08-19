@@ -1,14 +1,14 @@
-import Card from "../components/atoms/Card";
-import FlexCenter from "../components/atoms/FlexCenter";
-import { IoIosCloseCircleOutline } from "react-icons/io";
-import Text from "../components/atoms/Text";
-import useMessage from "../hooks/useMessage";
-import { FcInfo } from "react-icons/fc";
-import type { NextPage } from "next";
-import FileContainer from "../components/atoms/FileContainer";
-import ModalHeader from "../components/organisms/ModalHeader";
-import Tooltip from "../components/atoms/Tooltip";
-import FilterBox from "../components/atoms/FilterBox";
+import Card from '../components/atoms/Card';
+import FlexCenter from '../components/atoms/FlexCenter';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
+import Text from '../components/atoms/Text';
+import useMessage from '../hooks/useMessage';
+import { FcInfo } from 'react-icons/fc';
+import type { NextPage } from 'next';
+import FileContainer from '../components/atoms/FileContainer';
+import ModalHeader from '../components/organisms/ModalHeader';
+import Tooltip from '../components/atoms/Tooltip';
+import FilterBox from '../components/atoms/FilterBox';
 
 const Home: NextPage = () => {
   const { sendMessage } = useMessage();
@@ -17,19 +17,14 @@ const Home: NextPage = () => {
     return (
       <Card className="px-10 flex flex-col justify-center items-center">
         {/* Add S3 Link for iamge */}
-        <img
-          src={"../assets/images/wifi-error.png"}
-          alt="error"
-          className="h-40 w-40"
-        />
+        <img src={'../assets/images/wifi-error.png'} alt="error" className="h-40 w-40" />
         <div className="flex justify-center flex-col text-center gap-2">
           <Text className="font-semibold" size="h3">
             Error
           </Text>
           <div>
             <Text color="secondary" size="h5" className="text-center">
-              The server encountered an error. The incident has been reported to
-              admins.
+              The server encountered an error. The incident has been reported to admins.
             </Text>
             <Text color="secondary" size="h5" className="text-center">
               Please contact the merchant for assistance.
@@ -56,9 +51,8 @@ const Home: NextPage = () => {
           <ModalHeader />
           <IoIosCloseCircleOutline
             className="absolute text-black md:text-white h-8 w-8 right-4 top-4 md:right-0 md:-top-10 cursor-pointer"
-            onClick={() => sendMessage({ type: "close" })}
+            onClick={() => sendMessage({ type: 'close' })}
           />
-          
 
           {/* Video Section */}
           <div>
@@ -71,42 +65,18 @@ const Home: NextPage = () => {
           {/* Message Section */}
           <div>
             <Text className="font-semibold mt-6 mb-4">Message</Text>
-            <input
-              type="text"
-              placeholder="Enter your message"
-              className="messageInput"
-            />
+            <input type="text" placeholder="Enter your message" className="messageInput" />
           </div>
 
           {/* 3D Filter Section */}
           <div>
             <Text className="font-semibold mt-6 mb-4">Select 3D Filter</Text>
             <div className="flex gap-4 overflow-x-auto w-auto">
-              {Array.of(
-                [1, 2, 3]
-                  .fill(1)
-                  .map((item, index) => <FilterBox key={index} />)
-              )}
-              {Array.of(
-                [1, 2, 3]
-                  .fill(1)
-                  .map((item, index) => <FilterBox key={index} />)
-              )}
-              {Array.of(
-                [1, 2, 3]
-                  .fill(1)
-                  .map((item, index) => <FilterBox key={index} />)
-              )}
-              {Array.of(
-                [1, 2, 3]
-                  .fill(1)
-                  .map((item, index) => <FilterBox key={index} />)
-              )}
-              {Array.of(
-                [1, 2, 3]
-                  .fill(1)
-                  .map((item, index) => <FilterBox key={index} />)
-              )}
+              {Array.of([1, 2, 3].fill(1).map((item, index) => <FilterBox key={index} />))}
+              {Array.of([1, 2, 3].fill(1).map((item, index) => <FilterBox key={index} />))}
+              {Array.of([1, 2, 3].fill(1).map((item, index) => <FilterBox key={index} />))}
+              {Array.of([1, 2, 3].fill(1).map((item, index) => <FilterBox key={index} />))}
+              {Array.of([1, 2, 3].fill(1).map((item, index) => <FilterBox key={index} />))}
             </div>
           </div>
 
@@ -114,7 +84,7 @@ const Home: NextPage = () => {
           <div className="text-justify uploadSection">
             <div>
               <div className="flex items-center gap-2">
-                <input type={"checkbox"} className="inputCheckbox" />
+                <input type={'checkbox'} className="inputCheckbox" />
                 <Text className="font-semibold">Upload video later</Text>
                 <Tooltip
                   title={`Once your order is placed, you will get a link on your email to
@@ -126,9 +96,9 @@ const Home: NextPage = () => {
                 </Tooltip>
               </div>
               <Text color="secondary" size="h6" className="hidden sm:block">
-                Once your order is placed, you will get a link on your email to
-                upload the video and select 3D filter. The link will be live for
-                72 hours from the time the order is placed.
+                Once your order is placed, you will get a link on your email to upload the video and
+                select 3D filter. The link will be live for 72 hours from the time the order is
+                placed.
               </Text>
             </div>
             <div>

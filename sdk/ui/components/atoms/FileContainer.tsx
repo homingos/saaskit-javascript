@@ -1,11 +1,13 @@
-import React from "react";
+import React from 'react';
 
-const FileContainer: React.FC<{ children: React.ReactNode,className?:string }> = ({
+const FileContainer: React.FC<{ children: React.ReactNode; className?: string }> = ({
   children,
-  className
+  className,
 }) => {
   return (
-    <div className={`flex justify-center items-center rounded-2xl bg-[#EFF6FF] border-2 border-dashed border-[#1D4ED8] ${className}`}>
+    <div
+      className={`flex justify-center items-center rounded-2xl bg-[#EFF6FF] border-2 border-dashed border-[#1D4ED8] ${className}`}
+    >
       {children}
     </div>
   );
