@@ -13,39 +13,41 @@ import FilterBox from "../components/atoms/FilterBox";
 const Home: NextPage = () => {
   const { sendMessage } = useMessage();
 
-  // return (
-  //   <Card className="px-10 flex flex-col justify-center items-center">
-  //     {/* Add S3 Link for iamge */}
-  //     <img
-  //       src={"https://assets.codepen.io/32795/poster.png"}
-  //       alt="error"
-  //       className="h-40 w-40 mb-16"
-  //     />
-  //     <div className="flex justify-center flex-col text-center gap-4">
-  //       <Text className="font-semibold" size="h2">
-  //         Error
-  //       </Text>
-  //       <div>
-  //         <Text color="secondary" size="h5" className="text-center">
-  //           The server encountered an error. The incident has been reported to
-  //           admins.
-  //         </Text>
-  //         <Text color="secondary" size="h5" className="text-center">
-  //           Please contact the merchant for assistance.
-  //         </Text>
-  //       </div>
-  //       <div className="flex justify-center gap-2">
-  //         <Text color="tertiary" size="h5">
-  //           <a href="mailto:support@email.com">support@email.com</a>
-  //         </Text>
-  //         <Text color="secondary">|</Text>
-  //         <Text color="tertiary" size="h5">
-  //           <a href="tel:+91 98765 43210">+919876543210</a>
-  //         </Text>
-  //       </div>
-  //     </div>
-  //   </Card>
-  // );
+  if (false) {
+    return (
+      <Card className="px-10 flex flex-col justify-center items-center">
+        {/* Add S3 Link for iamge */}
+        <img
+          src={"../assets/images/wifi-error.png"}
+          alt="error"
+          className="h-40 w-40"
+        />
+        <div className="flex justify-center flex-col text-center gap-2">
+          <Text className="font-semibold" size="h3">
+            Error
+          </Text>
+          <div>
+            <Text color="secondary" size="h5" className="text-center">
+              The server encountered an error. The incident has been reported to
+              admins.
+            </Text>
+            <Text color="secondary" size="h5" className="text-center">
+              Please contact the merchant for assistance.
+            </Text>
+          </div>
+          <div className="flex gap-2 text-center">
+            <Text color="tertiary">
+              <a href="support@email.com">support@email.com</a>
+            </Text>
+            <div>|</div>
+            <Text color="tertiary">
+              <a href="tel:+91 98765 43210">+91 98765 43210</a>
+            </Text>
+          </div>
+        </div>
+      </Card>
+    );
+  }
 
   return (
     <div className="h-screen w-screen">
@@ -56,7 +58,7 @@ const Home: NextPage = () => {
             className="absolute text-black md:text-white h-8 w-8 right-4 top-4 md:right-0 md:-top-10 cursor-pointer"
             onClick={() => sendMessage({ type: "close" })}
           />
-          {/* PIYUSH CODE */}
+          
 
           {/* Video Section */}
           <div>
