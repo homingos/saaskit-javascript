@@ -9,9 +9,44 @@ import FileContainer from "../components/atoms/FileContainer";
 import ModalHeader from "../components/organisms/ModalHeader";
 import Tooltip from "../components/atoms/Tooltip";
 import FilterBox from "../components/atoms/FilterBox";
+import WifiError from "../assets/images/wifi-error.png";
 
 const Home: NextPage = () => {
   const { sendMessage } = useMessage();
+
+  return (
+    <Card className="px-10 flex flex-col justify-center items-center">
+      {/* Add S3 Link for iamge */}
+      <img
+        src={"../assets/images/wifi-error.png"}
+        alt="error"
+        className="h-40 w-40"
+      />
+      <div className="flex justify-center flex-col text-center gap-2">
+        <Text className="font-semibold" size="h3">
+          Error
+        </Text>
+        <div>
+          <Text color="secondary" size="h5" className="text-center">
+            The server encountered an error. The incident has been reported to
+            admins.
+          </Text>
+          <Text color="secondary" size="h5" className="text-center">
+            Please contact the merchant for assistance.
+          </Text>
+        </div>
+        <div className="flex gap-2 text-center">
+          <Text color="tertiary">
+            <a href="support@email.com">support@email.com</a>
+          </Text>
+          <div>|</div>
+          <Text color="tertiary">
+            <a href="tel:+91 98765 43210">+91 98765 43210</a>
+          </Text>
+        </div>
+      </div>
+    </Card>
+  );
 
   return (
     <div className="h-screen w-screen">
