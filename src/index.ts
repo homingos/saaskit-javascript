@@ -5,7 +5,7 @@
 //   }
 // }
 
-function FlamSDK() {
+export function FlamSDK() {
   let token = '';
   let _this = this;
   this.placeOrder = function placeOrder(token: string) {
