@@ -1,28 +1,7 @@
 {
-  "name": "saas-PRWFHuSU3eDtQJPvnNY7Jcket1j0t5OuOsFzPPzsekD52Zl8qUfFIPEiswXqIvHWGVHOgX",
-  "version": "1.1.1",
-  "homepage": "https://github.com/homingos/analytics-tracking-node",
-  "authors": [
-    "Ritesh Bucha <bucharitesh@gmail.com>"
-  ],
-  "description": "Saas Sdk",
-  "main": "dist/saasSdk.min.js",
-  "moduleType": [
-    "amd",
-    "globals",
-    "node"
-  ],
-  "keywords": [
-    "react",
-    "adjust",
-    "analytics",
-    "tag-manager"
-  ],
-  "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test"
-  ]
+  "//": "experimental bower support",
+  "name": "flamSdk.js",
+  "main": "dist/flamSdk.js",
+  "dependencies": {},
+  "ignore": ["test"]
 }
