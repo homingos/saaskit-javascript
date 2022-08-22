@@ -1,5 +1,67 @@
 {
+  "name": "analytics-tracking-node",
+  "description": "A analytics and Tracking Module",
+  "version": "1.1.1",
+  "main": "dist/analytics-tracking-node.js",
+  "module": "dist/esm/index.js",
+  "keywords": [],
+  "repository": "https://github.com/homingos/analytics-tracking-node.git",
+  "author": "@homingos",
+  "contributors": [
+    "@bucharitesh"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/homingos/analytics-tracking-node/issues"
+  },
+  "scripts": {
+    "dev": "yarn build && cd ui && npm run dev",
+    "build": "npm run build:umd && npm run build:esm",
+    "build:esm": "cross-env BABEL_ENV=esm babel src --out-dir dist/esm",
+    "build:umd": "cross-env BABEL_ENV=umd webpack --mode=production",
+    "lint": "eslint src/**/*.js src/*.js *.js --ext .js,.jsx",
+    "prettier": "prettier --write src/**/* src/* *.js *.ts",
+    "changelog": "gitmoji-changelog",
+    "preversion": "npm run lint",
+    "prepublish": "npm run build",
+    "version": "node ./version-bower.js && npm run build && git add -A bower.json"
+  },
   "dependencies": {
-    "react-dropzone": "^14.2.2"
+    "@adjustcom/adjust-web-sdk": "^5.2.1",
+    "react-ga": "^3.3.0",
+    "react-gtm-module": "^2.0.11",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.6.2",
+    "@babel/core": "7.6.2",
+    "@babel/plugin-proposal-class-properties": "7.5.5",
+    "@babel/preset-env": "7.6.2",
+    "@babel/preset-flow": "^7.0.0",
+    "@babel/register": "7.6.2",
+    "@peeky/cli": "^0.3.3",
+    "babel-eslint": "10.0.3",
+    "babel-jest": "26.0.1",
+    "babel-loader": "8.0.6",
+    "cross-env": "^7.0.3",
+    "enzyme": "^3.3.0",
+    "eslint": "^8.7.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
+    "eslint-plugin-jest": "^25.7.0",
+    "eslint-plugin-jsx-a11y": "^6.5.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-react": "^7.28.0",
+    "fs-extra": "^10.0.0",
+    "gitmoji-changelog": "^2.3.0",
+    "jest": "^19.0.2",
+    "jest-cli": "^21.2.1",
+    "prettier": "^2.5.1",
+    "sinon": "^1.14.1",
+    "terser-webpack-plugin": "^5.3.0",
+    "webpack": "^5.66.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.7.3"
   }
 }
