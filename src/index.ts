@@ -1,7 +1,14 @@
+// interface EventType {
+//   origin: string,
+//   data: {
+//     type: string
+//   }
+// }
+
 function FlamSDK() {
   let token = '';
   let _this = this;
-  this.placeOrder = function placeOrder(token) {
+  this.placeOrder = function placeOrder(token: string) {
     if (token == 'abc') {
       this.token = token;
       const body = document.querySelector('body');
@@ -19,7 +26,7 @@ function FlamSDK() {
     }
   };
 
-  this.receiveMessage = function receiveMessage(event) {
+  this.receiveMessage = function receiveMessage(event: any) {
     if (event.origin == 'http://localhost:3000') {
       console.log('event listened', event);
 

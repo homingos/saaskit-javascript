@@ -4,14 +4,14 @@ const pkg = require('./package.json');
 
 module.exports = {
   entry: {
-    'saasSdk': './src/index.js',
-    'saasSdk.min': './src/index.js'
+    'saasSdk': './src/index.ts',
+    'saasSdk.min': './src/index.ts'
   },
   output: {
     path: path.resolve('./dist'),
     filename: '[name].js',
     libraryTarget: 'umd',
-    globalObject: "typeof self !== 'undefined' ? self : this" // temporary fix for https://github.com/webpack/webpack/issues/6525
+    globalObject: "typeof self !== 'undefined' ? self : this"
   },
   externals: []
     .concat(Object.keys(pkg.peerDependencies || {}))
@@ -19,8 +19,15 @@ module.exports = {
     .concat(Object.keys(pkg.devDependencies || {})),
   module: {
     rules: [
-      { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ }
-    ]
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        loader: "babel-loader",
+      },
+    ],
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
   optimization: {
     minimizer: [

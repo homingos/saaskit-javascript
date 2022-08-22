@@ -1,4 +1,4 @@
-const warn = (warning) => {
+const warn = (warning: string) => {
   console.warn('[analytics-tracking]', warning);
 };
 
