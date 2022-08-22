@@ -15,7 +15,7 @@
     "url": "https://github.com/homingos/analytics-tracking-node/issues"
   },
   "scripts": {
-    "init": "yarn && cd ui && yarn",
+    "ge": "yarn && cd ui && yarn",
     "dev": "yarn build && cd ui && npm run dev",
     "build": "npm run build:umd && npm run build:esm",
     "build:esm": "cross-env BABEL_ENV=esm babel src --out-dir dist/esm",
