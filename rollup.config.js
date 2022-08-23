@@ -30,7 +30,7 @@ const getPlugins = prod => [
   license({
     banner: `
     <%= pkg.name %> v<%= pkg.version %>
-    Author: flamSdk
+    Author: bucharitesh
     Date: <%= moment().format('YYYY-MM-DD') %>
     License: MIT
     `

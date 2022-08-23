@@ -1,29 +1,32 @@
+/* eslint-disable @typescript-eslint/ban-types */
+import { useEffect, useState } from 'react';
+import { IoIosCloseCircleOutline } from 'react-icons/io';
+
 import Card from '../components/atoms/Card';
 import FlexCenter from '../components/atoms/FlexCenter';
-import { IoIosCloseCircleOutline } from 'react-icons/io';
-import useMessage from '../hooks/useMessage';
-import type { NextPage } from 'next';
-import ModalHeader from '../components/organisms/ModalHeader';
-import VideoUpload from '../components/organisms/VideoUpload';
 import Scrollable from '../components/atoms/Scrollable';
-import CardMessage from '../components/organisms/CardMessage';
-import ThemeSelect from '../components/organisms/ThemeSelect';
-import ModalFooter from '../components/organisms/ModalFooter';
 import ProductImage from '../components/molecules/ProductImage';
-import { useEffect, useState } from 'react';
+import CardMessage from '../components/organisms/CardMessage';
+import ModalFooter from '../components/organisms/ModalFooter';
+import ModalHeader from '../components/organisms/ModalHeader';
+import ThemeSelect from '../components/organisms/ThemeSelect';
+import VideoUpload from '../components/organisms/VideoUpload';
+import useMessage from '../hooks/useMessage';
 
-const Home: NextPage<{}> = ({ }) => {
+import type { NextPage } from 'next';
+const Home: NextPage = () => {
   const { sendMessage } = useMessage();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    window.addEventListener("message", (event) => {
-      console.log("Event recieved in child", event)
-    })
+    window.addEventListener('message', event => {
+      console.log('Event recieved in child', event);
+    });
 
-    return () => window.removeEventListener("message", (event) => {
-      console.log("Event recieved in child", event)
-    })
+    return () =>
+      window.removeEventListener('message', event => {
+        console.log('Event recieved in child', event);
+      });
   }, []);
 
   return (
@@ -38,7 +41,9 @@ const Home: NextPage<{}> = ({ }) => {
 
           <Scrollable className="py-4">
             <div className="md:hidden mb-3">
-              <h4 className="font-bold text-sm text-[#111827] mb-2">Upload Photo</h4>
+              <h4 className="font-bold text-sm text-[#111827] mb-2">
+                Upload Photo
+              </h4>
               <ProductImage />
             </div>
             <VideoUpload />

@@ -15,7 +15,7 @@
     "comma-dangle": "off",
     "multiline-ternary": "off",
     "no-use-before-define": "off",
-    "space-before-function-paren": "error",
+    "space-before-function-paren": "off",
     "react/prop-types": "off",
     "react/no-unescaped-entities": "off",
     "react/display-name": "off",
