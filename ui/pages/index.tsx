@@ -11,9 +11,27 @@ import CardMessage from '../components/organisms/CardMessage';
 import ThemeSelect from '../components/organisms/ThemeSelect';
 import ModalFooter from '../components/organisms/ModalFooter';
 import ProductImage from '../components/molecules/ProductImage';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
+import axios from 'axios';
 
-const Home: NextPage = () => {
+const Home: NextPage = ({ data }: { data: any }) => {
+  console.log(data)
   const { sendMessage } = useMessage();
+
+  const router = useRouter()
+
+  useEffect(() => {
+    window.addEventListener("message", (event) => {
+      console.log("Event recieved in child", event)
+    })
+  }, []);
+
+  useEffect(() => {
+    if (router) {
+      console.log("Check", router.query)
+    }
+  }, [router]);
 
   if (false) {
     return (
@@ -74,3 +92,30 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+
+export async function getServerSideProps(context: { query: { product_id: string } }) {
+
+  try {
+    if (context.query.product_id) {
+      const res = await axios.get(`https://dev.homingos.com/saas/api/v1/products`, {
+        params: {
+          product_id: context.query.product_id
+        },
+        headers: {
+          "x-api-key": "o78N5gJ639CcgCbc9zsj-00edz0"
+        }
+      });
+      return {
+        props: { data: res.data.data }
+      }
+    } else {
+      throw new Error("Product ID missing")
+    }
+  } catch (err) {
+    return {
+      props: { error: "Error occured!" }
+    }
+  }
+
+
+}

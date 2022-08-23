@@ -1,11 +1,10 @@
 function useMessage() {
 
-    function sendMessage(message: {type: string; payload?: any}) {
-        console.log("Hello")
+    function sendMessage(message: { type: string; payload?: any }) {
         parent.postMessage(message, "*")
     }
 
-    return {sendMessage} 
+    return { sendMessage }
 }
 
 export default useMessage;

@@ -20,7 +20,7 @@ function ProductImage() {
         <DropArea>
             <IoMdImage className="text-[#1D4ED8] w-6 md:w-5 h-6 md:h-5 mb-3 md:mb-2 " />
             <p className="text-sm md:text-xs text-[#374151] font-bold">Upload Photo</p>
-            <p className="text-xs md:text-[0.5rem] text-[#374151] font-bold">Drag and drop files, or <span className="text-[#1D4ED8]">Browse</span></p>
+            <p className="text-xs md:text-[0.5rem] text-[#374151] font-bold text-center">Drag and drop files, or <span className="text-[#1D4ED8]">Browse</span></p>
             <p className="text-xs md:text-[0.6rem] text-[#6B7280] mt-2 md:mt-1">Max. file size: 10MB</p>
         </DropArea>
     </div>

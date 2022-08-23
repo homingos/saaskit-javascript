@@ -6,10 +6,6 @@ import { useEffect, useState } from "react"
 const ModalFooter = () => {
     const [checkbox, setCheckbox] = useState(false);
 
-    useEffect(() => {
-        console.log("Check", checkbox)
-    }, [checkbox])
-
     return <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 pt-2">
         <div>
             <div className="flex items-baseline md:items-center gap-2">
