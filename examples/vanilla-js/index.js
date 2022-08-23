@@ -3,7 +3,7 @@ const buyBtn = document.querySelector('#placeorder');
 buyBtn.addEventListener('click', () => {
 
   const flam = new flamSdk.init({
-    enviornment: "",
+    environment: "sandbox",
     key: "o78N5gJ639CcgCbc9zsj-00edz0",
   });
 
@@ -24,11 +24,15 @@ buyBtn.addEventListener('click', () => {
 
   let productId = "04607c6a-9964-47de-a0c2-853b3f89bd67";
 
-  flam.placeOrder(productId, orderDetails, (err, res) => {
-    if (err) {
-      console.log("ERR", err)
-    } else {
-      console.log("RES", res)
+  flam.placeOrder({
+    product_id: productId,
+    order_details: orderDetails,
+    callback: (err, res) => {
+      if (err) {
+        console.log("ERR at client side", err)
+      } else {
+        console.log("RES", res)
+      }
     }
   });
 });

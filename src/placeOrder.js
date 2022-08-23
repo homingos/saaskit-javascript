@@ -1,17 +1,16 @@
-export default function placeOrder(clientData, productId, orderDetails, callback) {
-    let pages = {
-        main: "http://localhost:3000",
-        error: "http://localhost:3000/error"
-    }
+import { PAGES } from "./constants";
 
-    // if (!clientData || !clientData.enviornment || !clientData.key) {
-    // show error page here
-    let url = `${pages.error}/Something went wrong!`
-    this.renderWithRetry(url);
-    callback({ message: "Error Occured!" }, null)
-    // } else {
-    //   this.token = clientData.key;
-    //   let url = `${pages.main}/?product_id=${productId}`
-    //   this.renderWithRetry(url);
-    // }
+export default function placeOrder({ product_id, order_details, callback }) {
+    if (!this?.clientData || !this?.clientData?.environment || !this?.clientData.key) {
+        let url = `${PAGES.error}/Something went wrong!`
+        this.renderWithRetry({
+            url,
+            order_details,
+            callback
+        });
+        callback({ message: "Error Occured!" }, null)
+    } else {
+        let url = `${PAGES.main}/?product_id=${product_id}`
+        this.renderWithRetry(url);
+    }
 };

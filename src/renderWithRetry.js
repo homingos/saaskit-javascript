@@ -1,9 +1,9 @@
 export default function renderWithRetry(url, productId) {
-    const body = document.querySelector('body');
+  const body = document.querySelector('body');
 
-    const styleSheet = document.createElement('style');
-    styleSheet.type = 'text/css';
-    styleSheet.innerText = `
+  const styleSheet = document.createElement('style');
+  styleSheet.type = 'text/css';
+  styleSheet.innerText = `
     .flam-sdk-bg {
       position: fixed;
       top: 0;
@@ -70,12 +70,10 @@ export default function renderWithRetry(url, productId) {
     }
   `;
 
-    // http://localhost:3000/?product_id=${productId}
+  document.head.appendChild(styleSheet);
 
-    document.head.appendChild(styleSheet);
-
-    const UI = document.createElement('div');
-    UI.innerHTML = `
+  const UI = document.createElement('div');
+  UI.innerHTML = `
       <div class="flam-sdk-ui" id="flam-sdk-ui">
         <div class="flam-sdk-bg" id="flam-sdk-bg">
           <div class="flam-sdk-loading" id="flam-sdk-loading"><div></div><div></div><div></div><div></div></div>
@@ -84,18 +82,23 @@ export default function renderWithRetry(url, productId) {
       </div>
     `;
 
-    body.appendChild(UI);
+  body.appendChild(UI);
 
-    // this gets called when just the iFrame has loaded and not iFrame + website
-    document.getElementById('flam-sdk-iframe').addEventListener('load', () => {
-        _this.iWindow = document.getElementById("flam-sdk-iframe").contentWindow;
+  document.getElementById('flam-sdk-iframe').addEventListener('load', () => {
 
-        document.getElementById('flam-sdk-bg').style.display = 'none';
+    // hide loading
+    document.getElementById('flam-sdk-bg').style.display = 'none';
 
-        // Bring the iframe back
-        document.getElementById('flam-sdk-iframe').style.opacity = '1';
+    // Bring the iframe back
+    document.getElementById('flam-sdk-iframe').style.opacity = '1';
 
-        window.addEventListener('message', this.receiveMessage);
-        this.sendMessage({ type: "data" })
-    });
+    // for receiving messages from iframe
+    window.addEventListener('message', this.receiveMessage);
+
+    // for sending messages to iframe
+    this.iWindow = document.getElementById("flam-sdk-iframe").contentWindow;
+    setTimeout(() => {
+      this.sendMessage({ type: "INITIAL_DATA", data: {} }, "*")
+    }, 100)
+  });
 };

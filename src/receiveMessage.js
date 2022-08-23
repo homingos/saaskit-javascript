@@ -4,7 +4,7 @@ export default function receiveMessage(event) {
 
         switch (event.data.type) {
             case 'close':
-                _this.closeModal();
+                this.closeModal();
         }
     }
 };
