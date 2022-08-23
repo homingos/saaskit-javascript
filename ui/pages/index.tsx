@@ -15,7 +15,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 
-const Home: NextPage = ({ data }: { data: any }) => {
+const Home: NextPage<{ data: any }> = ({ data }) => {
   console.log(data)
   const { sendMessage } = useMessage();
 
@@ -32,37 +32,6 @@ const Home: NextPage = ({ data }: { data: any }) => {
       console.log("Check", router.query)
     }
   }, [router]);
-
-  if (false) {
-    return (
-      <Card className="px-10 flex flex-col justify-center items-center">
-        {/* Add S3 Link for iamge */}
-        <img src={'../assets/images/wifi-error.png'} alt="error" className="h-40 w-40" />
-        <div className="flex justify-center flex-col text-center gap-2">
-          <Text className="font-semibold" size="h3">
-            Error
-          </Text>
-          <div>
-            <Text color="secondary" size="h5" className="text-center">
-              The server encountered an error. The incident has been reported to admins.
-            </Text>
-            <Text color="secondary" size="h5" className="text-center">
-              Please contact the merchant for assistance.
-            </Text>
-          </div>
-          <div className="flex gap-2 text-center">
-            <Text color="tertiary">
-              <a href="support@email.com">support@email.com</a>
-            </Text>
-            <div>|</div>
-            <Text color="tertiary">
-              <a href="tel:+91 98765 43210">+91 98765 43210</a>
-            </Text>
-          </div>
-        </div>
-      </Card>
-    );
-  }
 
   return (
     <div className="h-screen w-screen">

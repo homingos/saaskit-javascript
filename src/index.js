@@ -1,9 +1,6 @@
-import FlamSDK from './flamsdk';
+import init from './sdk';
 import version from './version';
 
-export { version, FlamSDK };
+export { version, init };
 
-export default {
-  version: version,
-  Sdk: FlamSDK
-};
+export default { version: version, init: init };

@@ -1,7 +1,4 @@
-export function FlamSDK() {
-  let token = '';
-  let _this = this;
-  this.renderWithRetry = function renderWithRetry() {
+export default function renderWithRetry(url, productId) {
     const body = document.querySelector('body');
 
     const styleSheet = document.createElement('style');
@@ -13,7 +10,7 @@ export function FlamSDK() {
       right: 0;
       bottom: 0;
       left: 0;
-  
+
       min-height: 100vh;
       min-width: 100vw;
       border: none;
@@ -30,7 +27,7 @@ export function FlamSDK() {
       right: 0;
       bottom: 0;
       left: 0;
-  
+
       min-height: 100vh;
       min-width: 100vw;
       border: none;
@@ -72,57 +69,33 @@ export function FlamSDK() {
       }
     }
   `;
+
+    // http://localhost:3000/?product_id=${productId}
+
     document.head.appendChild(styleSheet);
 
     const UI = document.createElement('div');
     UI.innerHTML = `
-      <div class="flam-sdk-ui">
+      <div class="flam-sdk-ui" id="flam-sdk-ui">
         <div class="flam-sdk-bg" id="flam-sdk-bg">
           <div class="flam-sdk-loading" id="flam-sdk-loading"><div></div><div></div><div></div><div></div></div>
         </div>
-        <iframe id="flam-sdk-iframe" style="opacity: 0" name="flam-sdk-iframe" src="http://localhost:3000/" style="opacity: 0"></iframe>
+        <iframe id="flam-sdk-iframe" style="opacity: 0" name="flam-sdk-iframe" src="${url}" style="opacity: 0"></iframe>
       </div>
     `;
 
     body.appendChild(UI);
 
     // this gets called when just the iFrame has loaded and not iFrame + website
-    document.querySelector('#flam-sdk-iframe').addEventListener('load', () => {
-      // iWindow = iframe.contentWindow;
+    document.getElementById('flam-sdk-iframe').addEventListener('load', () => {
+        _this.iWindow = document.getElementById("flam-sdk-iframe").contentWindow;
 
-      document.getElementById('flam-sdk-bg').style.display = 'none';
+        document.getElementById('flam-sdk-bg').style.display = 'none';
 
-      // Bring the iframe back
-      document.getElementById('flam-sdk-iframe').style.opacity = '1';
+        // Bring the iframe back
+        document.getElementById('flam-sdk-iframe').style.opacity = '1';
+
+        window.addEventListener('message', this.receiveMessage);
+        this.sendMessage({ type: "data" })
     });
-  };
-
-  this.placeOrder = function placeOrder() {
-    if (token == 'abc') {
-      this.token = token;
-      this.renderWithRetry();
-      window.addEventListener('message', this.receiveMessage);
-    } else {
-      alert('Wrong sdk creds');
-    }
-  };
-
-  this.receiveMessage = function receiveMessage() {
-    if (event.origin == 'http://localhost:3000') {
-      console.log('event listened', event);
-
-      switch (event.data.type) {
-        case 'close':
-          _this.closeModal();
-      }
-    }
-  };
-
-  this.sendMessage = function sendMessage() {};
-
-  this.closeModal = function closeModal() {
-    const element = document.getElementById('flam-sdk-iframe');
-    element.remove();
-    window.removeEventListener('message', this.receiveMessage);
-  };
-}
+};
