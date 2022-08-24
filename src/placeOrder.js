@@ -6,6 +6,7 @@ export default function placeOrder({ product_id, order_details, callback }) {
     !this.clientData.environment ||
     !this.clientData.key
   ) {
+    console.log("THIS", this)
     let url = `${PAGES.error}/Something went wrong!`;
     this.renderWithRetry({
       url,
