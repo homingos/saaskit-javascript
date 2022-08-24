@@ -1,4 +1,4 @@
-export default function renderWithRetry(url, productId) {
+export default async function renderWithRetry({ url, error }) {
   const body = document.querySelector('body');
 
   const styleSheet = document.createElement('style');
@@ -70,9 +70,9 @@ export default function renderWithRetry(url, productId) {
     }
   `;
 
-  document.head.appendChild(styleSheet);
+  await document.head.appendChild(styleSheet);
 
-  const UI = document.createElement('div');
+  const UI = await document.createElement('div');
   UI.innerHTML = `
       <div class="flam-sdk-ui" id="flam-sdk-ui">
         <div class="flam-sdk-bg" id="flam-sdk-bg">
@@ -82,9 +82,10 @@ export default function renderWithRetry(url, productId) {
       </div>
     `;
 
-  body.appendChild(UI);
-
-  document.getElementById('flam-sdk-iframe').addEventListener('load', () => {
+  await body.appendChild(UI);
+  
+  document.getElementById('flam-sdk-iframe').addEventListener('load', (e) => {
+    e.preventDefault()
 
     // hide loading
     document.getElementById('flam-sdk-bg').style.display = 'none';
@@ -93,12 +94,11 @@ export default function renderWithRetry(url, productId) {
     document.getElementById('flam-sdk-iframe').style.opacity = '1';
 
     // for receiving messages from iframe
-    window.addEventListener('message', this.receiveMessage);
+    window.addEventListener('message', (e) => {
+      this.receiveMessage(e)
+    });
 
     // for sending messages to iframe
     this.iWindow = document.getElementById("flam-sdk-iframe").contentWindow;
-    setTimeout(() => {
-      this.sendMessage({ type: "INITIAL_DATA", data: {} }, "*")
-    }, 100)
   });
 };

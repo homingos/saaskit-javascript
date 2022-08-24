@@ -4,18 +4,21 @@ export default function placeOrder({ product_id, order_details, callback }) {
   if (
     !this.clientData ||
     !this.clientData.environment ||
-    !this.clientData.key
+    !this.clientData.key ||
+    !product_id
   ) {
-    console.log("THIS", this)
     let url = `${PAGES.error}/Something went wrong!`;
     this.renderWithRetry({
       url,
-      order_details,
-      callback
+      error: true
     });
-    callback({ message: 'Error Occured!' }, null);
+    callback({ message: 'Insuficiant data!' }, null);
   } else {
-    let url = `${PAGES.main}/?product_id=${product_id}`;
-    this.renderWithRetry(url);
+    let url = `${PAGES.main}`;
+
+    this.product_id = product_id;
+    this.order_details = order_details;
+
+    this.renderWithRetry({ url, error: false });
   }
 }

@@ -1,3 +1,4 @@
+import closeIframe from './closeIFrame';
 import assert from './helper/assert';
 import placeOrder from './placeOrder';
 import receiveMessage from './receiveMessage';
@@ -44,7 +45,7 @@ function init(options) {
   this.placeOrder = placeOrder;
   this.receiveMessage = receiveMessage;
   this.sendMessage = sendMessage;
-  this.close = close;
+  this.close = closeIframe;
 
   /* eslint-enable */
 }

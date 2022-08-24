@@ -15,7 +15,7 @@ const Error: NextPage<{ error: any }> = ({ error }) => {
         <Card className="relative px-10 flex flex-col justify-center items-center md:w-[48rem]">
           <IoIosCloseCircleOutline
             className="absolute text-black md:text-white h-8 w-8 right-4 top-4 md:right-0 md:-top-10 cursor-pointer"
-            onClick={() => sendMessage({ type: 'close' })}
+            onClick={() => sendMessage({ type: 'CLOSE' })}
           />
           <img src="/wifi_error.svg" alt="error" className="h-2/5 w-auto" />
           <p className="text-2xl font-semibold text-[#111827] ">{error}</p>
