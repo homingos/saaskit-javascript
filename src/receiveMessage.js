@@ -1,4 +1,5 @@
 export default function receiveMessage(event) {
+  console.log("EVENT", event)
   if (event.origin == 'http://localhost:3000') {
     switch (event.data.type) {
       case 'CLOSE':
@@ -13,6 +14,14 @@ export default function receiveMessage(event) {
           }
         }, "*")
         break;
+
+      case "CREATED": 
+        this.callback(null, {
+          code: 200,
+          data: event.data.payload,
+          message: "Order placed successfully"
+        })
+        this.close();
     }
   }
 }

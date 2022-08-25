@@ -4,66 +4,74 @@ import { ImCheckboxUnchecked, ImCheckboxChecked } from 'react-icons/im';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 
 const ModalFooter = ({
+  isLoading,
+  showLaterOption,
   handleSubmit,
   is_deferred,
   setData
 }: {
+  isLoading: boolean;
+  showLaterOption: boolean;
   handleSubmit: (data: any) => void;
   is_deferred: boolean;
   setData: Dispatch<SetStateAction<any>>;
 }) => {
-  const [checkbox, setCheckbox] = useState(false);
-
-  useEffect(() => {
-    console.log('Checkbox', checkbox);
-  }, [checkbox]);
-
   return (
-    <div className="flex flex-col md:flex-row items-stretch md:items-center gap-4 pt-2">
-      <div>
-        <div className="flex items-baseline md:items-center gap-2">
-          <div
-            className="flex items-baseline gap-2 cursor-pointer"
-            onClick={e => {
-              e.preventDefault();
-              setCheckbox(prev => !prev);
-            }}
-          >
-            {checkbox ? (
-              <ImCheckboxChecked className="h-4 w-4 md:h-3 md:w-3 text-[#1D4ED8]" />
-            ) : (
-              <ImCheckboxUnchecked className="h-4 w-4 md:h-3 md:w-3 text-[#1D4ED8]" />
-            )}
-
-            <input type="checkbox" className="hidden" id="video-later" />
-            <label
-              className="font-semibold text-sm text-[#111827]"
-              htmlFor="video-later"
+    <div
+      className={`flex flex-col md:flex-row items-stretch md:items-center gap-4 pt-2 ${
+        !showLaterOption && 'justify-end items-end'
+      }`}
+    >
+      {showLaterOption && (
+        <div>
+          <div className="flex items-center md:items-center gap-2">
+            <div
+              className="flex items-baseline gap-2 cursor-pointer"
+              onClick={e => {
+                e.preventDefault();
+                setData((prev: any) => ({
+                  ...prev,
+                  is_deferred: !is_deferred
+                }));
+              }}
             >
-              Upload video later
-            </label>
-          </div>
-          <Tooltip
-            title={`Once your order is placed, you will get a link on your email to
+              {is_deferred ? (
+                <ImCheckboxChecked className="h-4 w-4 md:h-3 md:w-3 text-brand_blue" />
+              ) : (
+                <ImCheckboxUnchecked className="h-4 w-4 md:h-3 md:w-3 text-brand_blue" />
+              )}
+
+              <input type="checkbox" className="hidden" id="video-later" />
+              <label
+                className="font-semibold text-sm text-brand_black"
+                htmlFor="video-later"
+              >
+                Upload video later
+              </label>
+            </div>
+            <Tooltip
+              title={`Once your order is placed, you will get a link on your email to
                             upload the video and select 3D filter. The link will be live for
                             72 hours from the time the order is placed.`}
-            className="md:hidden"
-          >
-            <AiFillInfoCircle className="md:hidden" />
-          </Tooltip>
+              className="md:hidden"
+            >
+              <AiFillInfoCircle className="md:hidden text-brand_blue" />
+            </Tooltip>
+          </div>
+          <p className="hidden md:block text-[0.6rem] text-brand_gray2">
+            Once your order is placed, you will get a link on your email to
+            upload the video and select 3D filter. The link will be live for 72
+            hours from the time the order is placed.
+          </p>
         </div>
-        <p className="hidden md:block text-[0.6rem] text-[#6B7280]">
-          Once your order is placed, you will get a link on your email to upload
-          the video and select 3D filter. The link will be live for 72 hours
-          from the time the order is placed.
-        </p>
-      </div>
-      <div className="w-full md:w-2/3">
+      )}
+      <div className={`w-full ${showLaterOption ? 'md:w-2/3' : 'md:w-1/3'}`}>
         <button
-          className="bg-[#1D4ED8] text-white text-sm font-bold py-2 px-16 h-min w-full rounded-lg"
+          className="bg-brand_blue text-white text-sm font-bold py-2 px-16 h-min w-full rounded-lg"
           onClick={handleSubmit}
+          disabled={isLoading}
         >
-          Submit
+          {isLoading ? 'Loading...' : 'Submit'}
         </button>
       </div>
     </div>

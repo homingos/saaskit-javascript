@@ -18,6 +18,7 @@ export default function placeOrder({ product_id, order_details, callback }) {
 
     this.product_id = product_id;
     this.order_details = order_details;
+    this.callback = callback;
 
     this.renderWithRetry({ url, error: false });
   }
