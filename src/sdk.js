@@ -11,6 +11,10 @@ import sendMessage from './sendMessage';
  * @param {Object} options
  * @param {String} options.key the API Key found on your Application settings page
  * @param {String} [options.environment] enviornment sandbox | production
+ * @param {String} [options.name] name of client
+ * @param {String} [options.logoUrl] client's brand logo url
+ * @param {String} [options.email] client's support email for error page
+ * @param {String} [options.phone] client's support phone for error page
  */
 function init(options) {
   /* eslint-disable */
@@ -23,7 +27,11 @@ function init(options) {
         environment: {
           type: 'string',
           message: 'environment is required'
-        }
+        },
+        name: { type: 'string', message: 'name is required' },
+        logoUrl: { type: 'string', message: 'logoUrl is required' },
+        email: { type: 'string', message: 'email is required' },
+        phone: { type: 'string', message: 'phone is required' }
       }
     );
 
@@ -34,7 +42,7 @@ function init(options) {
       });
     }
   } catch (err) {
-    throw new Error(err.message)
+    throw new Error(err.message);
   }
   /* eslint-enable */
 

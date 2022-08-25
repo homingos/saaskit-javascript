@@ -12,17 +12,16 @@ import ModalHeader from '../components/organisms/ModalHeader';
 // import ThemeSelect from '../components/organisms/ThemeSelect';
 import VideoUpload from '../components/organisms/VideoUpload';
 import useMessage from '../hooks/useMessage';
+import { Toaster } from 'react-hot-toast';
 
 import type { NextPage } from 'next';
 import { createCard, getProductData, getSignedURL, UploadURLv2 } from '../api';
 import Loading from '../components/atoms/Loading';
 import { useRouter } from 'next/router';
-import { toast } from 'react-toastify';
-import ClientData from '../components/molecules/ClientData';
+import { toast } from 'react-hot-toast';
 
 const Home: NextPage = () => {
   const router = useRouter();
-
   const { sendMessage } = useMessage();
   const [isLoading, setIsLoading] = useState(true);
   const [dataFromClient, setDataFromClient] =
@@ -31,9 +30,9 @@ const Home: NextPage = () => {
   const [userSelectedData, setUserSelectedData] = useState<any>({});
   const [isCreateLoading, setIsCreateLoading] = useState(false);
 
-  const receiveMessage = (event: { data: { type: string; data: any } }) => {
+  const receiveMessage = (event: { data: { type: string; payload: any } }) => {
     if (event.data.type === 'INITIAL_DATA') {
-      setDataFromClient(event.data.data);
+      setDataFromClient(event.data.payload);
     }
   };
 
@@ -69,7 +68,8 @@ const Home: NextPage = () => {
               return true;
             } else {
               validData = false;
-              alert(`Please add ${item}`);
+
+              toast.error(`Please add ${item}`);
               setIsCreateLoading(false);
               return false;
             }
@@ -82,9 +82,8 @@ const Home: NextPage = () => {
             Boolean(dataFromClient?.order_details[item]))
         )
       ) {
-        // toast.error(`Please add ${item}`);
+        toast.error(`Please add ${item}`);
         validData = false;
-        alert(`Please add ${item}`);
         setIsCreateLoading(false);
         return false;
       }
@@ -99,7 +98,7 @@ const Home: NextPage = () => {
         theme: dataFromClient?.order_details?.animation || '',
         clientPhotoURL: '',
         clientVideoURL: '',
-        is_deferred: userSelectedData.is_deferred
+        orderType: userSelectedData.is_deferred ? 'DEFERRED' : 'INSTANT'
       };
 
       // photo
@@ -183,6 +182,7 @@ const Home: NextPage = () => {
           setIsLoading(false);
         } catch (err) {
           console.log('ERR', err);
+          // send callback here
           router.push('/error/Something went wrong');
         }
       })();
@@ -191,6 +191,9 @@ const Home: NextPage = () => {
 
   return (
     <div className="h-screen w-screen">
+      <div>
+        <Toaster />
+      </div>
       <FlexCenter>
         <Card
           className={`relative p-8 flex flex-col ${

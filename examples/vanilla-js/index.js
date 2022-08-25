@@ -8,20 +8,19 @@ buyBtn.addEventListener('click', () => {
     email: 'support@email.com',
     phone: '+91 98765 43210',
     environment: 'sandbox',
-    key: 'o78N5gJ639CcgCbc9zsj-00edz0'
+    key: '9kA8jejg8CtvAFDW-p2csG4WJWw'
   });
 
   let orderDetails = {
-    refId: '04607c6a-9964-47de-a0c2-853b3f89bd76',
-    // photo:
-    //   'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
-    //    video:
-    // 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    refId: '04607c6a-9964-47de-a0c2-853b3f89bd82',
+    photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
+    // video:
+    //   'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
 
     animation: 'CONFETTI'
   };
 
-  let productId = '04607c6a-9964-47de-a0c2-853b3f89bd67';
+  let productId = '96f0d15e-63cd-485b-8f37-bb474d287129';
 
   flam.placeOrder({
     product_id: productId,

@@ -1,9 +1,9 @@
-import '../styles/globals.scss'
-import '../styles/tooltip.scss'
-import type { AppProps } from 'next/app'
+import '../styles/globals.scss';
+import '../styles/tooltip.scss';
+import type { AppProps } from 'next/app';
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return <Component {...pageProps}></Component>;
 }
 
-export default MyApp
+export default MyApp;

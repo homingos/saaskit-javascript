@@ -1,5 +1,5 @@
 import axios from 'axios';
-const backend_base_URL = 'https://dev.homingos.com/saas';
+const backend_base_URL = 'https://saas.homingos.com';
 
 export const getProductData = async ({
   productId,
@@ -26,7 +26,7 @@ export const getSignedURL = async (data: any) => {
     data,
     {
       headers: {
-        Authorization: 'Token 52c24c614b51edfb20c5471d82ff0a495a19d6d0'
+        Authorization: 'Token 7cc88f57ac9789058ea3e42e8329d0f52ef86acb'
       }
     }
   );
@@ -59,7 +59,7 @@ export const createCard = async ({
   };
 }) => {
   const res = await axios.post(
-    'https://dev.homingos.com/saas/api/v1/orders/create',
+    `https://saas.homingos.com/api/v1/orders/create`,
     data,
     {
       headers: {
