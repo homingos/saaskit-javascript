@@ -22,14 +22,13 @@ import { toast } from 'react-hot-toast';
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { sendMessage } = useMessage();
-  const [isLoading, setIsLoading] = useState(true);
+  const { sendMessage, ready } = useMessage('SANDBOX');
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [dataFromClient, setDataFromClient] =
     useState<dataFromClientType | null>(null);
   const [productData, setProductData] = useState<productDataType | null>(null);
   const [userSelectedData, setUserSelectedData] = useState<any>({});
   const [isCreateLoading, setIsCreateLoading] = useState(false);
-
   const receiveMessage = (event: { data: { type: string; payload: any } }) => {
     if (event.data.type === 'INITIAL_DATA') {
       setDataFromClient(event.data.payload);
@@ -126,7 +125,7 @@ const Home: NextPage = () => {
         !userSelectedData.is_deferred
       ) {
         finalData.clientPhotoURL = dataFromClient?.order_details?.video;
-      } else if (userSelectedData.video) {
+      } else if (userSelectedData.video && !userSelectedData.is_deferred) {
         const res = await getSignedURL({
           data: [
             {
@@ -165,10 +164,12 @@ const Home: NextPage = () => {
   }, []);
 
   useEffect(() => {
-    sendMessage({
-      type: 'READY_TO_RECEIVE'
-    });
-  }, []);
+    if (ready) {
+      sendMessage({
+        type: 'READY_TO_RECEIVE'
+      });
+    }
+  }, [ready]);
 
   useEffect(() => {
     if (dataFromClient) {

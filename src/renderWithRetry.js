@@ -83,22 +83,31 @@ export default async function renderWithRetry({ url, error }) {
     `;
 
   await body.appendChild(UI);
-  
-  document.getElementById('flam-sdk-iframe').addEventListener('load', (e) => {
-    e.preventDefault()
+
+  const iFrame = document.getElementById('flam-sdk-iframe');
+
+  iFrame.addEventListener('error', e => {
+    console.log('Iframe Error', e);
+  });
+
+  document.getElementById('flam-sdk-iframe').addEventListener('load', e => {
+    e.preventDefault();
+    console.log('Iframe Load', e);
 
     // hide loading
     document.getElementById('flam-sdk-bg').style.display = 'none';
 
     // Bring the iframe back
-    document.getElementById('flam-sdk-iframe').style.opacity = '1';
+    iFrame.style.opacity = '1';
+
+    //
 
     // for receiving messages from iframe
-    window.addEventListener('message', (e) => {
-      this.receiveMessage(e)
+    window.addEventListener('message', e => {
+      this.receiveMessage(e);
     });
 
     // for sending messages to iframe
-    this.iWindow = document.getElementById("flam-sdk-iframe").contentWindow;
+    this.iWindow = document.getElementById('flam-sdk-iframe').contentWindow;
   });
-};
+}

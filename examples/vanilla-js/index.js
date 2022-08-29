@@ -12,10 +12,10 @@ buyBtn.addEventListener('click', () => {
   });
 
   let orderDetails = {
-    refId: '04607c6a-9964-47de-a0c2-853b3f89bd82',
+    refId: '04607c6a-9964-47de-a0c2-853b3f89bd84',
     photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
-    // video:
-    //   'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    video:
+      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
 
     animation: 'CONFETTI'
   };
@@ -29,7 +29,7 @@ buyBtn.addEventListener('click', () => {
       if (err) {
         console.log('ERR at client side', err);
       } else {
-        console.log('RES', res);
+        console.log('RESSS', res);
       }
     }
   });
