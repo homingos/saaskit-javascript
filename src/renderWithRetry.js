@@ -76,6 +76,7 @@ export default async function renderWithRetry({ url, error }) {
   await document.head.appendChild(styleSheet);
 
   const UI = await document.createElement('div');
+  UI.id = 'flam-sdk-wrapper';
   UI.innerHTML = `
       <div class="flam-sdk-ui" id="flam-sdk-ui">
         <div class="flam-sdk-bg" id="flam-sdk-bg">

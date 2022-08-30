@@ -15,7 +15,8 @@
     window.removeEventListener('message', e => this.receiveMessage(e));
 
     // remove the UI
-    const element = document.getElementById('flam-sdk-ui');
+    const element = document.getElementById('flam-sdk-wrapper');
+    console.log('Ele', element);
     if (element) {
       element.remove();
     }
@@ -281,6 +282,7 @@
     await document.head.appendChild(styleSheet);
 
     const UI = await document.createElement('div');
+    UI.id = 'flam-sdk-wrapper';
     UI.innerHTML = `
       <div class="flam-sdk-ui" id="flam-sdk-ui">
         <div class="flam-sdk-bg" id="flam-sdk-bg">
