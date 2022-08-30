@@ -89,71 +89,95 @@ const Home: NextPage = () => {
       return true;
     });
 
-    if (validData) {
-      // data to be sent to create api
-      const finalData = {
-        refId: dataFromClient?.order_details?.refId || '',
-        productId: dataFromClient?.product_id || '',
-        theme: dataFromClient?.order_details?.animation || '',
-        clientPhotoURL: '',
-        clientVideoURL: '',
-        orderType: userSelectedData.is_deferred ? 'DEFERRED' : 'INSTANT'
-      };
+    try {
+      if (validData) {
+        // data to be sent to create api
+        const finalData = {
+          refId: dataFromClient?.order_details?.refId || '',
+          productId: dataFromClient?.order_details?.productId || '',
+          theme: dataFromClient?.order_details?.animation || '',
+          clientPhotoURL: '',
+          clientVideoURL: '',
+          orderType: userSelectedData.is_deferred ? 'DEFERRED' : 'INSTANT'
+        };
 
-      // photo
-      if (dataFromClient?.order_details?.photo) {
-        finalData.clientPhotoURL = dataFromClient?.order_details?.photo;
-      } else if (userSelectedData.photo) {
-        const res = await getSignedURL({
-          data: [
-            {
-              filename: userSelectedData.photo.name,
-              contentType: userSelectedData.photo.type
-            }
-          ],
-          num: 1
+        // photo
+        if (dataFromClient?.order_details?.photo) {
+          finalData.clientPhotoURL = dataFromClient?.order_details?.photo;
+        } else if (userSelectedData.photo) {
+          const res = await getSignedURL({
+            data: [
+              {
+                filename: userSelectedData.photo.name,
+                contentType: userSelectedData.photo.type
+              }
+            ],
+            num: 1
+          });
+          const resData = await uploadURL(res.data, [userSelectedData.photo]);
+          if (resData[0]) {
+            finalData.clientPhotoURL = resData[0];
+          }
+        }
+
+        // video
+        if (
+          dataFromClient?.order_details?.video &&
+          !userSelectedData.is_deferred
+        ) {
+          finalData.clientPhotoURL = dataFromClient?.order_details?.video;
+        } else if (userSelectedData.video && !userSelectedData.is_deferred) {
+          const res = await getSignedURL({
+            data: [
+              {
+                filename: userSelectedData.video.name,
+                contentType: userSelectedData.video.type
+              }
+            ],
+            num: 1
+          });
+          const resData = await uploadURL(res.data, [userSelectedData.video]);
+          if (resData[0]) {
+            finalData.clientVideoURL = resData[0];
+          }
+        }
+
+        // create
+        const finalRes = await createCard({
+          apiKey: dataFromClient?.client_data?.key || '',
+          data: finalData
         });
-        const resData = await uploadURL(res.data, [userSelectedData.photo]);
-        if (resData[0]) {
-          finalData.clientPhotoURL = resData[0];
+
+        if (finalRes.status == 200 || finalRes.status == 201) {
+          setIsCreateLoading(false);
+
+          // send message to parent
+          sendMessage({
+            type: 'CREATED',
+            payload: finalRes.data
+          });
+        } else {
+          // send message to parent
+          sendMessage({
+            type: 'ERROR',
+            payload: {
+              message: finalRes?.data?.message || 'Something went wrong!',
+              code: finalRes?.status || 500
+            }
+          });
+          router.push('/error/Something went wrong');
         }
       }
-
-      // video
-      if (
-        dataFromClient?.order_details?.video &&
-        !userSelectedData.is_deferred
-      ) {
-        finalData.clientPhotoURL = dataFromClient?.order_details?.video;
-      } else if (userSelectedData.video && !userSelectedData.is_deferred) {
-        const res = await getSignedURL({
-          data: [
-            {
-              filename: userSelectedData.video.name,
-              contentType: userSelectedData.video.type
-            }
-          ],
-          num: 1
-        });
-        const resData = await uploadURL(res.data, [userSelectedData.video]);
-        if (resData[0]) {
-          finalData.clientVideoURL = resData[0];
-        }
-      }
-
-      // create
-      const finalRes = await createCard({
-        apiKey: dataFromClient?.client_data?.key || '',
-        data: finalData
-      });
-
-      setIsCreateLoading(false);
-
+    } catch (err: any) {
       // send message to parent
       sendMessage({
-        type: 'CREATED',
-        payload: finalRes.data
+        type: 'ERROR',
+        payload: {
+          code: 500,
+          message: err?.message || 'Something went wrong!'
+        }
       });
+      router.push('/error/Something went wrong');
     }
   };
 
@@ -177,13 +201,25 @@ const Home: NextPage = () => {
         try {
           const res = await getProductData({
             apiKey: dataFromClient?.client_data?.key,
-            productId: dataFromClient?.product_id
+            productId: dataFromClient?.order_details?.productId || ''
           });
-          setProductData(res.data);
+          if (res.status == 200 && res.data) {
+            setProductData(res.data);
+          } else {
+            if (res.detail) {
+              throw new Error(res.detail);
+            } else {
+              throw new Error('Something went wrong!');
+            }
+          }
           setIsLoading(false);
-        } catch (err) {
-          console.log('ERR', err);
-          // send callback here
+        } catch (err: any) {
+          sendMessage({
+            type: 'ERROR',
+            payload: {
+              message: err.message
+            }
+          });
           router.push('/error/Something went wrong');
         }
       })();
@@ -213,8 +249,12 @@ const Home: NextPage = () => {
             <>
               <ModalHeader
                 clientData={{
-                  name: dataFromClient?.client_data.name || '',
-                  logoUrl: dataFromClient?.client_data.logoUrl || ''
+                  name:
+                    dataFromClient?.order_details?.prefill?.name ||
+                    'SmartPhotos',
+                  logoUrl:
+                    dataFromClient?.order_details?.logo ||
+                    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png'
                 }}
                 existingPhoto={dataFromClient?.order_details?.photo || ''}
                 title={productData?.productHeader || ''}

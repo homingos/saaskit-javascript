@@ -1,11 +1,30 @@
 import { PAGES } from './constants';
+import assert from './helper/assert';
 
-export default function placeOrder({ product_id, order_details, callback }) {
+export default function placeOrder(order_details, callback) {
+  // try {
+  //   assert.check(
+  //     options,
+  //     { type: 'object', message: 'clientData parameter is not valid' },
+  //     {
+  //       key: { type: 'string', message: 'key is required' },
+  //       environment: {
+  //         type: 'string',
+  //         message: 'environment is required'
+  //       }
+  //     }
+  //   );
+  // } catch (err) {}
+
+  this.order_details = order_details;
+
   if (
     !this.clientData ||
     !this.clientData.environment ||
     !this.clientData.key ||
-    !product_id
+    !order_details.productId ||
+    !order_details.refId ||
+    !order_details.animation
   ) {
     if (callback) {
       let url = `${PAGES.error}/Something went wrong!`;
@@ -13,7 +32,7 @@ export default function placeOrder({ product_id, order_details, callback }) {
         url,
         error: true
       });
-      callback({ message: 'Insuficiant data!' }, null);
+      callback({ code: 400, message: 'Insuficiant data!' }, null);
     } else {
       throw new Error('callback function is required!');
     }
@@ -22,12 +41,8 @@ export default function placeOrder({ product_id, order_details, callback }) {
       throw new Error('callback function is required!');
     } else {
       let url = `${PAGES.main}`;
-
-      this.product_id = product_id;
-      this.order_details = order_details;
-
+      // this.product_id = product_id;
       this.callback = callback;
-
       this.renderWithRetry({ url, error: false });
     }
   }

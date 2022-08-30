@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import Loading from '../../components/atoms/Loading';
 
 const Error: NextPage<{ error: any }> = ({ error }) => {
-  const { sendMessage } = useMessage();
+  const { sendMessage, ready } = useMessage('SANDBOX');
 
   const [clientData, setClientData] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -28,10 +28,12 @@ const Error: NextPage<{ error: any }> = ({ error }) => {
   }, []);
 
   useEffect(() => {
-    sendMessage({
-      type: 'READY_TO_RECEIVE_ERR'
-    });
-  }, []);
+    if (ready) {
+      sendMessage({
+        type: 'READY_TO_RECEIVE_ERR'
+      });
+    }
+  }, [ready]);
 
   return (
     <div className="h-screen w-screen">

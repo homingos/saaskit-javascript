@@ -27,11 +27,11 @@ function init(options) {
         environment: {
           type: 'string',
           message: 'environment is required'
-        },
-        name: { type: 'string', message: 'name is required' },
-        logoUrl: { type: 'string', message: 'logoUrl is required' },
-        email: { type: 'string', message: 'email is required' },
-        phone: { type: 'string', message: 'phone is required' }
+        }
+        // name: { type: 'string', message: 'name is required' },
+        // logoUrl: { type: 'string', message: 'logoUrl is required' },
+        // email: { type: 'string', message: 'email is required' },
+        // phone: { type: 'string', message: 'phone is required' }
       }
     );
 
@@ -45,17 +45,16 @@ function init(options) {
     throw new Error(err.message);
   }
   /* eslint-enable */
-
   this.clientData = options;
-
-  // core methods
-  this.renderWithRetry = renderWithRetry;
-  this.placeOrder = placeOrder;
-  this.receiveMessage = receiveMessage;
-  this.sendMessage = sendMessage;
-  this.close = closeIframe;
 
   /* eslint-enable */
 }
+
+// core methods
+init.prototype.renderWithRetry = renderWithRetry;
+init.prototype.placeOrder = placeOrder;
+init.prototype.receiveMessage = receiveMessage;
+init.prototype.sendMessage = sendMessage;
+init.prototype.close = closeIframe;
 
 export default init;

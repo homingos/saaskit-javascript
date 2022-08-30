@@ -1,3 +1,5 @@
+import { PAGES } from './constants';
+
 export default async function renderWithRetry({ url, error }) {
   const body = document.querySelector('body');
 
@@ -86,28 +88,38 @@ export default async function renderWithRetry({ url, error }) {
 
   const iFrame = document.getElementById('flam-sdk-iframe');
 
-  iFrame.addEventListener('error', e => {
-    console.log('Iframe Error', e);
-  });
+  // iFrame.contentWindow.addEventListener('error', e => {
+  //   console.log('Iframe Error', e);
+  // });
 
-  document.getElementById('flam-sdk-iframe').addEventListener('load', e => {
+  iFrame.addEventListener('load', async e => {
     e.preventDefault();
-    console.log('Iframe Load', e);
+    // console.log('Iframe Load', e);
 
-    // hide loading
-    document.getElementById('flam-sdk-bg').style.display = 'none';
+    try {
+      // const res = await fetch(PAGES.main);
 
-    // Bring the iframe back
-    iFrame.style.opacity = '1';
+      // hide loading
+      document.getElementById('flam-sdk-bg').style.display = 'none';
 
-    //
+      // Bring the iframe back
+      iFrame.style.opacity = '1';
 
-    // for receiving messages from iframe
-    window.addEventListener('message', e => {
-      this.receiveMessage(e);
-    });
+      // for receiving messages from iframe
+      window.addEventListener('message', e => {
+        this.receiveMessage(e);
+      });
 
-    // for sending messages to iframe
-    this.iWindow = document.getElementById('flam-sdk-iframe').contentWindow;
+      // for sending messages to iframe
+      this.iWindow = document.getElementById('flam-sdk-iframe').contentWindow;
+    } catch (err) {
+      if (err.message === 'Failed to fetch') {
+        this.close();
+        this.callback({
+          code: 500,
+          message: 'SDK down!'
+        });
+      }
+    }
   });
 }

@@ -1,21 +1,25 @@
 interface dataFromClientType {
   client_data: {
-    name: string;
-    email: string;
-    phone: string;
-    logoUrl: string;
+    // name: string;
+    // email: string;
+    // phone: string;
+    // logoUrl: string;
     environment: 'sandbox' | 'production';
     key: string;
   };
   order_details?: {
+    productId: string;
     refId: string;
     photo?: string;
     video?: string;
-    photoCorousal?: string[];
-    animation?: string;
-    message?: string;
+    animation: string;
+    prefill?: {
+      name?: string;
+      email?: string;
+      phone?: string;
+    };
+    logo?: string;
   };
-  product_id: string;
 }
 
 interface productDataType {
