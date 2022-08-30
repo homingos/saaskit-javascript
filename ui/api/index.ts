@@ -1,5 +1,5 @@
 import axios from 'axios';
-const backend_base_URL = 'https://saas.homingos.com';
+const backend_base_URL = 'https://api.flamapp.com/saas';
 
 export const getProductData = async ({
   productId,
@@ -59,7 +59,7 @@ export const createCard = async ({
   };
 }) => {
   const res = await axios.post(
-    `https://saas.homingos.com/api/v1/orders/create`,
+    `${backend_base_URL}/api/v1/orders/create`,
     data,
     {
       headers: {

@@ -24,8 +24,8 @@ export default function receiveMessage(event) {
           {
             type: 'INITIAL_DATA_ERR',
             payload: {
-              email: this?.order_details?.prefill?.name || '',
-              phone: this?.order_details?.prefill?.phone || ''
+              email: this.order_details.prefill.name || '',
+              phone: this.order_details.prefill.phone || ''
             }
           },
           '*'

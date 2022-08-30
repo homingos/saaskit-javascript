@@ -217,6 +217,7 @@ const Home: NextPage = () => {
           sendMessage({
             type: 'ERROR',
             payload: {
+              code: 500,
               message: err.message
             }
           });

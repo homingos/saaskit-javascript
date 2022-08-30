@@ -5,6 +5,7 @@ export default async function renderWithRetry({ url, error }) {
 
   const styleSheet = document.createElement('style');
   styleSheet.type = 'text/css';
+  styleSheet.id = 'saas-sdk-style';
   styleSheet.innerText = `
     .flam-sdk-bg {
       position: fixed;
@@ -97,7 +98,9 @@ export default async function renderWithRetry({ url, error }) {
     // console.log('Iframe Load', e);
 
     try {
-      // const res = await fetch(PAGES.main);
+      if (this.clientData.environment == 'production') {
+        await fetch(PAGES.main);
+      }
 
       // hide loading
       document.getElementById('flam-sdk-bg').style.display = 'none';
@@ -106,9 +109,7 @@ export default async function renderWithRetry({ url, error }) {
       iFrame.style.opacity = '1';
 
       // for receiving messages from iframe
-      window.addEventListener('message', e => {
-        this.receiveMessage(e);
-      });
+      window.addEventListener('message', e => this.receiveMessage(e));
 
       // for sending messages to iframe
       this.iWindow = document.getElementById('flam-sdk-iframe').contentWindow;

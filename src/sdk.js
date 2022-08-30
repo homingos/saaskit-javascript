@@ -46,7 +46,6 @@ function init(options) {
   }
   /* eslint-enable */
   this.clientData = options;
-
   /* eslint-enable */
 }
 
