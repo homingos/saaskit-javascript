@@ -110,14 +110,9 @@ export default async function renderWithRetry({ url, error }) {
       // Bring the iframe back
       iFrame.style.opacity = '1';
 
-      console.log('THIS 2', this);
-
       trackOrder = e => {
-        console.log('THIS', this);
         this.receiveMessage(e);
       };
-
-      console.log('THIS 2', this);
 
       // for receiving messages from iframe
       window.addEventListener('message', trackOrder);

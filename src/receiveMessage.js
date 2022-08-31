@@ -1,7 +1,6 @@
 import { PAGES } from './constants';
 
 export default function receiveMessage(event) {
-  console.log('EVENT', event);
   if (event.origin == PAGES.main) {
     switch (event.data.type) {
       case 'CLOSE':
