@@ -1,14 +1,14 @@
 /**
  * flamsdk v0.0.1
  * Author: bucharitesh
- * Date: 2022-08-30
+ * Date: 2022-08-31
  * License: MIT
  */
 
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = global || self, factory(global.flamSdk = {}));
+  (global = global || self, factory(global.FlamSaasSDK = {}));
 }(this, (function (exports) { 'use strict';
 
   function close() {
@@ -16,7 +16,6 @@
 
     // remove the UI
     const element = document.getElementById('flam-sdk-wrapper');
-    console.log('Ele', element);
     if (element) {
       element.remove();
     }
@@ -375,7 +374,6 @@
     } catch (err) {
       throw new Error(err.message);
     }
-    /* eslint-enable */
     this.clientData = options;
     /* eslint-enable */
   }

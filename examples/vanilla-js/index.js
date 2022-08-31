@@ -1,7 +1,7 @@
 const buyBtn = document.querySelector('#placeorder');
 
 buyBtn.addEventListener('click', () => {
-  const flam = new flamSdk.init({
+  const flam = new FlamSaasSDK.init({
     environment: 'sandbox',
     key: '9kA8jejg8CtvAFDW-p2csG4WJWw'
   });
@@ -10,10 +10,7 @@ buyBtn.addEventListener('click', () => {
 
   let orderDetails = {
     productId: '96f0d15e-63cd-485b-8f37-bb474d287129',
-    refId: '04607c6a-9964-47de-a0c2-853b3f89bd87',
-    photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
-    video:
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    refId: '04607sc6a-9964-47de-a0c2-853b3f89bd87',
     animation: 'CONFETTI',
     prefill: {
       name: 'John Doe Prints',

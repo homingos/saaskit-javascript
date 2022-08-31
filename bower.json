@@ -1,7 +1,7 @@
 {
   "//": "experimental bower support",
-  "name": "flamSdk.js",
-  "main": "dist/flamSdk.js",
+  "name": "FlamSaasSDK.js",
+  "main": "dist/FlamSaasSDK.js",
   "dependencies": {},
   "ignore": ["test"]
 }
