@@ -1,21 +1,6 @@
 import { PAGES } from './constants';
-import assert from './helper/assert';
 
 export default function placeOrder(order_details, callback) {
-  // try {
-  //   assert.check(
-  //     options,
-  //     { type: 'object', message: 'clientData parameter is not valid' },
-  //     {
-  //       key: { type: 'string', message: 'key is required' },
-  //       environment: {
-  //         type: 'string',
-  //         message: 'environment is required'
-  //       }
-  //     }
-  //   );
-  // } catch (err) {}
-
   this.order_details = order_details;
 
   if (

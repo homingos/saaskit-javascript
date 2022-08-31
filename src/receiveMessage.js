@@ -1,6 +1,7 @@
 import { PAGES } from './constants';
 
 export default function receiveMessage(event) {
+  console.log('EVENT', event);
   if (event.origin == PAGES.main) {
     switch (event.data.type) {
       case 'CLOSE':
@@ -12,7 +13,6 @@ export default function receiveMessage(event) {
             type: 'INITIAL_DATA',
             payload: {
               client_data: this.clientData,
-              // product_id: this.product_id,
               order_details: this.order_details
             }
           },
@@ -47,7 +47,6 @@ export default function receiveMessage(event) {
           },
           null
         );
-        // this.close(); // should we close the modal on error ?
         break;
     }
   }

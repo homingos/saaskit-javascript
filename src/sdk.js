@@ -28,10 +28,6 @@ function init(options) {
           type: 'string',
           message: 'environment is required'
         }
-        // name: { type: 'string', message: 'name is required' },
-        // logoUrl: { type: 'string', message: 'logoUrl is required' },
-        // email: { type: 'string', message: 'email is required' },
-        // phone: { type: 'string', message: 'phone is required' }
       }
     );
 

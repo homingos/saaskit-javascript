@@ -1,5 +1,7 @@
+import { trackOrder } from './renderWithRetry';
+
 export default function close() {
-  window.removeEventListener('message', e => this.receiveMessage(e));
+  window.removeEventListener('message', trackOrder);
 
   // remove the UI
   const element = document.getElementById('flam-sdk-wrapper');
