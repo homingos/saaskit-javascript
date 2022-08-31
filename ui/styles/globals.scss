@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html,
 body {
   padding: 0;
@@ -32,12 +31,19 @@ a {
 
 /* Track */
 .custom-scrollbar::-webkit-scrollbar-track {
-  background: #EFF6FF;
+  background: #eff6ff;
   border-radius: 12px;
 }
 
 /* Handle */
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: #1D4ED8;
+  background: #1d4ed8;
   border-radius: 12px;
+}
+
+.emerge-effect {
+  transform: none;
+  -webkit-transition: 0.2s, 0.3s cubic-bezier(0.3, 1.5, 0.7, 1) transform;
+  -o-transition: 0.2s, 0.3s cubic-bezier(0.3, 1.5, 0.7, 1) transform;
+  transition: 0.2s, 0.3s cubic-bezier(0.3, 1.5, 0.7, 1) transform;
 }
