@@ -1,4 +1,5 @@
 import { PAGES } from './constants';
+
 export let trackOrder = null;
 export default async function renderWithRetry({ url, error }) {
   const body = document.querySelector('body');
@@ -90,14 +91,8 @@ export default async function renderWithRetry({ url, error }) {
 
   const iFrame = document.getElementById('flam-sdk-iframe');
 
-  // iFrame.contentWindow.addEventListener('error', e => {
-  //   console.log('Iframe Error', e);
-  // });
-
   iFrame.addEventListener('load', async e => {
-    console.log('THIS 1', this);
     e.preventDefault();
-    // console.log('Iframe Load', e);
 
     try {
       if (this.clientData.environment == 'production') {
