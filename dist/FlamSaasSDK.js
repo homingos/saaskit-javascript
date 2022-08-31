@@ -12,7 +12,7 @@
 }(this, (function (exports) { 'use strict';
 
   function close() {
-    window.removeEventListener('message', e => this.receiveMessage(e));
+    window.removeEventListener('message', res);
 
     // remove the UI
     const element = document.getElementById('flam-sdk-wrapper');
@@ -153,13 +153,15 @@
   }
 
   function receiveMessage(event) {
+    console.log(this);
+
     if (event.origin == PAGES.main) {
       switch (event.data.type) {
         case 'CLOSE':
           this.close();
           break;
         case 'READY_TO_RECEIVE':
-          this.sendMessage(
+          this.prototype.sendMessage(
             {
               type: 'INITIAL_DATA',
               payload: {
@@ -172,7 +174,7 @@
           );
           break;
         case 'READY_TO_RECEIVE_ERR':
-          this.sendMessage(
+          this.prototype.sendMessage(
             {
               type: 'INITIAL_DATA_ERR',
               payload: {
@@ -315,7 +317,7 @@
         iFrame.style.opacity = '1';
 
         // for receiving messages from iframe
-        window.addEventListener('message', e => this.receiveMessage(e));
+        window.addEventListener('message', res);
 
         // for sending messages to iframe
         this.iWindow = document.getElementById('flam-sdk-iframe').contentWindow;
@@ -358,10 +360,6 @@
             type: 'string',
             message: 'environment is required'
           }
-          // name: { type: 'string', message: 'name is required' },
-          // logoUrl: { type: 'string', message: 'logoUrl is required' },
-          // email: { type: 'string', message: 'email is required' },
-          // phone: { type: 'string', message: 'phone is required' }
         }
       );
 
@@ -374,16 +372,23 @@
     } catch (err) {
       throw new Error(err.message);
     }
+
+    /* eslint-enable */
     this.clientData = options;
     /* eslint-enable */
   }
-
-  // core methods
   init.prototype.renderWithRetry = renderWithRetry;
   init.prototype.placeOrder = placeOrder;
-  init.prototype.receiveMessage = receiveMessage;
+  init.prototype.receiveMessage = receiveMessage.bind(init);
   init.prototype.sendMessage = sendMessage;
   init.prototype.close = close;
+  init.prototype.trackOrder = trackOrder;
+
+  const res = trackOrder.bind(init)();
+
+  function trackOrder() {
+    return this.prototype.receiveMessage;
+  }
 
   var version = { raw: '0.0.1' };
 

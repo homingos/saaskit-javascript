@@ -28,10 +28,6 @@ function init(options) {
           type: 'string',
           message: 'environment is required'
         }
-        // name: { type: 'string', message: 'name is required' },
-        // logoUrl: { type: 'string', message: 'logoUrl is required' },
-        // email: { type: 'string', message: 'email is required' },
-        // phone: { type: 'string', message: 'phone is required' }
       }
     );
 
@@ -44,15 +40,24 @@ function init(options) {
   } catch (err) {
     throw new Error(err.message);
   }
+
+  /* eslint-enable */
   this.clientData = options;
   /* eslint-enable */
 }
-
-// core methods
 init.prototype.renderWithRetry = renderWithRetry;
 init.prototype.placeOrder = placeOrder;
-init.prototype.receiveMessage = receiveMessage;
+init.prototype.receiveMessage = receiveMessage.bind(init);
 init.prototype.sendMessage = sendMessage;
 init.prototype.close = closeIframe;
+init.prototype.trackOrder = trackOrder;
+
+export const res = trackOrder.bind(init)();
+
+function trackOrder() {
+  return this.prototype.receiveMessage;
+}
+
+// core methods
 
 export default init;

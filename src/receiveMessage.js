@@ -1,13 +1,15 @@
 import { PAGES } from './constants';
 
 export default function receiveMessage(event) {
+  console.log(this);
+
   if (event.origin == PAGES.main) {
     switch (event.data.type) {
       case 'CLOSE':
         this.close();
         break;
       case 'READY_TO_RECEIVE':
-        this.sendMessage(
+        this.prototype.sendMessage(
           {
             type: 'INITIAL_DATA',
             payload: {
@@ -20,7 +22,7 @@ export default function receiveMessage(event) {
         );
         break;
       case 'READY_TO_RECEIVE_ERR':
-        this.sendMessage(
+        this.prototype.sendMessage(
           {
             type: 'INITIAL_DATA_ERR',
             payload: {

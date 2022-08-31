@@ -1,5 +1,7 @@
+import { res } from './sdk';
+
 export default function close() {
-  window.removeEventListener('message', e => this.receiveMessage(e));
+  window.removeEventListener('message', res);
 
   // remove the UI
   const element = document.getElementById('flam-sdk-wrapper');

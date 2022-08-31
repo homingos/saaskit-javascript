@@ -1,4 +1,5 @@
 import { PAGES } from './constants';
+import { res } from './sdk';
 
 export default async function renderWithRetry({ url, error }) {
   const body = document.querySelector('body');
@@ -110,7 +111,7 @@ export default async function renderWithRetry({ url, error }) {
       iFrame.style.opacity = '1';
 
       // for receiving messages from iframe
-      window.addEventListener('message', e => this.receiveMessage(e));
+      window.addEventListener('message', res);
 
       // for sending messages to iframe
       this.iWindow = document.getElementById('flam-sdk-iframe').contentWindow;
