@@ -22,6 +22,7 @@ import { toast } from 'react-hot-toast';
 
 const Home: NextPage = () => {
   const router = useRouter();
+  const [shakeModal, setShakeModal] = useState(false);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [dataFromClient, setDataFromClient] =
@@ -59,7 +60,9 @@ const Home: NextPage = () => {
   };
 
   const onSubmitHandler = async (e: Event) => {
+    // console.log(shakeModal);
     e.preventDefault();
+
     setIsCreateLoading(true);
     let validData = true;
     ['photo', 'video', 'text'].every((item: string) => {
@@ -72,7 +75,7 @@ const Home: NextPage = () => {
               return true;
             } else {
               validData = false;
-
+              setShakeModal(true);
               toast.error(`Please add ${item}`);
               setIsCreateLoading(false);
               return false;
@@ -86,6 +89,7 @@ const Home: NextPage = () => {
             Boolean(dataFromClient?.order_details[item]))
         )
       ) {
+        setShakeModal(true);
         toast.error(`Please add ${item}`);
         validData = false;
         setIsCreateLoading(false);
@@ -250,6 +254,8 @@ const Home: NextPage = () => {
       </div>
       <FlexCenter>
         <Card
+          shake={shakeModal}
+          setShake={setShakeModal}
           className={`relative p-8 flex flex-col ${
             isLoading && 'items-center justify-center'
           } h-full`}

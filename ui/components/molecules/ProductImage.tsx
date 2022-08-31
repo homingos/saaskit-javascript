@@ -17,7 +17,9 @@ function ProductImage({
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     accept: {
-      'image/': ['.png', '.jpeg', '.jpg']
+      'image/png': ['.png'],
+      'image/jpeg': ['.jpeg'],
+      'image/jpg': ['.jpg']
     },
     onDrop: (acceptedFiles: any) => {
       setFiles(
