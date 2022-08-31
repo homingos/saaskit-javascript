@@ -42,7 +42,7 @@ const prodFiles = [
     input: 'src/index.js',
     output: [
       {
-        name: 'flamSdk',
+        name: 'FlamSaasSDK',
         file: pkg.main,
         format: 'umd',
         sourcemap: true,
@@ -61,8 +61,8 @@ const devFiles = [
   {
     input: 'src/index.js',
     output: {
-      name: 'flamSdk',
-      file: `${OUTPUT_PATH}/flamSdk.js`,
+      name: 'FlamSaasSDK',
+      file: `${OUTPUT_PATH}/FlamSaasSDK.js`,
       format: 'umd',
       sourcemap: isProduction ? false : 'inline',
       exports: 'named'

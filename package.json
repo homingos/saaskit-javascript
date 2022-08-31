@@ -4,8 +4,8 @@
   "description": "flamSdk for saas",
   "author": "bucharitesh",
   "license": "MIT",
-  "module": "dist/flamSdk.min.esm.js",
-  "main": "dist/flamSdk.min.js",
+  "module": "dist/FlamSaasSDK.min.esm.js",
+  "main": "dist/FlamSaasSDK.min.js",
   "scripts": {
     "dev": "yarn build && cd ui && yarn dev",
     "clean": "rm -rf dist && rm -rf build",

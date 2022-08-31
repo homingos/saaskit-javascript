@@ -243,8 +243,6 @@ const Home: NextPage = () => {
     }
   }, [dataFromClient]);
 
-  console.log('YOP', productData?.productMetaData.theme);
-
   return (
     <div className="h-screen w-screen">
       <div>

@@ -1,7 +1,7 @@
 const buyBtn = document.querySelector('#placeorder');
 
 buyBtn.addEventListener('click', () => {
-  const flam = new flamSdk.init({
+  const flam = new FlamSaasSDK.init({
     environment: 'SANDBOX',
     key: '9kA8jejg8CtvAFDW-p2csG4WJWw'
   });

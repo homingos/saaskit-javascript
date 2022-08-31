@@ -44,7 +44,6 @@ function init(options) {
   } catch (err) {
     throw new Error(err.message);
   }
-  /* eslint-enable */
   this.clientData = options;
   /* eslint-enable */
 }
