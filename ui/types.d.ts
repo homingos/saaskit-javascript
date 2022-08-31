@@ -4,7 +4,7 @@ interface dataFromClientType {
     // email: string;
     // phone: string;
     // logoUrl: string;
-    environment: 'sandbox' | 'production';
+    environment: 'SANDBOX' | 'PRODUCTION';
     key: string;
   };
   order_details?: {

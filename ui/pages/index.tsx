@@ -22,13 +22,18 @@ import { toast } from 'react-hot-toast';
 
 const Home: NextPage = () => {
   const router = useRouter();
-  const { sendMessage, ready } = useMessage('SANDBOX');
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [dataFromClient, setDataFromClient] =
     useState<dataFromClientType | null>(null);
   const [productData, setProductData] = useState<productDataType | null>(null);
   const [userSelectedData, setUserSelectedData] = useState<any>({});
   const [isCreateLoading, setIsCreateLoading] = useState(false);
+
+  const { sendMessage, ready } = useMessage(
+    dataFromClient?.client_data.environment || 'SANDBOX'
+  );
+
   const receiveMessage = (event: { data: { type: string; payload: any } }) => {
     if (event.data.type === 'INITIAL_DATA') {
       setDataFromClient(event.data.payload);
@@ -95,7 +100,10 @@ const Home: NextPage = () => {
         const finalData = {
           refId: dataFromClient?.order_details?.refId || '',
           productId: dataFromClient?.order_details?.productId || '',
-          theme: dataFromClient?.order_details?.animation || '',
+          theme:
+            dataFromClient?.order_details?.animation ||
+            productData?.productMetaData.theme ||
+            'hearts',
           clientPhotoURL: '',
           clientVideoURL: '',
           orderType: userSelectedData.is_deferred ? 'DEFERRED' : 'INSTANT'
@@ -105,15 +113,18 @@ const Home: NextPage = () => {
         if (dataFromClient?.order_details?.photo) {
           finalData.clientPhotoURL = dataFromClient?.order_details?.photo;
         } else if (userSelectedData.photo) {
-          const res = await getSignedURL({
-            data: [
-              {
-                filename: userSelectedData.photo.name,
-                contentType: userSelectedData.photo.type
-              }
-            ],
-            num: 1
-          });
+          const res = await getSignedURL(
+            dataFromClient?.client_data.environment || 'SANDBOX',
+            {
+              data: [
+                {
+                  filename: userSelectedData.photo.name,
+                  contentType: userSelectedData.photo.type
+                }
+              ],
+              num: 1
+            }
+          );
           const resData = await uploadURL(res.data, [userSelectedData.photo]);
           if (resData[0]) {
             finalData.clientPhotoURL = resData[0];
@@ -127,15 +138,18 @@ const Home: NextPage = () => {
         ) {
           finalData.clientPhotoURL = dataFromClient?.order_details?.video;
         } else if (userSelectedData.video && !userSelectedData.is_deferred) {
-          const res = await getSignedURL({
-            data: [
-              {
-                filename: userSelectedData.video.name,
-                contentType: userSelectedData.video.type
-              }
-            ],
-            num: 1
-          });
+          const res = await getSignedURL(
+            dataFromClient?.client_data.environment,
+            {
+              data: [
+                {
+                  filename: userSelectedData.video.name,
+                  contentType: userSelectedData.video.type
+                }
+              ],
+              num: 1
+            }
+          );
           const resData = await uploadURL(res.data, [userSelectedData.video]);
           if (resData[0]) {
             finalData.clientVideoURL = resData[0];
@@ -144,6 +158,7 @@ const Home: NextPage = () => {
 
         // create
         const finalRes = await createCard({
+          env: dataFromClient?.client_data.environment || 'SANDBOX',
           apiKey: dataFromClient?.client_data?.key || '',
           data: finalData
         });
@@ -200,6 +215,7 @@ const Home: NextPage = () => {
       (async () => {
         try {
           const res = await getProductData({
+            env: dataFromClient.client_data.environment,
             apiKey: dataFromClient?.client_data?.key,
             productId: dataFromClient?.order_details?.productId || ''
           });
@@ -226,6 +242,8 @@ const Home: NextPage = () => {
       })();
     }
   }, [dataFromClient]);
+
+  console.log('YOP', productData?.productMetaData.theme);
 
   return (
     <div className="h-screen w-screen">
@@ -299,7 +317,9 @@ const Home: NextPage = () => {
 
               <ModalFooter
                 isLoading={isCreateLoading}
-                showLaterOption={!Boolean(dataFromClient?.order_details?.video)}
+                showLaterOption={
+                  !Boolean(dataFromClient?.order_details?.video) && false
+                }
                 handleSubmit={onSubmitHandler}
                 is_deferred={Boolean(userSelectedData.is_deferred)}
                 setData={setUserSelectedData}

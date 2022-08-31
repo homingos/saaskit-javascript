@@ -13,7 +13,7 @@ function useMessage(environment: 'SANDBOX' | 'PRODUCTION') {
     } else {
       setParentUrl(url);
     }
-  }, []);
+  }, [environment]);
 
   function sendMessage(message: { type: string; payload?: any }) {
     parent.postMessage({ ...message, parentUrl }, parentUrl);

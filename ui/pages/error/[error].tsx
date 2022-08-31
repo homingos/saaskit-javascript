@@ -63,15 +63,21 @@ const Error: NextPage<{ error: any }> = ({ error }) => {
                 </p>
               </div>
               <div className="flex gap-2 text-center">
-                <p className="text-brand_blue">
-                  <a href={`mailto:${clientData?.email}`}>
-                    {clientData?.email}
-                  </a>
-                </p>
-                <div className="text-brand_gray2">|</div>
-                <p className="text-brand_blue">
-                  <a href={`tel:${clientData?.phone}`}>{clientData?.phone}</a>
-                </p>
+                {clientData.email && (
+                  <p className="text-brand_blue">
+                    <a href={`mailto:${clientData?.email}`}>
+                      {clientData?.email}
+                    </a>
+                  </p>
+                )}
+                {clientData.email && clientData.phone && (
+                  <div className="text-brand_gray2">|</div>
+                )}
+                {clientData.phone && (
+                  <p className="text-brand_blue">
+                    <a href={`tel:${clientData?.phone}`}>{clientData?.phone}</a>
+                  </p>
+                )}
               </div>
             </>
           )}
