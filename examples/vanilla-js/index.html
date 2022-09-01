@@ -27,7 +27,7 @@
   <body>
     <div class="container py-5">
       <h1 class="pb-2">Flam Gift collections</h1>
-      <form class="mb-5">
+      <div class="mb-5">
         <div class="mb-2">
           <label for="sdkkey" class="form-label">SDK KEY</label>
           <input
@@ -40,6 +40,8 @@
             This key is used to authenticate you.
           </div>
         </div>
+        <button id="getProducts" onclick="getProducts()">Get Products</button>
+
         <div class="mb-2">
           <label for="product_id" class="form-label">PRODUCT ID</label>
           <input
@@ -50,7 +52,7 @@
           />
           <div id="product_id_desc" class="form-text">ID of the product</div>
         </div>
-      </form>
+      </div>
       <div class="row g-5">
         <div class="col">
           <div class="card" style="width: 18rem">

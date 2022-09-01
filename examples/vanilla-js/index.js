@@ -13,6 +13,35 @@ function uuidv4() {
   );
 }
 
+async function ApiCall(settings, url) {
+  try {
+    const data = await fetch(url, settings)
+      .then(res => res.json())
+      .then(data => data);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getProducts() {
+  try {
+    const data = await ApiCall(
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          'x-api-key': key
+        }
+      },
+      `https://api.flamapp.com/saas/api/v1/products`
+    );
+    console.log(data);
+  } catch (error) {
+    if (error) console.log(err);
+  }
+}
+
 document.getElementById(`placeorder-1`).addEventListener('click', () => {
   console.log('KEY', key);
   const flam = new FlamSaasSDK.init({
