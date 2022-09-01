@@ -95,7 +95,7 @@ export default async function renderWithRetry({ url, error }) {
     e.preventDefault();
 
     try {
-      if (this.clientData.environment == 'production') {
+      if (this.clientData.environment == 'PRODUCTION') {
         await fetch(PAGES.main);
       }
 
