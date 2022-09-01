@@ -7,8 +7,8 @@ If you want to read the full API documentation of SaasSdk, see [here](<[https://
 ## Index
 
 - [Install](#install)
-- [FlamSaasSDK.init](#FlamSaasSDK.init)
-- [API](#API)
+- [FlamSaasSDK.init](#flamsaassdkinit)
+- [API](#api)
 - [Author](#author)
 - [License](#license)
 
