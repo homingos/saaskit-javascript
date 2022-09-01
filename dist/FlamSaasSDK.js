@@ -11,7 +11,7 @@
   (global = global || self, factory(global.FlamSaasSDK = {}));
 }(this, (function (exports) { 'use strict';
 
-  const SDK_BASE_URL = 'http://localhost:3000';
+  const SDK_BASE_URL = 'https://saas-sdk-flam.vercel.app';
 
   const PAGES = {
     main: SDK_BASE_URL,
@@ -129,7 +129,7 @@
       e.preventDefault();
 
       try {
-        if (this.clientData.environment == 'production') {
+        if (this.clientData.environment == 'PRODUCTION') {
           await fetch(PAGES.main);
         }
 

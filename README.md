@@ -1,9 +1,8 @@
-
 # SaasSdk
 
 Client Side SDK toolkit for SaaS.
 
-If you want to read the full API documentation of SaasSdk, see [here]([https://business.flamapp.com](https://business.flamapp.com/)).
+If you want to read the full API documentation of SaasSdk, see [here](<[https://business.flamapp.com](https://business.flamapp.com/)>).
 
 ## Index
 
@@ -22,7 +21,7 @@ From CDN:
 <script src="https://unpkg.com/flamsdk@0.0.1/dist/FlamSaasSDK.min.js"></script>
 ```
 
-From [npm]([https://npmjs.org](https://npmjs.org/)):
+From [npm](<[https://npmjs.org](https://npmjs.org/)>):
 
 ```sh
 npm i flamsdk
@@ -34,11 +33,13 @@ or if using yarn:
 yarn add flamsdk
 ```
 
-After installing the `flamsdk` module using [npm]([https://npmjs.org](https://npmjs.org/)), you'll need to bundle it up along with all of its dependencies, or import it using:
+After installing the `flamsdk` module using [npm](<[https://npmjs.org](https://npmjs.org/)>), you'll need to bundle it up along with all of its dependencies, or import it using:
 
 ```
 import FlamSaasSDK from 'flamsdk';
 ```
+
+### [Demo](https://homingos.github.io/saas-SDK/examples/vanilla-js/)
 
 ## FlamSaasSDK.init
 
@@ -47,10 +48,10 @@ Provides support for the initialization flow.
 ### Initialize
 
 ```js
-const clientInit = { 
-	enviornment: "sandbox | production", //optional, default to sandbox 
-	key: "{YOUR_FLAMSDK_KEY}", 
-}; 
+const clientInit = {
+  enviornment: 'sandbox | production', //optional, default to sandbox
+  key: '{YOUR_FLAMSDK_KEY}'
+};
 
 const sdk = FlamSaasSDK.init(clientInit);
 ```
@@ -59,10 +60,10 @@ const sdk = FlamSaasSDK.init(clientInit);
 
 All parameters can be considered optional unless otherwise stated.
 
-| Option                        | Type              | Description                                                                                                                                                                                                                                                                              |
-| :---------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `enviornment`                      | string (optional) | Environment to be loaded. If not given it uses sandbox.                                                                                                                                                                                                     |
-| `key`                    | string (required) | Flam SDK key recieved from `business.flamapp.com` after signin up.                                                                                                                                                                                      
+| Option        | Type              | Description                                                        |
+| :------------ | ----------------- | ------------------------------------------------------------------ |
+| `enviornment` | string (optional) | Environment to be loaded. If not given it uses sandbox.            |
+| `key`         | string (required) | Flam SDK key recieved from `business.flamapp.com` after signin up. |
 
 ### API
 
@@ -74,17 +75,17 @@ Loads an instance of the SDK in iframe on the client website. It takes all the n
 
 All parameters can be considered optional unless otherwise stated.
 
-| Option                        | Type              | Description                                                                                                                                                                                                                                                                              |
-| :---------------------------- | ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `productId` | string (required) | Product ID for the product to be ordered from SDK
-| `refId`| string (required) | Reference ID set up by the client for their convenience and tracking
-| `photo` | string (optional) | This can be passed if client wants the user to upload images on their own website instead of the FlamSDK   | 
-`video`  | string (optional) | This can be passed if client wants the user to upload video on their own website instead of the FlamSDK   
-| `prefill` | object (optional) | This is an object which contains the following options: `name: string` `email: string` `phone: string` for the user to contact the client in case of any errors                                                                                                                                                                                     
-| `animation` | string (optional)  | This is the animation to be added on the experience which would be received from the `/products` API. In case not provided default one is used for the particular product |
-`theme` | object (optional)  | This is an object which contains `color : string` in the form of **HEX**, which can be passed by the client to customise the primary colour of the SDK UI according to their needs. 
-| `logo` | string (optional) | This is the logo of the client's organisation to be shown on the SDK. In case not provided a default logo would be used
-| `callback` | function (required) | This is a custom function which the client can pass to handle success and error states that occur in SDK. 
+| Option      | Type                | Description                                                                                                                                                                         |
+| :---------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `productId` | string (required)   | Product ID for the product to be ordered from SDK                                                                                                                                   |
+| `refId`     | string (required)   | Reference ID set up by the client for their convenience and tracking                                                                                                                |
+| `photo`     | string (optional)   | This can be passed if client wants the user to upload images on their own website instead of the FlamSDK                                                                            |
+| `video`     | string (optional)   | This can be passed if client wants the user to upload video on their own website instead of the FlamSDK                                                                             |
+| `prefill`   | object (optional)   | This is an object which contains the following options: `name: string` `email: string` `phone: string` for the user to contact the client in case of any errors                     |
+| `animation` | string (optional)   | This is the animation to be added on the experience which would be received from the `/products` API. In case not provided default one is used for the particular product           |
+| `theme`     | object (optional)   | This is an object which contains `color : string` in the form of **HEX**, which can be passed by the client to customise the primary colour of the SDK UI according to their needs. |
+| `logo`      | string (optional)   | This is the logo of the client's organisation to be shown on the SDK. In case not provided a default logo would be used                                                             |
+| `callback`  | function (required) | This is a custom function which the client can pass to handle success and error states that occur in SDK.                                                                           |
 
 ```js
 sdk.placeOrder(
@@ -112,11 +113,11 @@ sdk.placeOrder(
 
 ## Issue Reporting
 
-If you have found a bug or if you have a feature request, please report them at this  [Support Center]([https://help.flamapp.com](https://help.flamapp.com/)).
+If you have found a bug or if you have a feature request, please report them at this [Support Center](<[https://help.flamapp.com](https://help.flamapp.com/)>).
 
 ## Author
 
-[Flam]([https://flamapp.com/](https://flamapp.com/))
+[Flam](<[https://flamapp.com/](https://flamapp.com/)>)
 
 ## License
 
