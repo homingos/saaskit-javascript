@@ -1,8 +1,12 @@
 let key = document.getElementById('sdkkey').value;
 
+let resi;
+
 document.getElementById('sdkkey').addEventListener('change', e => {
   key = e.target.value;
 });
+
+document.getElementById('finalize').style.display = 'none';
 
 function uuidv4() {
   return ([1e7] + -1e3 + -4e3 + -8e3 + -1e11).replace(/[018]/g, c =>
@@ -11,6 +15,31 @@ function uuidv4() {
       (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
     ).toString(16)
   );
+}
+
+async function handleFinalize() {
+  try {
+    if (!resi) {
+      alert('Order not created. Please place an order');
+      return;
+    }
+    const data = await ApiCall(
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          'x-api-key': key
+        },
+        body: JSON.stringify({
+          refId: resi
+        })
+      },
+      `https://api.flamapp.com/saas/api/v1/orders/finalize`
+    );
+    alert('Order Finalized');
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 async function ApiCall(settings, url) {
@@ -61,11 +90,7 @@ async function getProducts() {
             ${item.productSubHeader}
           </p>
           
-          <button id="placeorder-${index}" onclick="buyCard('${
-        item.productServiceId
-      }', '${Boolean(Math.round(Math.random()))}', '${Boolean(
-        Math.round(Math.random())
-      )}')" class="placeorder btn btn-primary">
+          <button id="placeorder-${index}" onclick="buyCard('${item.productServiceId}')" class="placeorder btn btn-primary">
             Buy
           </button>
         </div>
@@ -89,7 +114,7 @@ async function getProducts() {
   }
 }
 
-function buyCard(id, photo, video) {
+function buyCard(id) {
   const flam = new FlamSaasSDK.init({
     environment: 'SANDBOX',
     key: key
@@ -98,12 +123,8 @@ function buyCard(id, photo, video) {
   let orderDetails = {
     productId: id,
     refId: uuidv4(),
-    photo: photo
-      ? 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg'
-      : '',
-    video: video
-      ? 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
-      : '',
+    photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
+    video: '',
     animation: 'CONFETTI',
     prefill: {
       name: 'John Doe Prints',
@@ -117,7 +138,10 @@ function buyCard(id, photo, video) {
     if (err) {
       console.log('ERR at client side', err);
     } else {
-      document.getElementById('refId').innerHTML = res.data.refId;
+      resi = res.data.refId;
+      document.getElementById('finalize').style.display = 'block';
+      alert('Card created successfully!');
+      document.getElementById('refId').innerHTML = resi;
       console.log('RESSS', res);
     }
   });

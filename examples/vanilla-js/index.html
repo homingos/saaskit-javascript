@@ -44,15 +44,16 @@
           get products
         </button>
       </div>
-      <div class="finalize">
-        <h5>Reference Id</h5>
-        <p id="refId">Test is this</p>
 
-        <button onclick="finalizeOrder()" class="btn btn-primary">
+      <div class="row g-5" id="product_list"></div>
+      <div id="finalize" class="finalize">
+        <h5>Reference Id</h5>
+        <p id="refId"></p>
+
+        <button onclick="handleFinalize()" class="btn btn-primary">
           Finalize Order
         </button>
       </div>
-      <div class="row g-5" id="product_list"></div>
       <script src="./index.js"></script>
     </div>
   </body>
