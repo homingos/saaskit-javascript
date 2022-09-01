@@ -20,7 +20,10 @@ buyBtn.addEventListener('click', () => {
       email: 'support@email.com',
       phone: '+91 98765 43210'
     },
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png'
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png',
+    theme: {
+      color: 'red'
+    }
   };
 
   flam.placeOrder(orderDetails, (err, res) => {

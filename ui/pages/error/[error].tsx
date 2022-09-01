@@ -1,13 +1,12 @@
+import { useEffect, useState } from 'react';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 
 import Card from '../../components/atoms/Card';
 import FlexCenter from '../../components/atoms/FlexCenter';
+import Loading from '../../components/atoms/Loading';
 import useMessage from '../../hooks/useMessage';
 
 import type { NextPage } from 'next';
-import { useEffect, useState } from 'react';
-import Loading from '../../components/atoms/Loading';
-
 const Error: NextPage<{ error: any }> = ({ error }) => {
   const { sendMessage, ready } = useMessage('SANDBOX');
 
@@ -64,7 +63,7 @@ const Error: NextPage<{ error: any }> = ({ error }) => {
               </div>
               <div className="flex gap-2 text-center">
                 {clientData.email && (
-                  <p className="text-brand_blue">
+                  <p className="text-[color:var(--primary)]">
                     <a href={`mailto:${clientData?.email}`}>
                       {clientData?.email}
                     </a>
@@ -74,7 +73,7 @@ const Error: NextPage<{ error: any }> = ({ error }) => {
                   <div className="text-brand_gray2">|</div>
                 )}
                 {clientData.phone && (
-                  <p className="text-brand_blue">
+                  <p className="text-[color:var(--primary)]">
                     <a href={`tel:${clientData?.phone}`}>{clientData?.phone}</a>
                   </p>
                 )}

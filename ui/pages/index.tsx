@@ -1,26 +1,22 @@
 /* eslint-disable @typescript-eslint/ban-types */
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import { toast, Toaster } from 'react-hot-toast';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 
+import { createCard, getProductData, getSignedURL, UploadURLv2 } from '../api';
 import Card from '../components/atoms/Card';
 import FlexCenter from '../components/atoms/FlexCenter';
+import Loading from '../components/atoms/Loading';
 import Scrollable from '../components/atoms/Scrollable';
 import ProductImage from '../components/molecules/ProductImage';
 import CardMessage from '../components/organisms/CardMessage';
 import ModalFooter from '../components/organisms/ModalFooter';
 import ModalHeader from '../components/organisms/ModalHeader';
-// import ThemeSelect from '../components/organisms/ThemeSelect';
 import VideoUpload from '../components/organisms/VideoUpload';
 import useMessage from '../hooks/useMessage';
-import { Toaster } from 'react-hot-toast';
 
-import type { NextPage } from 'next';
-import { createCard, getProductData, getSignedURL, UploadURLv2 } from '../api';
-import Loading from '../components/atoms/Loading';
-import { useRouter } from 'next/router';
-import { toast } from 'react-hot-toast';
-
-const Home: NextPage = () => {
+const Home = ({ theme }: { theme: string }) => {
   const router = useRouter();
   const [shakeModal, setShakeModal] = useState(false);
 
@@ -332,8 +328,21 @@ const Home: NextPage = () => {
           )}
         </Card>
       </FlexCenter>
+      <style global jsx>{`
+        :root {
+          --primary: ${theme};
+        }
+      `}</style>
     </div>
   );
 };
 
 export default Home;
+
+export async function getServerSideProps(context: any) {
+  return {
+    props: {
+      theme: context.query.theme || '#1d4ed8'
+    }
+  };
+}

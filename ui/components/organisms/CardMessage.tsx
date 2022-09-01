@@ -11,7 +11,7 @@ const CardMessage: React.FC<{
       <input
         type="text"
         placeholder="Enter your message"
-        className="border-2 w-full rounded-md px-3 py-2 text-sm focus:outline-brand_blue"
+        className="border-2 w-full rounded-md px-3 py-2 text-sm focus:outline-[color:var(--primary)]"
         value={text}
         onChange={e =>
           setData((prev: any) => ({ ...prev, text: e.target.value }))

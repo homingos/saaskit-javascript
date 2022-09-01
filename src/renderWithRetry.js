@@ -1,7 +1,7 @@
 import { PAGES } from './constants';
 
 export let trackOrder = null;
-export default async function renderWithRetry({ url, error }) {
+export default async function renderWithRetry({ url }) {
   const body = document.querySelector('body');
 
   const styleSheet = document.createElement('style');
@@ -78,13 +78,29 @@ export default async function renderWithRetry({ url, error }) {
 
   const UI = await document.createElement('div');
   UI.id = 'flam-sdk-wrapper';
+
+  var RegExp = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i;
+
+  const newUrl = () => {
+    if (
+      this.order_details &&
+      this.order_details.theme &&
+      this.order_details.theme.color &&
+      RegExp.test(this.order_details.theme.color)
+    ) {
+      const x = '/?theme=';
+      return url + x + encodeURIComponent(this.order_details.theme.color);
+    }
+    return url;
+  };
+
   UI.innerHTML = `
       <div class="flam-sdk-ui" id="flam-sdk-ui">
         <div class="flam-sdk-bg" id="flam-sdk-bg">
           <div class="flam-sdk-loading" id="flam-sdk-loading"><div></div><div></div><div></div><div></div></div>
         </div>
-        <iframe id="flam-sdk-iframe" style="opacity: 0" name="flam-sdk-iframe" src="${url}" style="opacity: 0"></iframe>
-      </div>
+        <iframe id="flam-sdk-iframe" style="opacity: 0" name="flam-sdk-iframe" src="${newUrl()}" style="opacity: 0"></iframe>      
+  </div>
     `;
 
   await body.appendChild(UI);
