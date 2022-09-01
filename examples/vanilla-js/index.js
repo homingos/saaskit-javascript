@@ -39,7 +39,9 @@ async function getProducts() {
     console.log(data.data);
 
     data.data.forEach((item, index) => {
-      const card = `<div class="col">
+      const card = document.createElement('div');
+      card.classList.add('col');
+      card.innerHTML = `
       <div class="card" style="width: 18rem">
         <img
           style="height: 14rem; object-fit: cover"
@@ -57,12 +59,12 @@ async function getProducts() {
           </button>
         </div>
       </div>
-    </div>`;
+    `;
 
       document.getElementById('product_list').appendChild(card);
     });
   } catch (error) {
-    if (error) console.log(err);
+    if (error) console.log(error);
   }
 }
 
