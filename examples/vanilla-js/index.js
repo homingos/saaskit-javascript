@@ -30,6 +30,7 @@ async function getProducts() {
       alert('Please add a key');
       return;
     }
+    document.getElementById('product_list').innerHTML = '';
     const data = await ApiCall(
       {
         method: 'GET',
@@ -43,10 +44,7 @@ async function getProducts() {
     console.log(data.data);
 
     data.data.slice(0, 3).forEach((item, index) => {
-      console.log(item.productServiceId);
-      const card = document.createElement('div');
-      card.classList.add('col');
-      card.innerHTML = `
+      const card = `<div class = 'col'>
       <div class="card" style="width: 18rem">
         <img
           style="height: 14rem; object-fit: cover"
@@ -60,37 +58,38 @@ async function getProducts() {
             ${item.productSubHeader}
           </p>
           
-          <button id="placeorder-${index}" class="placeorder btn btn-primary">
+          <button id="placeorder-${index}" onclick="buyCard('${item.productServiceId}', true, true)" class="placeorder btn btn-primary">
             Buy
           </button>
         </div>
       </div>
+      </div>
     `;
-      document.getElementById('product_list').appendChild(card);
+      document.getElementById('product_list').innerHTML += card;
     });
 
-    document.getElementById(`placeorder-0`).onclick(e => {
-      buyCard(false, false);
-    });
-    document.getElementById(`placeorder-1`).onclick(e => {
-      buyCard(true, false);
-    });
-    document.getElementById(`placeorder-2`).onclick(e => {
-      buyCard(true, true);
-    });
+    // document.getElementById(`placeorder-0`).onclick(e => {
+    //   buyCard(false, false);
+    // });
+    // document.getElementById(`placeorder-1`).onclick(e => {
+    //   buyCard(true, false);
+    // });
+    // document.getElementById(`placeorder-2`).onclick(e => {
+    //   buyCard(true, true);
+    // });
   } catch (error) {
     if (error) console.log(error);
   }
 }
 
-function buyCard(photo, video) {
+function buyCard(id, photo, video) {
   const flam = new FlamSaasSDK.init({
     environment: 'SANDBOX',
     key: key
   });
 
   let orderDetails = {
-    productId: document.getElementById('product_id').value,
+    productId: id,
     refId: uuidv4(),
     photo: photo
       ? 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg'
