@@ -26,6 +26,10 @@ async function ApiCall(settings, url) {
 
 async function getProducts() {
   try {
+    if (!key) {
+      alert('Please add a key');
+      return;
+    }
     const data = await ApiCall(
       {
         method: 'GET',
