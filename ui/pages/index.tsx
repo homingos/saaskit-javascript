@@ -169,7 +169,10 @@ const Home = ({ theme }: { theme: string }) => {
           // send message to parent
           sendMessage({
             type: 'CREATED',
-            payload: finalRes.data
+            payload: {
+              ...finalRes.data,
+              mediaLink: null
+            }
           });
         } else {
           // send message to parent
