@@ -1,3 +1,4 @@
+/* eslint-disable no-extra-boolean-cast */
 /* eslint-disable @typescript-eslint/ban-types */
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
@@ -21,9 +22,8 @@ const Home = ({ theme }: { theme: string }) => {
   const [shakeModal, setShakeModal] = useState(false);
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [dataFromClient, setDataFromClient] =
-    useState<dataFromClientType | null>(null);
-  const [productData, setProductData] = useState<productDataType | null>(null);
+  const [dataFromClient, setDataFromClient] = useState<any>(null);
+  const [productData, setProductData] = useState<any>(null);
   const [userSelectedData, setUserSelectedData] = useState<any>({});
   const [isCreateLoading, setIsCreateLoading] = useState(false);
 
