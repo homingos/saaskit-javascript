@@ -7,10 +7,10 @@
   "module": "dist/FlamSaasSDK.min.esm.js",
   "main": "dist/FlamSaasSDK.min.js",
   "scripts": {
-    "dev": "yarn build && cd ui && yarn dev",
+    "dev": "env-cmd -f .env.development yarn build && cd ui && yarn dev",
     "clean": "rm -rf dist && rm -rf build",
     "start": "npm run clean && rollup -c --watch",
-    "build": "npm run version && npm run clean && rollup -c --prod && cp -rf dist build",
+    "build": "env-cmd -f .env.production npm run version && npm run clean && rollup -c --prod && cp -rf dist build",
     "lint": "eslint ./src",
     "lint:fix": "eslint --fix ./src",
     "version": "cd scripts && node version",
