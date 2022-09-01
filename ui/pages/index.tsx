@@ -317,9 +317,7 @@ const Home = ({ theme }: { theme: string }) => {
 
               <ModalFooter
                 isLoading={isCreateLoading}
-                showLaterOption={
-                  !Boolean(dataFromClient?.order_details?.video) && false
-                }
+                showLaterOption={false}
                 handleSubmit={onSubmitHandler}
                 is_deferred={Boolean(userSelectedData.is_deferred)}
                 setData={setUserSelectedData}
