@@ -42,14 +42,15 @@ async function getProducts() {
     );
     console.log(data.data);
 
-    data.data.forEach((item, index) => {
+    data.data.slice(0, 3).forEach((item, index) => {
+      console.log(item.productServiceId);
       const card = document.createElement('div');
       card.classList.add('col');
       card.innerHTML = `
       <div class="card" style="width: 18rem">
         <img
           style="height: 14rem; object-fit: cover"
-          src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
+          src="${item.productImage}"
           class="card-img-top"
           alt="product ${index}"
         />
@@ -58,37 +59,45 @@ async function getProducts() {
           <p class="card-text">
             ${item.productSubHeader}
           </p>
-          <button id="placeorder-1" class="placeorder btn btn-primary">
+          
+          <button id="placeorder-${index}" class="placeorder btn btn-primary">
             Buy
           </button>
         </div>
       </div>
     `;
-
       document.getElementById('product_list').appendChild(card);
+    });
+
+    document.getElementById(`placeorder-0`).onclick(e => {
+      buyCard(false, false);
+    });
+    document.getElementById(`placeorder-1`).onclick(e => {
+      buyCard(true, false);
+    });
+    document.getElementById(`placeorder-2`).onclick(e => {
+      buyCard(true, true);
     });
   } catch (error) {
     if (error) console.log(error);
   }
 }
 
-document.getElementById('get_products').addEventListener('click', getProducts);
-
-document.getElementById(`placeorder-1`).addEventListener('click', () => {
-  console.log('KEY', key);
+function buyCard(photo, video) {
   const flam = new FlamSaasSDK.init({
     environment: 'SANDBOX',
     key: key
   });
 
-  // '96f0d15e-63cd-485b-8f37-bb474d287129'
-
   let orderDetails = {
     productId: document.getElementById('product_id').value,
     refId: uuidv4(),
-    photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
-    video:
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    photo: photo
+      ? 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg'
+      : '',
+    video: video
+      ? 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'
+      : '',
     animation: 'CONFETTI',
     prefill: {
       name: 'John Doe Prints',
@@ -105,34 +114,4 @@ document.getElementById(`placeorder-1`).addEventListener('click', () => {
       console.log('RESSS', res);
     }
   });
-});
-
-document.getElementById(`placeorder-2`).addEventListener('click', () => {
-  const flam = new FlamSaasSDK.init({
-    environment: 'SANDBOX',
-    key: key
-  });
-
-  let orderDetails = {
-    productId: document.getElementById('product_id').value,
-    refId: uuidv4(),
-    animation: 'CONFETTI',
-    prefill: {
-      name: 'John Doe Prints',
-      email: 'support@email.com',
-      phone: '+91 98765 43210'
-    },
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png',
-    theme: {
-      color: '#32a852'
-    }
-  };
-
-  flam.placeOrder(orderDetails, (err, res) => {
-    if (err) {
-      console.log('ERR at client side', err);
-    } else {
-      console.log('RESSS', res);
-    }
-  });
-});
+}
