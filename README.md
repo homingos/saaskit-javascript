@@ -12,13 +12,15 @@ If you want to read the full API documentation of SaasSdk, see [here](<[https://
 - [Author](#author)
 - [License](#license)
 
+#### You can checkout the demo [here](https://homingos.github.io/saas-SDK/examples/vanilla-js/)
+
 ## Install
 
 From CDN:
 
 ```html
 <!-- Latest patch release -->
-<script src="https://unpkg.com/flamsdk@0.0.1/dist/FlamSaasSDK.min.js"></script>
+<script src="https://unpkg.com/flamsdk@1.0.0/dist/FlamSaasSDK.min.js"></script>
 ```
 
 From [npm](<[https://npmjs.org](https://npmjs.org/)>):
@@ -38,8 +40,6 @@ After installing the `flamsdk` module using [npm](<[https://npmjs.org](https://n
 ```
 import FlamSaasSDK from 'flamsdk';
 ```
-
-### [Demo](https://homingos.github.io/saas-SDK/examples/vanilla-js/)
 
 ## FlamSaasSDK.init
 
