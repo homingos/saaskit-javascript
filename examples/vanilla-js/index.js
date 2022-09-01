@@ -20,8 +20,10 @@ document.getElementById(`placeorder-1`).addEventListener('click', () => {
     key: key
   });
 
+  // '96f0d15e-63cd-485b-8f37-bb474d287129'
+
   let orderDetails = {
-    productId: '96f0d15e-63cd-485b-8f37-bb474d287129',
+    productId: document.getElementById('product_id').value,
     refId: uuidv4(),
     photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
     video:
@@ -51,7 +53,7 @@ document.getElementById(`placeorder-2`).addEventListener('click', () => {
   });
 
   let orderDetails = {
-    productId: '96f0d15e-63cd-485b-8f37-bb474d287129',
+    productId: document.getElementById('product_id').value,
     refId: uuidv4(),
     animation: 'CONFETTI',
     prefill: {
