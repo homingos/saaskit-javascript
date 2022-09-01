@@ -39,7 +39,7 @@ After installing the `flamsdk` module using [npm](<[https://npmjs.org](https://n
 import FlamSaasSDK from 'flamsdk';
 ```
 
-### Demo [https://homingos.github.io/saas-SDK/examples/vanilla-js/](Demo)
+### Demo [Demo](https://homingos.github.io/saas-SDK/examples/vanilla-js/)
 
 ## FlamSaasSDK.init
 
