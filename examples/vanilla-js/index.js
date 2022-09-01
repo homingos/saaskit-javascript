@@ -41,9 +41,12 @@ async function getProducts() {
       },
       `https://api.flamapp.com/saas/api/v1/products`
     );
-    console.log(data.data);
 
-    data.data.slice(0, 3).forEach((item, index) => {
+    const x = data.data.filter(
+      w => w.productMetaData.photo.isActive && w.productMetaData.video.isActive
+    );
+
+    x.forEach((item, index) => {
       const card = `<div class = 'col'>
       <div class="card" style="width: 18rem">
         <img
@@ -58,7 +61,11 @@ async function getProducts() {
             ${item.productSubHeader}
           </p>
           
-          <button id="placeorder-${index}" onclick="buyCard('${item.productServiceId}', true, true)" class="placeorder btn btn-primary">
+          <button id="placeorder-${index}" onclick="buyCard('${
+        item.productServiceId
+      }', '${Boolean(Math.round(Math.random()))}', '${Boolean(
+        Math.round(Math.random())
+      )}')" class="placeorder btn btn-primary">
             Buy
           </button>
         </div>
@@ -110,6 +117,7 @@ function buyCard(id, photo, video) {
     if (err) {
       console.log('ERR at client side', err);
     } else {
+      document.getElementById('refId').innerHTML = res.data.refId;
       console.log('RESSS', res);
     }
   });
