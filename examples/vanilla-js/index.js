@@ -36,11 +36,37 @@ async function getProducts() {
       },
       `https://api.flamapp.com/saas/api/v1/products`
     );
-    console.log(data);
+    console.log(data.data);
+
+    data.data.forEach((item, index) => {
+      const card = `<div class="col">
+      <div class="card" style="width: 18rem">
+        <img
+          style="height: 14rem; object-fit: cover"
+          src="https://images.unsplash.com/photo-1511556820780-d912e42b4980?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZHVjdHN8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60"
+          class="card-img-top"
+          alt="product ${index}"
+        />
+        <div class="card-body">
+          <h5 class="card-title">${item.productHeader}</h5>
+          <p class="card-text">
+            ${item.productSubHeader}
+          </p>
+          <button id="placeorder-1" class="placeorder btn btn-primary">
+            Buy
+          </button>
+        </div>
+      </div>
+    </div>`;
+
+      document.getElementById('product_list').appendChild(card);
+    });
   } catch (error) {
     if (error) console.log(err);
   }
 }
+
+document.getElementById('get_products').addEventListener('click', getProducts);
 
 document.getElementById(`placeorder-1`).addEventListener('click', () => {
   console.log('KEY', key);
