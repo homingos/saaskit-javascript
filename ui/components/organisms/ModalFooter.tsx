@@ -1,7 +1,8 @@
-import { AiFillInfoCircle } from 'react-icons/ai';
-import Tooltip from '../atoms/Tooltip';
-import { ImCheckboxUnchecked, ImCheckboxChecked } from 'react-icons/im';
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { AiFillInfoCircle } from 'react-icons/ai';
+import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im';
+
+import Tooltip from '../atoms/Tooltip';
 
 const ModalFooter = ({
   isLoading,
@@ -36,9 +37,9 @@ const ModalFooter = ({
               }}
             >
               {is_deferred ? (
-                <ImCheckboxChecked className="h-4 w-4 md:h-3 md:w-3 text-brand_blue" />
+                <ImCheckboxChecked className="h-4 w-4 md:h-3 md:w-3 text-[color:var(--primary)]" />
               ) : (
-                <ImCheckboxUnchecked className="h-4 w-4 md:h-3 md:w-3 text-brand_blue" />
+                <ImCheckboxUnchecked className="h-4 w-4 md:h-3 md:w-3 text-[color:var(--primary)]" />
               )}
 
               <input type="checkbox" className="hidden" id="video-later" />
@@ -55,7 +56,7 @@ const ModalFooter = ({
                             72 hours from the time the order is placed.`}
               className="md:hidden"
             >
-              <AiFillInfoCircle className="md:hidden text-brand_blue" />
+              <AiFillInfoCircle className="md:hidden text-[color:var(--primary)]" />
             </Tooltip>
           </div>
           <p className="hidden md:block text-[0.6rem] text-brand_gray2">
@@ -67,7 +68,7 @@ const ModalFooter = ({
       )}
       <div className={`w-full ${showLaterOption ? 'md:w-2/3' : 'md:w-1/3'}`}>
         <button
-          className="bg-brand_blue text-white text-sm font-bold py-2 px-16 h-min w-full rounded-lg"
+          className="bg-[color:var(--primary)] text-white text-sm font-bold py-2 px-16 h-min w-full rounded-lg"
           onClick={handleSubmit}
           disabled={isLoading}
         >

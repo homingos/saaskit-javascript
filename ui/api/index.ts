@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const backend_base_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 const backend_sandbox_base_URL = process.env.NEXT_PUBLIC_SANDBOX_BACKEND_URL;
 
@@ -62,7 +63,6 @@ export const createCard = async ({
     clientPhotoURL: string;
     clientVideoURL: string;
     refId: string;
-    theme: string;
   };
 }) => {
   const res = await axios.post(`${getUrl(env)}/api/v1/orders/create`, data, {

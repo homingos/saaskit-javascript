@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
 import { IoMdImage } from 'react-icons/io';
+
 import DropArea from '../atoms/DropArea';
 
 const VideoUpload = ({
@@ -48,7 +49,7 @@ const VideoUpload = ({
       <h4 className="font-bold text-sm text-brand_black mb-2">Upload Video</h4>
       {existingVideo ? (
         <div className="h-32 w-full shrink-0">
-          <div className="w-full h-full flex justify-start bg-brand_lightblue border-brand_blue border-2 rounded-xl p-2">
+          <div className="w-full h-full flex justify-start bg-brand_lightblue border-[color:var(--primary)] border-2 rounded-xl p-2">
             <div className="h-full w-full flex gap-4 items-center p-2">
               <video
                 key={existingVideo}
@@ -102,10 +103,10 @@ const VideoUpload = ({
               </div>
             ) : (
               <>
-                <IoMdImage className="text-brand_blue w-6 md:w-5 h-6 md:h-5 mb-3 md:mb-2 " />
+                <IoMdImage className="text-[color:var(--primary)] w-6 md:w-5 h-6 md:h-5 mb-3 md:mb-2 " />
                 <p className="text-xs md:text-[0.8rem] text-brand_black2 font-bold">
                   Drag and drop files, or{' '}
-                  <span className="text-brand_blue">Browse</span>
+                  <span className="text-[color:var(--primary)]">Browse</span>
                 </p>
                 <p className="text-xs md:text-[0.7rem] text-brand_gray2 mt-2 md:mt-1">
                   Max. file size: 10MB
