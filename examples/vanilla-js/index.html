@@ -45,6 +45,24 @@
         </button>
       </div>
 
+       <div class="mb-5">
+          <label for="refi" class="form-label">Ref Id</label>
+          <input
+            type="text"
+            value="Test"
+            class="form-control"
+            id="refi"
+            disabled
+            aria-describedby="emailHelp"
+          />
+         
+        </div>
+        <button class="btn btn-primary" onclick="handleRandom()">
+          Generate RefId
+        </button>
+      </div>
+      <div class="container">
+
       <div class="row g-5" id="product_list"></div>
       <div id="finalize" class="finalize">
         <h5>Reference Id</h5>
@@ -53,6 +71,8 @@
         <button onclick="handleFinalize()" class="btn btn-primary">
           Finalize Order
         </button>
+      </div>
+
       </div>
       <script src="./index.js"></script>
     </div>

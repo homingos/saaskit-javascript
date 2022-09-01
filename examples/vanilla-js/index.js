@@ -2,6 +2,9 @@ let key = document.getElementById('sdkkey').value;
 
 let resi;
 
+let random = uuidv4();
+document.getElementById('refi').value = random;
+
 document.getElementById('sdkkey').addEventListener('change', e => {
   key = e.target.value;
 });
@@ -15,6 +18,11 @@ function uuidv4() {
       (crypto.getRandomValues(new Uint8Array(1))[0] & (15 >> (c / 4)))
     ).toString(16)
   );
+}
+
+function handleRandom() {
+  random = uuidv4();
+  document.getElementById('refi').value = random;
 }
 
 async function handleFinalize() {
@@ -122,7 +130,7 @@ function buyCard(id) {
 
   let orderDetails = {
     productId: id,
-    refId: uuidv4(),
+    refId: random,
     photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
     video: '',
     animation: 'CONFETTI',
