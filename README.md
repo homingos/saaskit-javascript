@@ -19,7 +19,7 @@ From CDN:
 
 ```html
 <!-- Latest patch release -->
-<script src="[https://unpkg.com/flamsdk@0.0.1/dist/FlamSaasSDK.min.js](https://unpkg.com/flamsdk@0.0.1/dist/FlamSaasSDK.min.js)"></script>
+<script src="https://unpkg.com/flamsdk@0.0.1/dist/FlamSaasSDK.min.js"></script>
 ```
 
 From [npm]([https://npmjs.org](https://npmjs.org/)):
