@@ -10,7 +10,7 @@ function ClientData({
   return (
     <div className="border-b w-full pb-4 md:pb-0">
       <img
-        className="h-14 w-14 border-brand_gray1 border-2 rounded-full p-[0.5px]"
+        className="h-14 w-14 object-contain border-brand_gray1 border-2 rounded-full p-[0.5px]"
         src={logoUrl}
       />
       <h2 className="text-xl font-bold text-brand_black mt-3 mb-2">{name}</h2>
