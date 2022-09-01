@@ -30,6 +30,7 @@
     "chromedriver": "^105.0.0",
     "concurrently": "^6.2.2",
     "cross-env": "^7.0.3",
+    "env-cmd": "^10.1.0",
     "es-check": "^6.2.1",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.3.0",
