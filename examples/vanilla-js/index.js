@@ -114,7 +114,7 @@ async function getProducts() {
 
 function buyCard(id) {
   const flam = new FlamSaasSDK.init({
-    environment: 'production',
+    environment: 'sandbox',
     key: key
   });
 
