@@ -275,7 +275,7 @@ const Home = ({ theme }: { theme: string }) => {
                     'SmartPhotos',
                   logoUrl:
                     dataFromClient?.order_details?.logo ||
-                    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png'
+                    'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/flam_logo.png'
                 }}
                 existingPhoto={dataFromClient?.order_details?.photo || ''}
                 title={productData?.productHeader || ''}

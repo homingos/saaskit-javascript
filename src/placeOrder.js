@@ -3,17 +3,16 @@ import assert from './helper/assert';
 
 export default function placeOrder(order_details, callback) {
   this.order_details = order_details;
-
   try {
     assert.check(
       this.clientData,
-      { type: 'object', message: 'clientData parameter is not valid object' },
+      { type: 'object', message: 'init data is invalid' },
       {
-        key: { type: 'string', message: 'key is required' },
+        key: { type: 'string', message: 'key is required in init data' },
         environment: {
           optional: true,
           type: 'string',
-          message: 'environment is required'
+          message: 'environment must be a string in init data'
         }
       }
     );
@@ -22,7 +21,7 @@ export default function placeOrder(order_details, callback) {
       order_details,
       {
         type: 'object',
-        message: 'order_details parameter is not valid object'
+        message: 'options parameter is invalid'
       },
       {
         productId: { type: 'string', message: 'productId is required!' }
