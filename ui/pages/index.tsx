@@ -32,6 +32,7 @@ const Home = ({ theme }: { theme: string }) => {
   );
 
   const receiveMessage = (event: { data: { type: string; payload: any } }) => {
+    console.log('RECEIVED EVENT', event);
     if (event.data.type === 'INITIAL_DATA') {
       setDataFromClient(event.data.payload);
     }
@@ -206,14 +207,17 @@ const Home = ({ theme }: { theme: string }) => {
 
   useEffect(() => {
     if (ready) {
+      console.log('READY TO SEND MESSAGE');
       sendMessage({
         type: 'READY_TO_RECEIVE'
       });
+      console.log('MESSAGE SENT  - READY_TO_RECEIVE');
     }
   }, [ready]);
 
   useEffect(() => {
     if (dataFromClient) {
+      console.log('RECEIVED DATA FROM CLIENT');
       (async () => {
         try {
           const res = await getProductData({
@@ -221,6 +225,7 @@ const Home = ({ theme }: { theme: string }) => {
             apiKey: dataFromClient?.client_data?.key,
             productId: dataFromClient?.order_details?.productId || ''
           });
+          console.log('API RES FOR PRD ID', res);
           if (res.status == 200 && res.data) {
             setProductData(res.data);
           } else {
@@ -232,6 +237,8 @@ const Home = ({ theme }: { theme: string }) => {
           }
           setIsLoading(false);
         } catch (err: any) {
+          console.log('API ERR FOR PRD ID', err);
+
           sendMessage({
             type: 'ERROR',
             payload: {
@@ -239,6 +246,9 @@ const Home = ({ theme }: { theme: string }) => {
               message: err.message
             }
           });
+
+          console.log('MESSAGE SENT FOR API ERR FOR PRD ID', err);
+
           router.push('/error/Something went wrong');
         }
       })();
