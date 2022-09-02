@@ -25,6 +25,7 @@ function init(options) {
       {
         key: { type: 'string', message: 'key is required' },
         environment: {
+          optional: true,
           type: 'string',
           message: 'environment is required'
         }
@@ -40,6 +41,14 @@ function init(options) {
   } catch (err) {
     throw new Error(err.message);
   }
+
+  options.environment =
+    options &&
+    typeof options.environment === 'string' &&
+    options.environment.toUpperCase() === 'PRODUCTION'
+      ? 'PRODUCTION'
+      : 'SANDBOX';
+
   this.clientData = options;
   /* eslint-enable */
 }

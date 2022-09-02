@@ -107,16 +107,6 @@ async function getProducts() {
     `;
       document.getElementById('product_list').innerHTML += card;
     });
-
-    // document.getElementById(`placeorder-0`).onclick(e => {
-    //   buyCard(false, false);
-    // });
-    // document.getElementById(`placeorder-1`).onclick(e => {
-    //   buyCard(true, false);
-    // });
-    // document.getElementById(`placeorder-2`).onclick(e => {
-    //   buyCard(true, true);
-    // });
   } catch (error) {
     if (error) console.log(error);
   }
@@ -124,7 +114,7 @@ async function getProducts() {
 
 function buyCard(id) {
   const flam = new FlamSaasSDK.init({
-    environment: 'SANDBOX',
+    environment: 'production',
     key: key
   });
 

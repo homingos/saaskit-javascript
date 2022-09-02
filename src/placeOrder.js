@@ -1,34 +1,54 @@
 import { PAGES } from './constants';
+import assert from './helper/assert';
 
 export default function placeOrder(order_details, callback) {
   this.order_details = order_details;
 
-  if (
-    !this.clientData ||
-    !this.clientData.environment ||
-    !this.clientData.key ||
-    !order_details.productId ||
-    !order_details.refId ||
-    !order_details.animation
-  ) {
+  try {
+    assert.check(
+      this.clientData,
+      { type: 'object', message: 'clientData parameter is not valid object' },
+      {
+        key: { type: 'string', message: 'key is required' },
+        environment: {
+          optional: true,
+          type: 'string',
+          message: 'environment is required'
+        }
+      }
+    );
+
+    assert.check(
+      order_details,
+      {
+        type: 'object',
+        message: 'order_details parameter is not valid object'
+      },
+      {
+        productId: { type: 'string', message: 'productId is required!' }
+      },
+      {
+        refId: { type: 'string', message: 'refId is required!' }
+      }
+    );
+
+    if (callback) {
+      let url = `${PAGES.main}`;
+      this.callback = callback;
+      this.renderWithRetry({ url, error: false });
+    } else {
+      throw new Error('callback function is required!');
+    }
+  } catch (err) {
     if (callback) {
       let url = `${PAGES.error}/Something went wrong!`;
       this.renderWithRetry({
         url,
         error: true
       });
-      callback({ code: 400, message: 'Insuficiant data!' }, null);
+      callback({ code: 400, message: err.message }, null);
     } else {
       throw new Error('callback function is required!');
-    }
-  } else {
-    if (!callback) {
-      throw new Error('callback function is required!');
-    } else {
-      let url = `${PAGES.main}`;
-      // this.product_id = product_id;
-      this.callback = callback;
-      this.renderWithRetry({ url, error: false });
     }
   }
 }

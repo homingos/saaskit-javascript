@@ -56,7 +56,6 @@ const Home = ({ theme }: { theme: string }) => {
   };
 
   const onSubmitHandler = async (e: Event) => {
-    // console.log(shakeModal);
     e.preventDefault();
 
     setIsCreateLoading(true);
