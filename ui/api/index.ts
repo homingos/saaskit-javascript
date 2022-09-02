@@ -63,6 +63,7 @@ export const createCard = async ({
     clientPhotoURL: string;
     clientVideoURL: string;
     refId: string;
+    theme: string;
   };
 }) => {
   const res = await axios.post(`${getUrl(env)}/api/v1/orders/create`, data, {

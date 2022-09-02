@@ -101,7 +101,7 @@ const Home = ({ theme }: { theme: string }) => {
           productId: dataFromClient?.order_details?.productId || '',
           theme:
             dataFromClient?.order_details?.animation ||
-            productData?.productMetaData.theme ||
+            productData?.productMetaData?.theme?.name ||
             'hearts',
           clientPhotoURL: '',
           clientVideoURL: '',
