@@ -35,7 +35,10 @@ const Home = ({ theme }: { theme: string }) => {
     data: { type: string; payload: any };
     origin: string;
   }) => {
+    console.log('CHECK 1', event, parentUrl);
     if (event.origin.concat('/') === parentUrl) {
+      console.log('CHECK 2', event);
+
       if (event.data.type === 'INITIAL_DATA') {
         setDataFromClient(event.data.payload);
       }
