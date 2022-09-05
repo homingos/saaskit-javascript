@@ -19,7 +19,7 @@ function useMessage(environment: 'SANDBOX' | 'PRODUCTION') {
     parent.postMessage({ ...message, parentUrl }, parentUrl);
   }
 
-  return { sendMessage, ready: Boolean(parentUrl) };
+  return { sendMessage, ready: Boolean(parentUrl), parentUrl };
 }
 
 export default useMessage;

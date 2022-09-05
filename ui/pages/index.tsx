@@ -27,14 +27,18 @@ const Home = ({ theme }: { theme: string }) => {
   const [userSelectedData, setUserSelectedData] = useState<any>({});
   const [isCreateLoading, setIsCreateLoading] = useState(false);
 
-  const { sendMessage, ready } = useMessage(
+  const { sendMessage, ready, parentUrl } = useMessage(
     dataFromClient?.client_data.environment || 'SANDBOX'
   );
 
-  const receiveMessage = (event: { data: { type: string; payload: any } }) => {
-    console.log('RECEIVED EVENT', event);
-    if (event.data.type === 'INITIAL_DATA') {
-      setDataFromClient(event.data.payload);
+  const receiveMessage = (event: {
+    data: { type: string; payload: any };
+    origin: string;
+  }) => {
+    if (event.origin.concat('/') === parentUrl) {
+      if (event.data.type === 'INITIAL_DATA') {
+        setDataFromClient(event.data.payload);
+      }
     }
   };
 
@@ -203,7 +207,7 @@ const Home = ({ theme }: { theme: string }) => {
     window.addEventListener('message', receiveMessage);
 
     return () => window.removeEventListener('message', receiveMessage);
-  }, []);
+  }, [parentUrl]);
 
   useEffect(() => {
     if (ready) {
