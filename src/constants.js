@@ -1,4 +1,4 @@
-const SDK_BASE_URL = 'https://saas-sdk-flam.vercel.app';
+const SDK_BASE_URL = 'https://saas-sdk-flam.vpercel.app';
 // const SDK_BASE_URL = 'http://localhost:3000';
 
 export const PAGES = {
