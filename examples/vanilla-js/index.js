@@ -84,8 +84,8 @@ async function getProducts() {
     );
 
     x.forEach((item, index) => {
-      const card = `<div class = 'col'>
-      <div class="card" style="width: 18rem">
+      const card = `<div class='col-sm-6 col-md-4 col-12'>
+      <div class="card">
         <img
           style="height: 14rem; object-fit: cover"
           src="${item.productImage}"

@@ -8,7 +8,11 @@ export default async function renderWithRetry({ url }) {
   styleSheet.type = 'text/css';
   styleSheet.id = 'saas-sdk-style';
   styleSheet.innerText = `
-    .flam-sdk-bg {
+    body {
+      overflow: hidden;
+    }
+
+    .flam-sdk-loading-wrapper {
       position: fixed;
       top: 0;
       right: 0;
@@ -17,6 +21,7 @@ export default async function renderWithRetry({ url }) {
 
       min-height: 100vh;
       min-width: 100vw;
+      overflow: hidden;
       border: none;
       background: rgba(0,0,0, 0.4);
 
@@ -38,11 +43,11 @@ export default async function renderWithRetry({ url }) {
     }
 
     .flam-sdk-loading {
-      display: inline-block;
       position: relative;
       width: 80px;
       height: 80px;
     }
+
     .flam-sdk-loading div {
       box-sizing: border-box;
       display: block;
@@ -95,12 +100,10 @@ export default async function renderWithRetry({ url }) {
   };
 
   UI.innerHTML = `
-      <div class="flam-sdk-ui" id="flam-sdk-ui">
-        <div class="flam-sdk-bg" id="flam-sdk-bg">
-          <div class="flam-sdk-loading" id="flam-sdk-loading"><div></div><div></div><div></div><div></div></div>
-        </div>
-        <iframe id="flam-sdk-iframe" style="opacity: 0" name="flam-sdk-iframe" src="${newUrl()}" style="opacity: 0"></iframe>      
-  </div>
+      <div class="flam-sdk-loading-wrapper" id="flam-sdk-loading-wrapper">
+        <div class="flam-sdk-loading" id="flam-sdk-loading"><div></div><div></div><div></div><div></div></div>
+      </div>
+      <iframe id="flam-sdk-iframe" style="opacity: 0" name="flam-sdk-iframe" src="${newUrl()}" style="opacity: 0"></iframe>      
     `;
 
   await body.appendChild(UI);
@@ -116,7 +119,8 @@ export default async function renderWithRetry({ url }) {
       }
 
       // hide loading
-      document.getElementById('flam-sdk-bg').style.display = 'none';
+      document.getElementById('flam-sdk-loading-wrapper').style.display =
+        'none';
 
       // Bring the iframe back
       iFrame.style.opacity = '1';
