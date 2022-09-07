@@ -7,44 +7,38 @@ export default function receiveMessage(event) {
         this.close();
         break;
       case 'READY_TO_RECEIVE':
-        this.sendMessage(
-          {
-            type: 'INITIAL_DATA',
-            payload: {
-              client_data: this.clientData,
-              order_details: this.order_details
-            }
-          },
-          '*'
-        );
+        this.sendMessage({
+          type: 'INITIAL_DATA',
+          payload: {
+            client_data: this.clientData,
+            order_details: this.order_details
+          }
+        });
         break;
       case 'READY_TO_RECEIVE_ERR':
-        this.sendMessage(
-          {
-            type: 'INITIAL_DATA_ERR',
-            payload: {
-              email:
-                this.order_details &&
-                this.order_details.prefill &&
-                this.order_details.prefill.email
-                  ? this.order_details.prefill.email
-                  : '',
-              phone:
-                this.order_details &&
-                this.order_details.prefill &&
-                this.order_details.prefill.phone
-                  ? this.order_details.prefill.phone
-                  : ''
-            }
-          },
-          '*'
-        );
+        this.sendMessage({
+          type: 'INITIAL_DATA_ERR',
+          payload: {
+            email:
+              this.order_details &&
+              this.order_details.prefill &&
+              this.order_details.prefill.email
+                ? this.order_details.prefill.email
+                : '',
+            phone:
+              this.order_details &&
+              this.order_details.prefill &&
+              this.order_details.prefill.phone
+                ? this.order_details.prefill.phone
+                : ''
+          }
+        });
         break;
       case 'CREATED':
         this.callback(null, {
           code: 201,
           data: event.data.payload,
-          message: 'Order placed successfully'
+          message: 'Order placed successfully!'
         });
         this.close();
         break;

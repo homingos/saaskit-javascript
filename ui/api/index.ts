@@ -74,3 +74,19 @@ export const createCard = async ({
 
   return res.data;
 };
+
+export const getCLientData = async ({
+  env = 'SANDBOX',
+  apiKey
+}: {
+  env: 'SANDBOX' | 'PRODUCTION';
+  apiKey: string;
+}) => {
+  const res = await axios.get(`${getUrl(env)}/api/v1/accounts/userprofile`, {
+    headers: {
+      'x-api-key': apiKey
+    }
+  });
+
+  return res.data;
+};

@@ -1,7 +1,14 @@
 import { PAGES } from './constants';
 
 export let trackOrder = null;
-export default async function renderWithRetry({ url }) {
+
+/**
+ * Renders the UI for Placing Order
+ * @function
+ * @param {String} url url to either order flow or error page
+ */
+
+export default async function renderWithRetry(url) {
   const body = document.querySelector('body');
 
   const styleSheet = document.createElement('style');
@@ -79,9 +86,9 @@ export default async function renderWithRetry({ url }) {
     }
   `;
 
-  await document.head.appendChild(styleSheet);
+  document.head.appendChild(styleSheet);
 
-  const UI = await document.createElement('div');
+  const UI = document.createElement('div');
   UI.id = 'flam-sdk-wrapper';
 
   var RegExp = /(^#[0-9A-F]{6}$)|(^#[0-9A-F]{3}$)/i;
@@ -106,7 +113,7 @@ export default async function renderWithRetry({ url }) {
       <iframe id="flam-sdk-iframe" style="opacity: 0" name="flam-sdk-iframe" src="${newUrl()}" style="opacity: 0"></iframe>      
     `;
 
-  await body.appendChild(UI);
+  body.appendChild(UI);
 
   const iFrame = document.getElementById('flam-sdk-iframe');
 
@@ -114,34 +121,41 @@ export default async function renderWithRetry({ url }) {
     e.preventDefault();
 
     try {
+      // check if website available in PRODUCTION
       if (this.clientData.environment == 'PRODUCTION') {
         await fetch(PAGES.main);
       }
 
-      // hide loading
+      // hide initial loading
       document.getElementById('flam-sdk-loading-wrapper').style.display =
         'none';
 
-      // Bring the iframe back
+      // Show the iframe content
       iFrame.style.opacity = '1';
 
+      // message event handler
       trackOrder = e => {
         this.receiveMessage(e);
       };
 
-      // for receiving messages from iframe
+      // event listener for receiving messages from iframe
       window.addEventListener('message', trackOrder);
 
-      // for sending messages to iframe
+      // save window context for sending messages to iframe
       this.iWindow = document.getElementById('flam-sdk-iframe').contentWindow;
     } catch (err) {
       if (err.message === 'Failed to fetch') {
         this.close();
         this.callback({
           code: 500,
-          message: 'SDK down!'
+          message: 'Unable to acess SDK Website!'
         });
+        return;
       }
+      this.callback({
+        code: 500,
+        message: 'Something went wrong!'
+      });
     }
   });
 }

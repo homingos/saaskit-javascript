@@ -6,42 +6,38 @@ import renderWithRetry from './renderWithRetry';
 import sendMessage from './sendMessage';
 
 /**
- * Handles all the browser's AuthN/AuthZ flows
+ * Initializes a SDK instance
  * @constructor
  * @param {Object} options
  * @param {String} options.key the API Key found on your Application settings page
- * @param {String} [options.environment] enviornment sandbox | production
- * @param {String} [options.name] name of client
- * @param {String} [options.logoUrl] client's brand logo url
- * @param {String} [options.email] client's support email for error page
- * @param {String} [options.phone] client's support phone for error page
+ * @param {String} [options.environment] enviornment SANDBOX | PRODUCTION
  */
 function init(options) {
   /* eslint-disable */
+
+  // validate the client's input for 'init'
   try {
     assert.check(
       options,
-      { type: 'object', message: 'clientData parameter is not valid' },
+      { type: 'object', message: 'init parameter is not valid.' },
       {
-        key: { type: 'string', message: 'key is required' },
+        key: { type: 'string', message: "'key' is required string." },
         environment: {
           optional: true,
           type: 'string',
-          message: 'environment is required'
+          message: "'environment' must be string."
         }
       }
     );
-
-    if (options.overrides) {
-      assert.check(options.overrides, {
-        type: 'object',
-        message: 'overrides option is not valid'
-      });
-    }
   } catch (err) {
-    throw new Error(err.message);
+    // assert method above throws error with given message which we further throw to client.
+    if (err && err.message) {
+      throw err.message;
+    }
+    throw 'Something went wrong!';
   }
 
+  // set environment to 'PRODUCTION' if stated by client, otherwise 'SANDBOX'
   options.environment =
     options &&
     typeof options.environment === 'string' &&
@@ -49,7 +45,9 @@ function init(options) {
       ? 'PRODUCTION'
       : 'SANDBOX';
 
+  // save options to clientData
   this.clientData = options;
+
   /* eslint-enable */
 }
 

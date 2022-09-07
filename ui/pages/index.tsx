@@ -5,7 +5,13 @@ import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 
-import { createCard, getProductData, getSignedURL, UploadURLv2 } from '../api';
+import {
+  createCard,
+  getCLientData,
+  getProductData,
+  getSignedURL,
+  UploadURLv2
+} from '../api';
 import Card from '../components/atoms/Card';
 import FlexCenter from '../components/atoms/FlexCenter';
 import Loading from '../components/atoms/Loading';
@@ -31,16 +37,71 @@ const Home = ({ theme }: { theme: string }) => {
     dataFromClient?.client_data.environment || 'SANDBOX'
   );
 
-  const receiveMessage = (event: {
+  const receiveMessage = async (event: {
     data: { type: string; payload: any };
     origin: string;
   }) => {
-    console.log('CHECK 1', event, parentUrl);
     if (event.origin.concat('/') === parentUrl) {
-      console.log('CHECK 2', event);
-
       if (event.data.type === 'INITIAL_DATA') {
-        setDataFromClient(event.data.payload);
+        let eventData = event.data.payload;
+        if (
+          !eventData.order_details.logo ||
+          !eventData.order_details?.prefill?.name ||
+          !eventData?.order_details?.prefill?.email ||
+          !eventData?.order_details?.prefill?.phone
+        ) {
+          try {
+            const res = await getCLientData({
+              env: eventData.client_data.environment,
+              apiKey: eventData.client_data.key
+            });
+            if (res.status == 200) {
+              console.log('RES', res.data);
+              console.log('INIT', eventData);
+              setDataFromClient(eventData);
+              setDataFromClient({
+                ...eventData,
+                order_details: {
+                  ...eventData?.order_details,
+                  logo: eventData.logo || res.data.logoURL || '',
+                  prefill: {
+                    name:
+                      eventData?.order_details?.prefill?.name ||
+                      res?.data?.clientName ||
+                      '',
+                    email:
+                      eventData?.order_details?.prefill?.email ||
+                      res?.data?.businessEmail ||
+                      '',
+                    phone:
+                      eventData?.order_details?.prefill?.phone ||
+                      res?.data?.phoneNumber ||
+                      ''
+                  }
+                }
+              });
+            } else if (res.detail) {
+              throw {
+                code: 401,
+                message: res.detail
+              };
+            } else {
+              throw {
+                code: 500,
+                message: 'Something went wrong'
+              };
+            }
+          } catch (err: any) {
+            sendMessage({
+              type: 'ERROR',
+              payload: {
+                message: err?.message || 'Something went wrong!',
+                code: err?.code || 500
+              }
+            });
+            router.push('/error/Something went wrong');
+          }
+        }
       }
     }
   };
@@ -59,7 +120,7 @@ const Home = ({ theme }: { theme: string }) => {
 
       return posts;
     } catch (err) {
-      throw new Error('Failed to upload content!');
+      throw 'Failed to upload content!';
     }
   };
 
@@ -214,17 +275,14 @@ const Home = ({ theme }: { theme: string }) => {
 
   useEffect(() => {
     if (ready) {
-      console.log('READY TO SEND MESSAGE');
       sendMessage({
         type: 'READY_TO_RECEIVE'
       });
-      console.log('MESSAGE SENT  - READY_TO_RECEIVE');
     }
   }, [ready]);
 
   useEffect(() => {
     if (dataFromClient) {
-      console.log('RECEIVED DATA FROM CLIENT');
       (async () => {
         try {
           const res = await getProductData({
@@ -232,20 +290,17 @@ const Home = ({ theme }: { theme: string }) => {
             apiKey: dataFromClient?.client_data?.key,
             productId: dataFromClient?.order_details?.productId || ''
           });
-          console.log('API RES FOR PRD ID', res);
           if (res.status == 200 && res.data) {
             setProductData(res.data);
           } else {
             if (res.detail) {
-              throw new Error(res.detail);
+              throw new res.detail();
             } else {
-              throw new Error('Something went wrong!');
+              throw 'Something went wrong!';
             }
           }
           setIsLoading(false);
         } catch (err: any) {
-          console.log('API ERR FOR PRD ID', err);
-
           sendMessage({
             type: 'ERROR',
             payload: {
@@ -253,8 +308,6 @@ const Home = ({ theme }: { theme: string }) => {
               message: err.message
             }
           });
-
-          console.log('MESSAGE SENT FOR API ERR FOR PRD ID', err);
 
           router.push('/error/Something went wrong');
         }
