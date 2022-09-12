@@ -85,6 +85,7 @@ export default async function placeOrder(order_details, callback) {
     // render the success UI
     let url = `${PAGES.main}`;
     this.callback = callback;
+
     await this.renderWithRetry(url);
   } catch (err) {
     if (callback && typeof callback === 'function') {

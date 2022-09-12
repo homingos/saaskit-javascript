@@ -1,5 +1,5 @@
 /**
- * flamsdk v1.0.0
+ * flamsdk v1.0.3
  * Author: bucharitesh
  * Date: 2022-09-12
  * License: MIT
@@ -8,11 +8,11 @@
 (function (global, factory) {
   typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
   typeof define === 'function' && define.amd ? define(['exports'], factory) :
-  (global = global || self, factory(global.FlamSaasSDK = {}));
-}(this, (function (exports) { 'use strict';
+  (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FlamSaasSDK = {}));
+})(this, (function (exports) { 'use strict';
 
-  // const SDK_BASE_URL = 'https://saas-sdk-flam.vercel.app';
-  const SDK_BASE_URL = 'http://localhost:3000';
+  const SDK_BASE_URL = 'https://saas-sdk-flam.vercel.app';
+  // const SDK_BASE_URL = 'http://localhost:3000';
 
   const PAGES = {
     main: SDK_BASE_URL,
@@ -350,6 +350,7 @@
       // render the success UI
       let url = `${PAGES.main}`;
       this.callback = callback;
+
       await this.renderWithRetry(url);
     } catch (err) {
       if (callback && typeof callback === 'function') {
@@ -477,14 +478,15 @@
   init.prototype.sendMessage = sendMessage;
   init.prototype.close = close;
 
-  var version = { raw: '1.0.0' };
+  var version = { raw: '1.0.3' };
+  version.raw;
 
   var index = { version: version, init: init };
 
-  exports.default = index;
+  exports["default"] = index;
   exports.init = init;
   exports.version = version;
 
   Object.defineProperty(exports, '__esModule', { value: true });
 
-})));
+}));
