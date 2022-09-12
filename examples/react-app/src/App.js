@@ -2,8 +2,6 @@ import './App.css';
 
 import FlamSaasSDK from 'flamsdk';
 
-import logo from './logo.svg';
-
 const flam = new FlamSaasSDK.init({
   environment: 'sandbox',
   key: '9kA8jejg8CtvAFDW-p2csG4WJWw'

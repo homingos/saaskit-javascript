@@ -32,7 +32,7 @@ export default async function placeOrder(order_details, callback) {
       order_details,
       {
         type: 'object',
-        message: "'order_details' is not valid."
+        message: "'order details' is not valid."
       },
       {
         productId: {
@@ -67,7 +67,7 @@ export default async function placeOrder(order_details, callback) {
         },
         logo: {
           optional: true,
-          type: 'object',
+          type: 'string',
           message: "'logo' must be string."
         }
       }

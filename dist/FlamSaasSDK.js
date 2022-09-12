@@ -11,8 +11,8 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FlamSaasSDK = {}));
 })(this, (function (exports) { 'use strict';
 
-  const SDK_BASE_URL = 'https://saas-sdk-flam.vercel.app';
-  // const SDK_BASE_URL = 'http://localhost:3000';
+  //const SDK_BASE_URL = 'https://saas-sdk-flam.vercel.app';
+  const SDK_BASE_URL = 'http://localhost:3000';
 
   const PAGES = {
     main: SDK_BASE_URL,
@@ -297,7 +297,7 @@
         order_details,
         {
           type: 'object',
-          message: "'order_details' is not valid."
+          message: "'order details' is not valid."
         },
         {
           productId: {
@@ -332,7 +332,7 @@
           },
           logo: {
             optional: true,
-            type: 'object',
+            type: 'string',
             message: "'logo' must be string."
           }
         }
