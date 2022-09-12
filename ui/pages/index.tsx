@@ -5,13 +5,7 @@ import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 
-import {
-  createCard,
-  getCLientData,
-  getProductData,
-  getSignedURL,
-  UploadURLv2
-} from '../api';
+import { createCard, getCLientData, getProductData, getSignedURL, UploadURLv2 } from '../api';
 import Card from '../components/atoms/Card';
 import FlexCenter from '../components/atoms/FlexCenter';
 import Loading from '../components/atoms/Loading';
@@ -26,7 +20,6 @@ import useMessage from '../hooks/useMessage';
 const Home = ({ theme }: { theme: string }) => {
   const router = useRouter();
   const [shakeModal, setShakeModal] = useState(false);
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [dataFromClient, setDataFromClient] = useState<any>(null);
   const [productData, setProductData] = useState<any>(null);
@@ -43,7 +36,7 @@ const Home = ({ theme }: { theme: string }) => {
   }) => {
     if (event.origin.concat('/') === parentUrl) {
       if (event.data.type === 'INITIAL_DATA') {
-        let eventData = event.data.payload;
+        const eventData = event.data.payload;
         if (
           !eventData.order_details.logo ||
           !eventData.order_details?.prefill?.name ||
@@ -58,7 +51,6 @@ const Home = ({ theme }: { theme: string }) => {
             if (res.status == 200) {
               console.log('RES', res.data);
               console.log('INIT', eventData);
-              setDataFromClient(eventData);
               setDataFromClient({
                 ...eventData,
                 order_details: {
@@ -235,7 +227,7 @@ const Home = ({ theme }: { theme: string }) => {
           setIsCreateLoading(false);
 
           // send message to parent
-          sendMessage({
+          await sendMessage({
             type: 'CREATED',
             payload: {
               ...finalRes.data,
@@ -244,7 +236,7 @@ const Home = ({ theme }: { theme: string }) => {
           });
         } else {
           // send message to parent
-          sendMessage({
+          await sendMessage({
             type: 'ERROR',
             payload: {
               message: finalRes?.data?.message || 'Something went wrong!',
@@ -256,7 +248,7 @@ const Home = ({ theme }: { theme: string }) => {
       }
     } catch (err: any) {
       // send message to parent
-      sendMessage({
+      await sendMessage({
         type: 'ERROR',
         payload: {
           code: 500,
@@ -269,16 +261,17 @@ const Home = ({ theme }: { theme: string }) => {
 
   useEffect(() => {
     window.addEventListener('message', receiveMessage);
-
     return () => window.removeEventListener('message', receiveMessage);
   }, [parentUrl]);
 
   useEffect(() => {
-    if (ready) {
-      sendMessage({
-        type: 'READY_TO_RECEIVE'
-      });
-    }
+    (async () => {
+      if (ready) {
+        await sendMessage({
+          type: 'READY_TO_RECEIVE'
+        });
+      }
+    })();
   }, [ready]);
 
   useEffect(() => {
@@ -301,7 +294,7 @@ const Home = ({ theme }: { theme: string }) => {
           }
           setIsLoading(false);
         } catch (err: any) {
-          sendMessage({
+          await sendMessage({
             type: 'ERROR',
             payload: {
               code: 500,
@@ -330,7 +323,7 @@ const Home = ({ theme }: { theme: string }) => {
         >
           <IoIosCloseCircleOutline
             className="absolute text-black md:text-white h-8 w-8 right-4 top-4 md:right-0 md:-top-10 cursor-pointer"
-            onClick={() => sendMessage({ type: 'CLOSE' })}
+            onClick={async () => await sendMessage({ type: 'CLOSE' })}
           />
           {isLoading ? (
             <FlexCenter>
