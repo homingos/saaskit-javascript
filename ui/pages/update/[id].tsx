@@ -65,7 +65,6 @@ const Update = ({ id }: { id: string }) => {
           throw 'Something went wrong';
         }
       } catch (err) {
-        console.log('ERR', err);
         setIsUpdateLoading(false);
         router.push('/error/Something went wrong');
       }

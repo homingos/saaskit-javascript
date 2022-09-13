@@ -337,8 +337,6 @@ const Home = ({ theme }: { theme: string }) => {
                 setData={setUserSelectedData}
               />
 
-              {console.log(dataFromClient)}
-
               <Scrollable className="py-4">
                 {productData?.productMetaData?.photo?.isActive && (
                   <div className="md:hidden mb-3">
