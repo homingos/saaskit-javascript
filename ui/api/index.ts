@@ -132,5 +132,5 @@ export const updateCard = async ({
     }
   });
 
-  return res;
+  return res.data;
 };

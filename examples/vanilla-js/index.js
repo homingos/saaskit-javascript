@@ -118,25 +118,28 @@ function buyCard(id) {
     key: key
   });
 
-  // photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
+  // const sample = {
+  //   productId: id,
+  //   refId: random,
+  //   photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
   //   video: '',
   //   animation: 'CONFETTI',
+  //   photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
+  //   video:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+  //   theme: {
+  //     color: '#234f55'
+  //   },
   //   prefill: {
   //     name: 'John Doe Prints',
   //     email: 'support@email.com',
   //     phone: '+91 98765 43210'
   //   },
   //   logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png'
+  // };
 
   let orderDetails = {
     productId: id,
-    refId: random,
-    prefill: {
-      name: 'Yuvraj Singh',
-      email: 'support@email.com',
-      phone: '+91 98765 43210'
-    }
-    // logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png'
+    refId: random
   };
 
   flam.placeOrder(orderDetails, (err, res) => {

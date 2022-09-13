@@ -9,7 +9,10 @@ import useMessage from '../../hooks/useMessage';
 import type { NextPage } from 'next';
 import { getCLientData } from '../../api';
 
-const Error: NextPage<{ error: any }> = ({ error }) => {
+const Error: NextPage<{ error: any; direct: boolean }> = ({
+  error,
+  direct = false
+}) => {
   const { sendMessage, parentUrl, receiveMessage } = useMessage('SANDBOX');
 
   const [clientData, setClientData] = useState<any | null>(null);
@@ -55,30 +58,34 @@ const Error: NextPage<{ error: any }> = ({ error }) => {
   };
 
   useEffect(() => {
-    const listener = (event: ReceivedEventType) =>
-      receiveMessage(event, handleMessage);
-    window.addEventListener('message', listener);
+    if (!direct) {
+      const listener = (event: ReceivedEventType) =>
+        receiveMessage(event, handleMessage);
+      window.addEventListener('message', listener);
 
-    return () => window.removeEventListener('message', listener);
-  }, [parentUrl]);
+      return () => window.removeEventListener('message', listener);
+    }
+  }, [parentUrl, direct]);
 
   useEffect(() => {
-    if (parentUrl) {
+    if (!direct && parentUrl) {
       sendMessage({
         type: 'READY_TO_RECEIVE_ERR'
       });
     }
-  }, [parentUrl]);
+  }, [direct, parentUrl]);
 
   return (
     <div className="h-screen w-screen">
       <FlexCenter>
         <Card className="relative px-10 py-10 flex flex-col justify-center items-center md:w-[48rem]">
-          <IoIosCloseCircleOutline
-            className="absolute text-black md:text-white h-8 w-8 right-4 top-4 md:right-0 md:-top-10 cursor-pointer"
-            onClick={() => sendMessage({ type: 'CLOSE' })}
-          />
-          {isLoading ? (
+          {!direct && (
+            <IoIosCloseCircleOutline
+              className="absolute text-black md:text-white h-8 w-8 right-4 top-4 md:right-0 md:-top-10 cursor-pointer"
+              onClick={() => sendMessage({ type: 'CLOSE' })}
+            />
+          )}
+          {isLoading && !direct ? (
             <FlexCenter>
               <Loading />
             </FlexCenter>
@@ -125,9 +132,12 @@ const Error: NextPage<{ error: any }> = ({ error }) => {
 export default Error;
 
 export async function getServerSideProps(context: {
-  query: { error: string };
+  query: { error: string; direct?: string };
 }) {
   return {
-    props: { error: context.query.error }
+    props: {
+      error: context.query.error,
+      direct: context?.query?.direct === 'true' || false
+    }
   };
 }

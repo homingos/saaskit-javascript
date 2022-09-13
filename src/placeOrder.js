@@ -1,16 +1,6 @@
 import { PAGES } from './constants';
 import assert from './helper/assert';
 
-/**
- * Runs the SDK for Placing Order
- * @function
- * @param {Object} options
- * @param {String} options.key the API Key found on your Application settings page
- * @param {String} [options.environment] enviornment sandbox | production
- */
-
-// TODO: write the parameter descriptions
-
 export default async function placeOrder(order_details, callback) {
   try {
     // validate client data
@@ -72,6 +62,52 @@ export default async function placeOrder(order_details, callback) {
         }
       }
     );
+
+    // validate prefill
+    if (order_details.prefill) {
+      assert.check(
+        order_details.prefill,
+        {
+          type: 'object',
+          message: "'prefill' is not valid."
+        },
+        {
+          name: {
+            optional: true,
+            type: 'string',
+            message: "'name' is required string."
+          },
+          email: {
+            optional: true,
+            type: 'string',
+            message: "'email' is required string."
+          },
+          phone: {
+            optional: true,
+            type: 'string',
+            message: "'phone' must be string."
+          }
+        }
+      );
+    }
+
+    // validate theme
+    if (order_details.theme) {
+      assert.check(
+        order_details.theme,
+        {
+          type: 'object',
+          message: "'theme' is not valid."
+        },
+        {
+          color: {
+            optional: true,
+            type: 'string',
+            message: "'name' is required string."
+          }
+        }
+      );
+    }
 
     // validate callback function
     assert.check(callback, {

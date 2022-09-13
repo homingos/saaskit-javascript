@@ -90,16 +90,19 @@ const Update = ({ id }: { id: string }) => {
           } else {
             if (res.detail) {
               throw res.detail;
+            } else if (res.error && res.message) {
+              throw res.message;
             } else {
               throw 'Something went wrong!';
             }
           }
-
           setIsLoading(false);
         } catch (err: any) {
-          toast.error(err?.message || 'Sonething went wrong');
-
-          // router.push('/error/Something went wrong');
+          if (typeof err === 'string') {
+            router.push(`/error/${err}?direct=true`);
+          } else {
+            router.push(`/error/Something went wrong!?direct=true`);
+          }
         }
       })();
     }
