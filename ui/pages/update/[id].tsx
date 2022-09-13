@@ -4,12 +4,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { toast, Toaster } from 'react-hot-toast';
 
-import {
-  getCreatedProductData,
-  getSignedURL,
-  updateCard,
-  UploadURLv2
-} from '../../api';
+import { getCreatedProductData, getSignedURL, updateCard } from '../../api';
 import Card from '../../components/atoms/Card';
 import FlexCenter from '../../components/atoms/FlexCenter';
 import Loading from '../../components/atoms/Loading';
@@ -170,6 +165,7 @@ const Update = ({ id }: { id: string }) => {
               </Scrollable>
 
               <ModalFooter
+                isUpdate={true}
                 isLoading={isUpdateLoading}
                 showLaterOption={false}
                 handleSubmit={onSubmitHandler}
