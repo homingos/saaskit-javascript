@@ -5,13 +5,13 @@ import { IoMdImage } from 'react-icons/io';
 import DropArea from '../atoms/DropArea';
 
 const VideoUpload = ({
-  is_defered,
-  existingVideo,
+  is_defered = false,
+  existingVideo = '',
   video,
   setData
 }: {
-  is_defered: boolean;
-  existingVideo: string;
+  is_defered?: boolean;
+  existingVideo?: string;
   video: any;
   setData: Dispatch<SetStateAction<any>>;
 }) => {

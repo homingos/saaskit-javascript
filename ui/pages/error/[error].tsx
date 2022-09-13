@@ -89,11 +89,11 @@ const Error: NextPage<{ error: any }> = ({ error }) => {
                 {error}
               </p>
               <div className="text-brand_gray2 px-10 text-md my-4">
-                <p color="secondary" className="text-center">
+                <p className="text-center">
                   The server encountered an error. The incident has been
                   reported to admins.
                 </p>
-                <p color="secondary" className="text-center">
+                <p className="text-center">
                   Please contact the merchant for assistance.
                 </p>
               </div>

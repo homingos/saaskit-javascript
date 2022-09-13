@@ -9,8 +9,7 @@ import {
   createCard,
   getCLientData,
   getProductData,
-  getSignedURL,
-  UploadURLv2
+  getSignedURL
 } from '../api';
 import Card from '../components/atoms/Card';
 import FlexCenter from '../components/atoms/FlexCenter';
@@ -56,7 +55,7 @@ const Home = ({ theme }: { theme: string }) => {
               ...eventData,
               order_details: {
                 ...eventData?.order_details,
-                logo: eventData.logo || res.data.logoURL || '',
+                logo: eventData?.order_details?.logo || res.data.logoURL || '',
                 prefill: {
                   name:
                     eventData?.order_details?.prefill?.name ||

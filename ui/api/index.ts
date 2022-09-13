@@ -114,3 +114,23 @@ export const getCreatedProductData = async ({
 
   return res.data;
 };
+
+export const updateCard = async ({
+  env = 'SANDBOX',
+  data
+}: {
+  env: 'SANDBOX' | 'PRODUCTION';
+  data: {
+    flamcardId: string;
+    newVideoUrl: string;
+  };
+}) => {
+  const res = await axios.post(`${getUrl(env)}/api/v1/videochange`, data, {
+    // api/v1/videochange
+    headers: {
+      Authorization: `Token ${getAuthKey(env)}`
+    }
+  });
+
+  return res;
+};
