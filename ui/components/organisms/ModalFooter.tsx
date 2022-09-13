@@ -55,9 +55,7 @@ const ModalFooter = ({
               </label>
             </div>
             <Tooltip
-              title={`Once your order is placed, you will get a link on your email to
-                            upload the video and select 3D filter. The link will be live for
-                            72 hours from the time the order is placed.`}
+              title={`Once your order is placed, you will get a link on your email to upload the video and select 3D filter. The link will be live for 72 hours from the time the order is placed.`}
               className="md:hidden"
             >
               <AiFillInfoCircle className="md:hidden text-[color:var(--primary)]" />
