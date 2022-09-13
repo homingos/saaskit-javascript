@@ -27,7 +27,6 @@ import { uploadURL } from '../utils';
 const Home = ({ theme }: { theme: string }) => {
   const router = useRouter();
   const [shakeModal, setShakeModal] = useState(false);
-
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [dataFromClient, setDataFromClient] = useState<any>(null);
   const [productData, setProductData] = useState<any>(null);
@@ -211,7 +210,7 @@ const Home = ({ theme }: { theme: string }) => {
           setIsCreateLoading(false);
 
           // send message to parent
-          sendMessage({
+          await sendMessage({
             type: 'CREATED',
             payload: finalRes.data
           });
@@ -219,7 +218,7 @@ const Home = ({ theme }: { theme: string }) => {
           // <frontend-url>?id=45dddd88-c1bf-4f79-872a-560f31e0f92d
         } else {
           // send message to parent
-          sendMessage({
+          await sendMessage({
             type: 'ERROR',
             payload: {
               message: finalRes?.data?.message || 'Something went wrong!',
@@ -231,7 +230,7 @@ const Home = ({ theme }: { theme: string }) => {
       }
     } catch (err: any) {
       // send message to parent
-      sendMessage({
+      await sendMessage({
         type: 'ERROR',
         payload: {
           code: 500,
@@ -284,7 +283,7 @@ const Home = ({ theme }: { theme: string }) => {
           }
           setIsLoading(false);
         } catch (err: any) {
-          sendMessage({
+          await sendMessage({
             type: 'ERROR',
             payload: {
               code: 500,
@@ -313,7 +312,7 @@ const Home = ({ theme }: { theme: string }) => {
         >
           <IoIosCloseCircleOutline
             className="absolute text-black md:text-white h-8 w-8 right-4 top-4 md:right-0 md:-top-10 cursor-pointer"
-            onClick={() => sendMessage({ type: 'CLOSE' })}
+            onClick={async () => await sendMessage({ type: 'CLOSE' })}
           />
           {isLoading ? (
             <FlexCenter>
@@ -338,6 +337,8 @@ const Home = ({ theme }: { theme: string }) => {
                 photo={userSelectedData.photo}
                 setData={setUserSelectedData}
               />
+
+              {console.log(dataFromClient)}
 
               <Scrollable className="py-4">
                 {productData?.productMetaData?.photo?.isActive && (

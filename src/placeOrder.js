@@ -11,7 +11,7 @@ import assert from './helper/assert';
 
 // TODO: write the parameter descriptions
 
-export default function placeOrder(order_details, callback) {
+export default async function placeOrder(order_details, callback) {
   try {
     // validate client data
     assert.check(
@@ -32,7 +32,7 @@ export default function placeOrder(order_details, callback) {
       order_details,
       {
         type: 'object',
-        message: "'order_details' is not valid."
+        message: "'order details' is not valid."
       },
       {
         productId: {
@@ -67,7 +67,7 @@ export default function placeOrder(order_details, callback) {
         },
         logo: {
           optional: true,
-          type: 'object',
+          type: 'string',
           message: "'logo' must be string."
         }
       }
@@ -86,18 +86,18 @@ export default function placeOrder(order_details, callback) {
     let url = `${PAGES.main}`;
 
     this.callback = callback;
-    this.renderWithRetry(url);
+
+    await this.renderWithRetry(url);
   } catch (err) {
     if (callback && typeof callback === 'function') {
       // render error UI
       let url = `${PAGES.error}/Something went wrong!`;
-      this.renderWithRetry(url);
+      await this.renderWithRetry(url);
       // callback to client with error
-      callback({ code: 400, message: err.message }, null);
+      await callback({ code: 400, message: err.message }, null);
     } else {
       throw "'callback' is required function.";
     }
   }
-
-  // TODO : Add image error handling
+  document.activeElement.blur();
 }
