@@ -5,12 +5,14 @@ import { ImCheckboxChecked, ImCheckboxUnchecked } from 'react-icons/im';
 import Tooltip from '../atoms/Tooltip';
 
 const ModalFooter = ({
+  isUpdate = false,
   isLoading,
   showLaterOption,
   handleSubmit,
   is_deferred,
   setData
 }: {
+  isUpdate?: boolean;
   isLoading: boolean;
   showLaterOption: boolean;
   handleSubmit: (data: any) => void;
@@ -53,9 +55,7 @@ const ModalFooter = ({
               </label>
             </div>
             <Tooltip
-              title={`Once your order is placed, you will get a link on your email to
-                            upload the video and select 3D filter. The link will be live for
-                            72 hours from the time the order is placed.`}
+              title={`Once your order is placed, you will get a link on your email to upload the video and select 3D filter. The link will be live for 72 hours from the time the order is placed.`}
               className="md:hidden"
             >
               <AiFillInfoCircle className="md:hidden text-[color:var(--primary)]" />
@@ -65,6 +65,15 @@ const ModalFooter = ({
             Once your order is placed, you will get a link on your email to
             upload the video and select 3D filter. The link will be live for 72
             hours from the time the order is placed.
+          </p>
+        </div>
+      )}
+      {isUpdate && (
+        <div className="pr-6">
+          <p className="font-semibold text-sm text-brand_black">Please Note</p>
+          <p className="text-[0.6rem] text-brand_gray2">
+            You can upload the video only once, Please be careful in selecting
+            the video!
           </p>
         </div>
       )}
