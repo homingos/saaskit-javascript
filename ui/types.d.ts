@@ -48,3 +48,8 @@ interface productDataType {
   productPrice: number;
   productServiceId: string;
 }
+
+interface ReceivedEventType {
+  data: { type: string; payload: any };
+  origin: string;
+}

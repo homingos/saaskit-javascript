@@ -15,11 +15,20 @@ function useMessage(environment: 'SANDBOX' | 'PRODUCTION') {
     }
   }, [environment]);
 
+  const receiveMessage = (
+    event: ReceivedEventType,
+    handleMessage: (event: ReceivedEventType) => void
+  ) => {
+    if (event.origin.concat('/') === parentUrl) {
+      handleMessage(event);
+    }
+  };
+
   function sendMessage(message: { type: string; payload?: any }) {
     parent.postMessage({ ...message, parentUrl }, parentUrl);
   }
 
-  return { sendMessage, ready: Boolean(parentUrl), parentUrl };
+  return { sendMessage, receiveMessage, parentUrl };
 }
 
 export default useMessage;

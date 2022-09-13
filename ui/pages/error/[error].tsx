@@ -7,32 +7,68 @@ import Loading from '../../components/atoms/Loading';
 import useMessage from '../../hooks/useMessage';
 
 import type { NextPage } from 'next';
+import { getCLientData } from '../../api';
+
 const Error: NextPage<{ error: any }> = ({ error }) => {
-  const { sendMessage, ready } = useMessage('SANDBOX');
+  const { sendMessage, parentUrl, receiveMessage } = useMessage('SANDBOX');
 
   const [clientData, setClientData] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const receiveMessage = (event: { data: { type: string; payload: any } }) => {
-    if (event.data.type === 'INITIAL_DATA_ERR') {
-      setClientData(event.data.payload);
+  const handleMessage = async (event: {
+    origin: string;
+    data: { type: string; payload: any };
+  }) => {
+    if (event?.data?.type === 'INITIAL_DATA_ERR') {
+      const eventData = event.data.payload;
+      if (!eventData?.email || !eventData?.phone) {
+        try {
+          const res = await getCLientData({
+            env: eventData.environment,
+            apiKey: eventData.key
+          });
+          if (res.status == 200) {
+            setClientData({
+              email: eventData?.email || res?.data?.businessEmail || '',
+              phone:
+                eventData?.phone ||
+                res?.data?.countryCode + res?.data?.phoneNumber ||
+                ''
+            });
+          } else {
+            throw '';
+          }
+        } catch (err: any) {
+          setClientData({
+            email: '',
+            phone: ''
+          });
+        }
+      } else {
+        setClientData({
+          email: eventData?.email,
+          phone: eventData?.phone
+        });
+      }
       setIsLoading(false);
     }
   };
 
   useEffect(() => {
-    window.addEventListener('message', receiveMessage);
+    const listener = (event: ReceivedEventType) =>
+      receiveMessage(event, handleMessage);
+    window.addEventListener('message', listener);
 
-    return () => window.removeEventListener('message', receiveMessage);
-  }, []);
+    return () => window.removeEventListener('message', listener);
+  }, [parentUrl]);
 
   useEffect(() => {
-    if (ready) {
+    if (parentUrl) {
       sendMessage({
         type: 'READY_TO_RECEIVE_ERR'
       });
     }
-  }, [ready]);
+  }, [parentUrl]);
 
   return (
     <div className="h-screen w-screen">
@@ -62,17 +98,17 @@ const Error: NextPage<{ error: any }> = ({ error }) => {
                 </p>
               </div>
               <div className="flex gap-2 text-center">
-                {clientData.email && (
+                {clientData?.email && (
                   <p className="text-[color:var(--primary)]">
                     <a href={`mailto:${clientData?.email}`}>
                       {clientData?.email}
                     </a>
                   </p>
                 )}
-                {clientData.email && clientData.phone && (
+                {clientData?.email && clientData?.phone && (
                   <div className="text-brand_gray2">|</div>
                 )}
-                {clientData.phone && (
+                {clientData?.phone && (
                   <p className="text-[color:var(--primary)]">
                     <a href={`tel:${clientData?.phone}`}>{clientData?.phone}</a>
                   </p>

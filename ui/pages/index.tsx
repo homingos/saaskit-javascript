@@ -22,6 +22,7 @@ import ModalFooter from '../components/organisms/ModalFooter';
 import ModalHeader from '../components/organisms/ModalHeader';
 import VideoUpload from '../components/organisms/VideoUpload';
 import useMessage from '../hooks/useMessage';
+import { uploadURL } from '../utils';
 
 const Home = ({ theme }: { theme: string }) => {
   const router = useRouter();
@@ -33,97 +34,72 @@ const Home = ({ theme }: { theme: string }) => {
   const [userSelectedData, setUserSelectedData] = useState<any>({});
   const [isCreateLoading, setIsCreateLoading] = useState(false);
 
-  const { sendMessage, ready, parentUrl } = useMessage(
+  const { sendMessage, receiveMessage, parentUrl } = useMessage(
     dataFromClient?.client_data.environment || 'SANDBOX'
   );
 
-  const receiveMessage = async (event: {
-    data: { type: string; payload: any };
-    origin: string;
-  }) => {
-    if (event.origin.concat('/') === parentUrl) {
-      if (event.data.type === 'INITIAL_DATA') {
-        let eventData = event.data.payload;
-        if (
-          !eventData.order_details.logo ||
-          !eventData.order_details?.prefill?.name ||
-          !eventData?.order_details?.prefill?.email ||
-          !eventData?.order_details?.prefill?.phone
-        ) {
-          try {
-            const res = await getCLientData({
-              env: eventData.client_data.environment,
-              apiKey: eventData.client_data.key
-            });
-            if (res.status == 200) {
-              console.log('RES', res.data);
-              console.log('INIT', eventData);
-              setDataFromClient(eventData);
-              setDataFromClient({
-                ...eventData,
-                order_details: {
-                  ...eventData?.order_details,
-                  logo: eventData.logo || res.data.logoURL || '',
-                  prefill: {
-                    name:
-                      eventData?.order_details?.prefill?.name ||
-                      res?.data?.clientName ||
-                      '',
-                    email:
-                      eventData?.order_details?.prefill?.email ||
-                      res?.data?.businessEmail ||
-                      '',
-                    phone:
-                      eventData?.order_details?.prefill?.phone ||
-                      res?.data?.phoneNumber ||
-                      ''
-                  }
+  const handleMessage = async (event: ReceivedEventType) => {
+    if (event.data.type === 'INITIAL_DATA') {
+      let eventData = event.data.payload;
+      if (
+        !eventData.order_details.logo ||
+        !eventData.order_details?.prefill?.name ||
+        !eventData?.order_details?.prefill?.email ||
+        !eventData?.order_details?.prefill?.phone
+      ) {
+        try {
+          const res = await getCLientData({
+            env: eventData.client_data.environment,
+            apiKey: eventData.client_data.key
+          });
+          if (res.status == 200) {
+            setDataFromClient({
+              ...eventData,
+              order_details: {
+                ...eventData?.order_details,
+                logo: eventData.logo || res.data.logoURL || '',
+                prefill: {
+                  name:
+                    eventData?.order_details?.prefill?.name ||
+                    res?.data?.clientName ||
+                    '',
+                  email:
+                    eventData?.order_details?.prefill?.email ||
+                    res?.data?.businessEmail ||
+                    '',
+                  phone:
+                    eventData?.order_details?.prefill?.phone ||
+                    res?.data?.countryCode + res?.data?.phoneNumber ||
+                    ''
                 }
-              });
-            } else if (res.detail) {
-              throw {
-                code: 401,
-                message: res.detail
-              };
-            } else {
-              throw {
-                code: 500,
-                message: 'Something went wrong'
-              };
-            }
-          } catch (err: any) {
-            sendMessage({
-              type: 'ERROR',
-              payload: {
-                message: err?.message || 'Something went wrong!',
-                code: err?.code || 500
               }
             });
-            router.push('/error/Something went wrong');
+          } else if (res.detail) {
+            throw {
+              code: 401,
+              message: res.detail
+            };
+          } else {
+            throw {
+              code: 500,
+              message: 'Something went wrong'
+            };
           }
+        } catch (err: any) {
+          sendMessage({
+            type: 'ERROR',
+            payload: {
+              message: err?.message || 'Something went wrong!',
+              code: err?.code || 500
+            }
+          });
+          router.push('/error/Something went wrong');
         }
+      } else {
+        setDataFromClient(eventData);
       }
     }
   };
-
-  const uploadURL = async (data: any, acceptedFiles: any) => {
-    try {
-      const posts: any[] = [];
-      for (let index = 0; index < data.length; index++) {
-        const item = data[index];
-        const imageItem = acceptedFiles[index];
-        const res = await UploadURLv2(item?.uploadUrl, imageItem);
-        if (res.status == 200) {
-          posts.push(item.resourceUrl);
-        }
-      }
-
-      return posts;
-    } catch (err) {
-      throw 'Failed to upload content!';
-    }
-  };
-
   const onSubmitHandler = async (e: Event) => {
     e.preventDefault();
 
@@ -237,11 +213,10 @@ const Home = ({ theme }: { theme: string }) => {
           // send message to parent
           sendMessage({
             type: 'CREATED',
-            payload: {
-              ...finalRes.data,
-              mediaLink: null
-            }
+            payload: finalRes.data
           });
+
+          // <frontend-url>?id=45dddd88-c1bf-4f79-872a-560f31e0f92d
         } else {
           // send message to parent
           sendMessage({
@@ -268,18 +243,26 @@ const Home = ({ theme }: { theme: string }) => {
   };
 
   useEffect(() => {
-    window.addEventListener('message', receiveMessage);
+    if (window === window.top) {
+      router.push('https://saas-business.web.app/');
+    }
+  }, []);
 
-    return () => window.removeEventListener('message', receiveMessage);
+  useEffect(() => {
+    const listener = (event: ReceivedEventType) =>
+      receiveMessage(event, handleMessage);
+    window.addEventListener('message', listener);
+
+    return () => window.removeEventListener('message', listener);
   }, [parentUrl]);
 
   useEffect(() => {
-    if (ready) {
+    if (parentUrl) {
       sendMessage({
         type: 'READY_TO_RECEIVE'
       });
     }
-  }, [ready]);
+  }, [parentUrl]);
 
   useEffect(() => {
     if (dataFromClient) {
@@ -294,7 +277,7 @@ const Home = ({ theme }: { theme: string }) => {
             setProductData(res.data);
           } else {
             if (res.detail) {
-              throw new res.detail();
+              throw res.detail;
             } else {
               throw 'Something went wrong!';
             }
@@ -389,7 +372,10 @@ const Home = ({ theme }: { theme: string }) => {
 
               <ModalFooter
                 isLoading={isCreateLoading}
-                showLaterOption={false}
+                showLaterOption={
+                  productData?.productMetaData?.video?.isActive &&
+                  !dataFromClient?.order_details?.video
+                }
                 handleSubmit={onSubmitHandler}
                 is_deferred={Boolean(userSelectedData.is_deferred)}
                 setData={setUserSelectedData}

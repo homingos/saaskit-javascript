@@ -130,7 +130,11 @@ function buyCard(id) {
 
   let orderDetails = {
     productId: id,
-    refId: random
+    refId: random,
+    prefill: {
+      email: 'support@email.com',
+      phone: '+91 98765 43210'
+    }
   };
 
   flam.placeOrder(orderDetails, (err, res) => {

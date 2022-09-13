@@ -84,6 +84,7 @@ export default function placeOrder(order_details, callback) {
 
     // render the success UI
     let url = `${PAGES.main}`;
+
     this.callback = callback;
     this.renderWithRetry(url);
   } catch (err) {
@@ -97,4 +98,6 @@ export default function placeOrder(order_details, callback) {
       throw "'callback' is required function.";
     }
   }
+
+  // TODO : Add image error handling
 }

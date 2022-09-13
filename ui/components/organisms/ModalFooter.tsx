@@ -15,7 +15,7 @@ const ModalFooter = ({
   showLaterOption: boolean;
   handleSubmit: (data: any) => void;
   is_deferred: boolean;
-  setData: Dispatch<SetStateAction<any>>;
+  setData?: Dispatch<SetStateAction<any>>;
 }) => {
   return (
     <div
@@ -30,10 +30,12 @@ const ModalFooter = ({
               className="flex items-baseline gap-2 cursor-pointer"
               onClick={e => {
                 e.preventDefault();
-                setData((prev: any) => ({
-                  ...prev,
-                  is_deferred: !is_deferred
-                }));
+                if (setData) {
+                  setData((prev: any) => ({
+                    ...prev,
+                    is_deferred: !is_deferred
+                  }));
+                }
               }}
             >
               {is_deferred ? (

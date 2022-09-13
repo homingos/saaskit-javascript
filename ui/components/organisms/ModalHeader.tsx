@@ -12,8 +12,8 @@ function ModalHeader({
 }: {
   title: string;
   showPhoto: boolean;
-  photo: File;
-  setData: Dispatch<SetStateAction<any>>;
+  photo?: File;
+  setData?: Dispatch<SetStateAction<any>>;
   existingPhoto: string;
   clientData: {
     name: string;

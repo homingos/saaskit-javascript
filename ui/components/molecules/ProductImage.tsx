@@ -10,8 +10,8 @@ function ProductImage({
   setData
 }: {
   existingPhoto: string;
-  photo: any;
-  setData: Dispatch<SetStateAction<any>>;
+  photo?: any;
+  setData?: Dispatch<SetStateAction<any>>;
 }) {
   const [files, setFiles] = useState<any[]>([]);
 
@@ -31,10 +31,12 @@ function ProductImage({
         )
       );
 
-      setData((prev: any) => ({
-        ...prev,
-        photo: acceptedFiles[0]
-      }));
+      if (setData) {
+        setData((prev: any) => ({
+          ...prev,
+          photo: acceptedFiles[0]
+        }));
+      }
     }
   });
 
