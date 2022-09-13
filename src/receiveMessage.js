@@ -19,6 +19,7 @@ export default function receiveMessage(event) {
         this.sendMessage({
           type: 'INITIAL_DATA_ERR',
           payload: {
+            ...this.clientData,
             email:
               this.order_details &&
               this.order_details.prefill &&

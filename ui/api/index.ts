@@ -1,10 +1,14 @@
 import axios from 'axios';
 
-const backend_base_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
-const backend_sandbox_base_URL = process.env.NEXT_PUBLIC_SANDBOX_BACKEND_URL;
-
 const getUrl = (env: 'SANDBOX' | 'PRODUCTION') =>
-  env == 'PRODUCTION' ? backend_base_URL : backend_sandbox_base_URL;
+  env == 'PRODUCTION'
+    ? process.env.NEXT_PUBLIC_BACKEND_URL
+    : process.env.NEXT_PUBLIC_SANDBOX_BACKEND_URL;
+
+const getAuthKey = (env: 'SANDBOX' | 'PRODUCTION') =>
+  env == 'PRODUCTION'
+    ? process.env.NEXT_PUBLIC_BACKEND_AUTH_KEY
+    : process.env.NEXT_PUBLIC_SANDBOX_BACKEND_AUTH_KEY;
 
 export const getProductData = async ({
   env = 'SANDBOX',
@@ -33,7 +37,7 @@ export const getSignedURL = async (
 ) => {
   const res = await axios.post(`${getUrl(env)}/orders/v2/signed_url`, data, {
     headers: {
-      Authorization: 'Token 7cc88f57ac9789058ea3e42e8329d0f52ef86acb'
+      Authorization: `Token ${getAuthKey(env)}`
     }
   });
   return res.data;
@@ -89,4 +93,44 @@ export const getCLientData = async ({
   });
 
   return res.data;
+};
+
+export const getCreatedProductData = async ({
+  env = 'SANDBOX',
+  flamCardId
+}: {
+  env: 'SANDBOX' | 'PRODUCTION';
+  flamCardId: string;
+}) => {
+  // /api/v1/orders/flamcard?flamcard_id=bee5c2d4-20fb-4b7f-8d91-0746a5117ca7
+  const res = await axios.get(`${getUrl(env)}/api/v1/orders/flamcard`, {
+    params: {
+      flamcard_id: flamCardId
+    },
+    headers: {
+      Authorization: `Token ${getAuthKey(env)}`
+    }
+  });
+
+  return res.data;
+};
+
+export const updateCard = async ({
+  env = 'SANDBOX',
+  data
+}: {
+  env: 'SANDBOX' | 'PRODUCTION';
+  data: {
+    flamcardId: string;
+    newVideoUrl: string;
+  };
+}) => {
+  const res = await axios.post(`${getUrl(env)}/api/v1/videochange`, data, {
+    // api/v1/videochange
+    headers: {
+      Authorization: `Token ${getAuthKey(env)}`
+    }
+  });
+
+  return res;
 };
