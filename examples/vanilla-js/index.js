@@ -140,7 +140,8 @@ function buyCard(id) {
   let orderDetails = {
     productId: id,
     refId: random,
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png'
+    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png',
+    animation: 'airplane'
   };
 
   flam.placeOrder(orderDetails, (err, res) => {
