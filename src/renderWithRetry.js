@@ -35,6 +35,8 @@ export default async function renderWithRetry(url) {
       display: flex;
       justify-content: center;
       align-items: center;
+
+      z-index: 1000;
     }
 
     #flam-sdk-iframe {
@@ -47,6 +49,8 @@ export default async function renderWithRetry(url) {
       min-height: 100vh;
       min-width: 100vw;
       border: none;
+
+      z-index: 1000;
     }
 
     .flam-sdk-loading {

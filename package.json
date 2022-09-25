@@ -7,7 +7,7 @@
   "module": "dist/FlamSaasSDK.min.esm.js",
   "main": "dist/FlamSaasSDK.min.js",
   "scripts": {
-    "dev": "env-cmd -f .env.development yarn build && cd ui && yarn dev",
+    "dev": "env-cmd -f .env.development yarn build && cd web && yarn dev",
     "clean": "rm -rf dist && rm -rf build",
     "start": "npm run clean && rollup -c --watch",
     "build": "npm run version && npm run clean && rollup -c --prod && cp -rf dist build",

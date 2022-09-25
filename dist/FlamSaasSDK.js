@@ -1,7 +1,7 @@
 /**
  * flamsdk v1.0.4
  * Author: bucharitesh
- * Date: 2022-09-16
+ * Date: 2022-09-25
  * License: MIT
  */
 
@@ -54,6 +54,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
+
+      z-index: 1000;
     }
 
     #flam-sdk-iframe {
@@ -66,6 +68,8 @@
       min-height: 100vh;
       min-width: 100vw;
       border: none;
+
+      z-index: 1000;
     }
 
     .flam-sdk-loading {
