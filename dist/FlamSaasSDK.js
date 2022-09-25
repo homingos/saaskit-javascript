@@ -1,5 +1,5 @@
 /**
- * flamsdk v1.0.3
+ * flamsdk v1.0.4
  * Author: bucharitesh
  * Date: 2022-09-25
  * License: MIT
@@ -520,7 +520,7 @@
   init.prototype.sendMessage = sendMessage;
   init.prototype.close = close;
 
-  var version = { raw: '1.0.3' };
+  var version = { raw: '1.0.4' };
   version.raw;
 
   var index = { version: version, init: init };
