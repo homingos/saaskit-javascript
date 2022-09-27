@@ -49,7 +49,6 @@ export default async function renderWithRetry(url) {
       min-height: 100vh;
       min-width: 100vw;
       border: none;
-
       z-index: 1000;
     }
 
