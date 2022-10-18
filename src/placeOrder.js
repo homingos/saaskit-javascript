@@ -29,11 +29,20 @@ export default async function placeOrder(order_details, callback) {
           type: 'string',
           message: "'productId' is required string."
         },
+        variantId: {
+          type: 'string',
+          message: "'variantId' is required string."
+        },
         refId: { type: 'string', message: "'refId' is required string." },
         photo: {
           optional: true,
           type: 'string',
           message: "'photo' must be string."
+        },
+        allowVideoLater: {
+          optional: true,
+          type: 'boolean',
+          message: "'video_later' must be a boolean."
         },
         video: {
           optional: true,
