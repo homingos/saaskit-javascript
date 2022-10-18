@@ -167,6 +167,8 @@ function buyCard(productId, variantId) {
     productId: productId,
     refId: random,
     variantId: variantId
+    // allowVideoLater: true
+    // animation: 'airplane'
   };
 
   flam.placeOrder(orderDetails, (err, res) => {
