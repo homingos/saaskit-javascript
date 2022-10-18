@@ -76,7 +76,8 @@ async function getProducts() {
           'x-api-key': key
         }
       },
-      `https://api.flamapp.com/saas/api/v1/products`
+      // `https://api.flamapp.com/saas/api/v1/products`
+      `https://dev.flamapp.com/saas/api/v2/products`
     );
 
     const x = data.data.filter(
@@ -84,7 +85,7 @@ async function getProducts() {
     );
 
     x.forEach((item, index) => {
-      const card = `<div class='col-sm-6 col-md-4 col-12'>
+      const card1 = `<div class='col-sm-6 col-md-4 col-12'>
       <div class="card">
         <img
           style="height: 14rem; object-fit: cover"
@@ -95,37 +96,62 @@ async function getProducts() {
         <div class="card-body">
           <h5 class="card-title">${item.productHeader}</h5>
           <p class="card-text">
-            ${item.productSubHeader}
-          </p>
+            ${item.productSubHeader} Varient 1
+          </p> 
           
-          <button id="placeorder-${index}" onclick="buyCard('${item.productServiceId}')" class="placeorder btn btn-primary">
+          <button id="placeorder-${index}" onclick="buyCard('${item.productServiceId}', 'VARIANT-1')" class="placeorder btn btn-primary">
             Buy
           </button>
         </div>
       </div>
       </div>
     `;
-      document.getElementById('product_list').innerHTML += card;
+      document.getElementById('product_list').innerHTML += card1;
+
+      const card2 = `<div class='col-sm-6 col-md-4 col-12'>
+      <div class="card">
+        <img
+          style="height: 14rem; object-fit: cover"
+          src="${item.productImage}"
+          class="card-img-top"
+          alt="product ${index}"
+        />
+        <div class="card-body">
+          <h5 class="card-title">${item.productHeader}</h5>
+          <p class="card-text">
+            ${item.productSubHeader} Varient 2
+          </p> 
+          
+          <button id="placeorder-${index}" onclick="buyCard('${item.productServiceId}', 'VARIANT-2')" class="placeorder btn btn-primary">
+            Buy
+          </button>
+        </div>
+      </div>
+      </div>
+    `;
+      document.getElementById('product_list').innerHTML += card2;
     });
   } catch (error) {
     if (error) console.log(error);
   }
 }
 
-function buyCard(id) {
+function buyCard(productId, variantId) {
   const flam = new FlamSaasSDK.init({
     environment: 'sandbox',
     key: key
   });
 
   // const sample = {
-  //   productId: id,
+  //   productId: productId,
+  //   varientId: varientId,
   //   refId: random,
   //   photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
   //   video: '',
-  //   animation: 'CONFETTI',
+  //   animation: 'airplane',
   //   photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
   //   video:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+  //   allowVideoLater: true,
   //   theme: {
   //     color: '#234f55'
   //   },
@@ -138,9 +164,10 @@ function buyCard(id) {
   // };
 
   let orderDetails = {
-    productId: id,
-    refId: random
-    // logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png',
+    productId: productId,
+    refId: random,
+    variantId: variantId
+    // allowVideoLater: true
     // animation: 'airplane'
   };
 
