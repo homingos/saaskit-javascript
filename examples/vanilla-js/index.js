@@ -145,7 +145,7 @@ function buyCard(productId, variantId) {
 
   // const sample = {
   //   productId: productId,
-  //   varientId: varientId,
+  //   variantId: variantId,
   //   refId: random,
   //   photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
   //   video: '',
