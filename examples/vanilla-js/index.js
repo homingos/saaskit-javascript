@@ -42,7 +42,8 @@ async function handleFinalize() {
           refId: resi
         })
       },
-      `https://api.flamapp.com/saas/api/v1/orders/finalize`
+      // `https://api.flamapp.com/saas/api/v1/orders/finalize`
+      `https://dev.flamapp.com/saas/api/v1/orders/finalize`
     );
     alert('Order Finalized');
   } catch (err) {
@@ -76,7 +77,7 @@ async function getProducts() {
           'x-api-key': key
         }
       },
-      // `https://api.flamapp.com/saas/api/v1/products`
+      // `https://api.flamapp.com/saas/api/v2/products`
       `https://dev.flamapp.com/saas/api/v2/products`
     );
 
