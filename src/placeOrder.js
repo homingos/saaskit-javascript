@@ -34,6 +34,11 @@ export default async function placeOrder(order_details, callback) {
           message: "'variantId' is required string."
         },
         refId: { type: 'string', message: "'refId' is required string." },
+        orderId: {
+          optional: true,
+          type: 'string',
+          message: "'orderId' must be string."
+        },
         photo: {
           optional: true,
           type: 'string',
@@ -81,15 +86,20 @@ export default async function placeOrder(order_details, callback) {
           message: "'prefill' is not valid."
         },
         {
+          hide: {
+            optional: true,
+            type: 'boolean',
+            message: "'hide' must be boolean."
+          },
           name: {
             optional: true,
             type: 'string',
-            message: "'name' is required string."
+            message: "'name' mus be string."
           },
           email: {
             optional: true,
             type: 'string',
-            message: "'email' is required string."
+            message: "'email' mus be string."
           },
           phone: {
             optional: true,
@@ -109,10 +119,17 @@ export default async function placeOrder(order_details, callback) {
           message: "'theme' is not valid."
         },
         {
-          color: {
+          primaryColor: {
             optional: true,
             type: 'string',
-            message: "'name' is required string."
+            message: "'primary' must be string."
+          }
+        },
+        {
+          secondaryColor: {
+            optional: true,
+            type: 'string',
+            message: "'secondary' must be string."
           }
         }
       );

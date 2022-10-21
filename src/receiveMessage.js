@@ -43,6 +43,14 @@ export default function receiveMessage(event) {
         });
         this.close();
         break;
+      case 'UPDATED':
+        this.callback(null, {
+          code: 201,
+          data: event.data.payload,
+          message: 'Order updated successfully!'
+        });
+        this.close();
+        break;
       case 'ERROR':
         this.callback(
           {

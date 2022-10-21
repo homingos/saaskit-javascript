@@ -100,11 +100,20 @@ export default async function renderWithRetry(url) {
     if (
       this.order_details &&
       this.order_details.theme &&
-      this.order_details.theme.color &&
-      RegExp.test(this.order_details.theme.color)
+      this.order_details.theme.primaryColor &&
+      this.order_details.theme.secondaryColor &&
+      RegExp.test(this.order_details.theme.primaryColor) &&
+      RegExp.test(this.order_details.theme.secondaryColor)
     ) {
-      const x = '/?theme=';
-      return url + x + encodeURIComponent(this.order_details.theme.color);
+      const color1 = '/?color1=';
+      const color2 = '&color2=';
+      return (
+        url +
+        color1 +
+        encodeURIComponent(this.order_details.theme.primaryColor) +
+        color2 +
+        encodeURIComponent(this.order_details.theme.secondaryColor)
+      );
     }
     return url;
   };
@@ -113,22 +122,37 @@ export default async function renderWithRetry(url) {
       <div class="flam-sdk-loading-wrapper" id="flam-sdk-loading-wrapper">
         <div class="flam-sdk-loading" id="flam-sdk-loading"><div></div><div></div><div></div><div></div></div>
       </div>
-      <iframe id="flam-sdk-iframe" style="opacity: 0" name="flam-sdk-iframe" src="${newUrl()}" style="opacity: 0"></iframe>      
+      <iframe id="flam-sdk-iframe" style="opacity: 0" name="flam-sdk-iframe" src="" style="opacity: 0"></iframe>      
     `;
 
   body.appendChild(UI);
 
   const iFrame = document.getElementById('flam-sdk-iframe');
 
+  try {
+    // check if website online
+    const res = await fetch(PAGES.main);
+    iFrame.src = newUrl();
+  } catch (err) {
+    if (err.message === 'Failed to fetch') {
+      this.close();
+      this.callback({
+        code: 500,
+        message: 'Unable to access SDK Website!'
+      });
+    } else {
+      this.callback({
+        code: 500,
+        message: 'Something went wrong!'
+      });
+    }
+    return;
+  }
+
   iFrame.addEventListener('load', async e => {
     e.preventDefault();
 
     try {
-      // check if website available in PRODUCTION
-      if (this.clientData.environment == 'PRODUCTION') {
-        await fetch(PAGES.main);
-      }
-
       // hide initial loading
       document.getElementById('flam-sdk-loading-wrapper').style.display =
         'none';
@@ -151,7 +175,7 @@ export default async function renderWithRetry(url) {
         this.close();
         this.callback({
           code: 500,
-          message: 'Unable to acess SDK Website!'
+          message: 'Unable to access SDK Website!'
         });
         return;
       }
