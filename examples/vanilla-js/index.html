@@ -46,8 +46,13 @@
   <div class="container" style="overflow: hidden;">
     <div class="row g-5" id="product_list"></div>
     <div id="finalize" class="finalize">
+      <h5>Order Id</h5>
+      <p id="orderId"></p>
       <h5>Reference Id</h5>
       <p id="refId"></p>
+      <button onclick="handleOrderUpdate()" class="btn btn-primary">
+        Update Order
+      </button>
       <button onclick="handleFinalize()" class="btn btn-primary">
         Finalize Order
       </button>

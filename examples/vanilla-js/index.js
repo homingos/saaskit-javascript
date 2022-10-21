@@ -1,6 +1,6 @@
 let key = document.getElementById('sdkkey').value;
 
-let resi;
+let sdkRes;
 
 let random = uuidv4();
 document.getElementById('refi').value = random;
@@ -27,7 +27,7 @@ function handleRandom() {
 
 async function handleFinalize() {
   try {
-    if (!resi) {
+    if (!sdkRes) {
       alert('Order not created. Please place an order');
       return;
     }
@@ -39,16 +39,48 @@ async function handleFinalize() {
           'x-api-key': key
         },
         body: JSON.stringify({
-          refId: resi
+          refId: sdkRes
         })
       },
-      // `https://api.flamapp.com/saas/api/v1/orders/finalize`
-      `https://dev.flamapp.com/saas/api/v1/orders/finalize`
+      `https://api.flamapp.com/saas/api/v1/orders/finalize`
+      // `https://dev.flamapp.com/saas/api/v1/orders/finalize`
     );
     alert('Order Finalized');
   } catch (err) {
     console.log(err);
   }
+}
+
+function handleOrderUpdate() {
+  if (!sdkRes) {
+    alert('Order not created. Please place an order');
+    return;
+  }
+
+  const flam = new FlamSaasSDK.init({
+    environment: 'sandbox',
+    key: key
+  });
+
+  let orderDetails = {
+    productId: sdkRes.productId,
+    refId: sdkRes.refId,
+    variantId: sdkRes.variantId,
+    orderId: sdkRes.orderId
+  };
+
+  flam.placeOrder(orderDetails, (err, res) => {
+    if (err) {
+      console.log('ERR at client side', err);
+    } else {
+      sdkRes = {
+        ...res.data,
+        variantId: sdkRes.variantId
+      };
+      console.log('RESSS', res);
+      alert('Card updated successfully');
+    }
+  });
 }
 
 async function ApiCall(settings, url) {
@@ -77,8 +109,8 @@ async function getProducts() {
           'x-api-key': key
         }
       },
-      // `https://api.flamapp.com/saas/api/v2/products`
-      `https://dev.flamapp.com/saas/api/v2/products`
+      `https://api.flamapp.com/saas/api/v2/products`
+      // `https://dev.flamapp.com/saas/api/v2/products`
     );
 
     const x = data.data.filter(
@@ -157,6 +189,7 @@ function buyCard(productId, variantId) {
   //     color: '#234f55'
   //   },
   //   prefill: {
+  //     hide: false,
   //     name: 'John Doe Prints',
   //     email: 'support@email.com',
   //     phone: '+91 98765 43210'
@@ -167,7 +200,12 @@ function buyCard(productId, variantId) {
   let orderDetails = {
     productId: productId,
     refId: random,
-    variantId: variantId
+    variantId: variantId,
+
+    theme: {
+      primaryColor: '#a62107',
+      secondaryColor: '#f2e0df'
+    }
     // allowVideoLater: true
     // animation: 'airplane'
   };
@@ -176,10 +214,13 @@ function buyCard(productId, variantId) {
     if (err) {
       console.log('ERR at client side', err);
     } else {
-      resi = res.data.refId;
+      sdkRes = res.data;
+      sdkRes.variantId = orderDetails.variantId;
+      sdkRes.productId = orderDetails.productId;
       document.getElementById('finalize').style.display = 'block';
       alert('Card created successfully!');
-      document.getElementById('refId').innerHTML = resi;
+      document.getElementById('refId').innerHTML = sdkRes.refId;
+      document.getElementById('orderId').innerHTML = sdkRes.orderId;
       console.log('RESSS', res);
     }
   });
