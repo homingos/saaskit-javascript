@@ -200,14 +200,12 @@ function buyCard(productId, variantId) {
   let orderDetails = {
     productId: productId,
     refId: random,
-    variantId: variantId,
+    variantId: variantId
 
-    theme: {
-      primaryColor: '#a62107',
-      secondaryColor: '#f2e0df'
-    }
-    // allowVideoLater: true
-    // animation: 'airplane'
+    // theme: {
+    //   primaryColor: '#a62107',
+    //   secondaryColor: '#f2e0df'
+    // }
   };
 
   flam.placeOrder(orderDetails, (err, res) => {
