@@ -75,19 +75,20 @@ Loads an instance of the SDK in iframe on the client website. It takes all the n
 
 All parameters can be considered optional unless otherwise stated.
 
-| Option            | Type                | Description                                                                                                                                                                         |
-| :---------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `productId`       | string (required)   | Product ID for the product to be ordered from SDK                                                                                                                                   |
-| `variantId`       | string (required)   | Variant ID for the product to be ordered from SDK                                                                                                                                   |
-| `refId`           | string (required)   | Reference ID set up by the client for their convenience and tracking                                                                                                                |
-| `allowVideoLater` | boolean (optional)  | Allow users to upload the video later (default: false)                                                                                                                              |
-| `photo`           | string (optional)   | This can be passed if client wants the user to upload images on their own website instead of the FlamSDK                                                                            |
-| `video`           | string (optional)   | This can be passed if client wants the user to upload video on their own website instead of the FlamSDK                                                                             |
-| `prefill`         | object (optional)   | This is an object which contains the following options: `name: string` `email: string` `phone: string` for the user to contact the client in case of any errors                     |
-| `animation`       | string (optional)   | This is the animation to be added on the experience which would be received from the `/products` API. In case not provided default one is used for the particular product           |
-| `theme`           | object (optional)   | This is an object which contains `color : string` in the form of **HEX**, which can be passed by the client to customise the primary colour of the SDK UI according to their needs. |
-| `logo`            | string (optional)   | This is the logo of the client's organisation to be shown on the SDK. In case not provided a default logo would be used                                                             |
-| `callback`        | function (required) | This is a custom function which the client can pass to handle success and error states that occur in SDK.                                                                           |
+| Option            | Type                | Description                                                                                                                                                                                                                                                       |
+| :---------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `productId`       | string (required)   | Product ID for the product to be ordered from SDK                                                                                                                                                                                                                 |
+| `variantId`       | string (required)   | Variant ID for the product to be ordered from SDK                                                                                                                                                                                                                 |
+| `refId`           | string (required)   | Reference ID set up by the client for their convenience and tracking                                                                                                                                                                                              |
+| `orderId`         | string (required)   | Order ID of the ongoing order, taken from placeOrder response, need to be sent in case of video and theme update flow                                                                                                                                             |
+| `allowVideoLater` | boolean (optional)  | Allow users to upload the video later (default: false)                                                                                                                                                                                                            |
+| `photo`           | string (optional)   | This can be passed if client wants the user to upload images on their own website instead of the FlamSDK                                                                                                                                                          |
+| `video`           | string (optional)   | This can be passed if client wants the user to upload video on their own website instead of the FlamSDK                                                                                                                                                           |
+| `prefill`         | object (optional)   | This is an object which contains the following options: `name: string`, `email: string`, `phone: string`, `hide: boolean` for the user to contact the client in case of any errors and for branding, `hide` can be set to `true` to disable branding on sdk popup |
+| `animation`       | string (optional)   | This is the animation to be added on the experience which would be received from the `/products` API. In case not provided default one is used for the particular product                                                                                         |
+| `theme`           | object (optional)   | This is an object which contains `primaryColor : string` , `secondaryColor : string` in the form of **HEX**, which can be passed by the client to customise the primary and secondary colour of the SDK UI according to their needs.                              |
+| `logo`            | string (optional)   | This is the logo of the client's organisation to be shown on the SDK. In case not provided a default logo would be used                                                                                                                                           |
+| `callback`        | function (required) | This is a custom function which the client can pass to handle success and error states that occur in SDK.                                                                                                                                                         |
 
 ```js
 sdk.placeOrder(
@@ -95,15 +96,18 @@ sdk.placeOrder(
     productId: '96f0d15e-63cd-485b-8f37-bb474d287129',
     variantId: 'VARIANT-1',
     refId: '04607c6a-9964-47de-a0c2-853b3f89bd88',
+    orderId: 'fv607c6a-2739-47de-fv-853b3fdf873h',
     allowVideoLater: true,
     photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
     video:
       'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
     animation: 'CONFETTI',
     theme: {
-      color: '#234f55'
+      primaryColor: '#a62107',
+      secondaryColor: '#f2e0df'
     },
     prefill: {
+      hide: false,
       name: 'John Doe Prints',
       email: 'support@email.com',
       phone: '+91 98765 43210'
