@@ -28,7 +28,8 @@
     "prefer-rest-params": 0,
     "lines-around-directive": 0,
     "valid-typeof": 0,
-    "radix": "off"
+    "radix": "off",
+    "@typescript-eslint/no-empty-function": "off"
   },
   "settings": {
     "polyfills": ["Object.assign"]
