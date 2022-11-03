@@ -1,5 +1,5 @@
 /**
- * flamsdk v1.0.8
+ * flamsdk v1.0.9
  * Author: bucharitesh
  * Date: 2022-11-03
  * License: MIT
@@ -11,8 +11,8 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FlamSaasSDK = {}));
 })(this, (function (exports) { 'use strict';
 
-  // const SDK_BASE_URL = 'https://saas-sdk-flam.vercel.app';
-  const SDK_BASE_URL = 'http://localhost:3000';
+  const SDK_BASE_URL = 'https://saas-sdk-flam.vercel.app';
+  // const SDK_BASE_URL = 'http://localhost:3000';
 
   const PAGES = {
     main: SDK_BASE_URL,
@@ -586,7 +586,7 @@
   init.prototype.sendMessage = sendMessage;
   init.prototype.close = close;
 
-  var version = { raw: '1.0.8' };
+  var version = { raw: '1.0.9' };
   version.raw;
 
   var index = { version: version, init: init };
