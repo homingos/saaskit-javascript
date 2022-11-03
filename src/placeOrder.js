@@ -131,6 +131,13 @@ export default async function placeOrder(order_details, callback) {
             type: 'string',
             message: "'secondary' must be string."
           }
+        },
+        {
+          headerText: {
+            optional: true,
+            type: 'string',
+            message: "'headerText' must be string."
+          }
         }
       );
     }

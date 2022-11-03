@@ -1,7 +1,7 @@
 /**
  * flamsdk v1.0.8
  * Author: bucharitesh
- * Date: 2022-11-02
+ * Date: 2022-11-03
  * License: MIT
  */
 
@@ -18,6 +18,8 @@
     main: SDK_BASE_URL,
     error: `${SDK_BASE_URL}/error`
   };
+
+  /* eslint-disable compat/compat */
 
   let trackOrder = null;
 
@@ -422,6 +424,13 @@
               optional: true,
               type: 'string',
               message: "'secondary' must be string."
+            }
+          },
+          {
+            headerText: {
+              optional: true,
+              type: 'string',
+              message: "'headerText' must be string."
             }
           }
         );
