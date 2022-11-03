@@ -234,7 +234,8 @@ function buyCard(productId, variantId) {
     allowVideoLater: false,
     theme: {
       primaryColor: '#c77f4f',
-      secondaryColor: '#faf9f8'
+      secondaryColor: '#faf9f8',
+      headerText: 'hello bacho'
     }
   };
 

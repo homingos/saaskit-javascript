@@ -1,3 +1,4 @@
+/* eslint-disable compat/compat */
 import { PAGES } from './constants';
 
 export let trackOrder = null;
