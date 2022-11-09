@@ -1,7 +1,7 @@
 /**
- * flamsdk v1.0.8
+ * flamsdk v1.0.9
  * Author: bucharitesh
- * Date: 2022-11-03
+ * Date: 2022-11-09
  * License: MIT
  */
 
@@ -164,7 +164,7 @@
       } else {
         this.callback({
           code: 500,
-          message: 'Something went wrong!'
+          message: 'Please try again'
         });
       }
       return;
@@ -202,7 +202,7 @@
         }
         this.callback({
           code: 500,
-          message: 'Something went wrong!'
+          message: 'Please try again'
         });
       }
     });
@@ -454,7 +454,7 @@
     } catch (err) {
       if (callback && typeof callback === 'function') {
         // render error UI
-        let url = `${PAGES.error}/Something went wrong!`;
+        let url = `${PAGES.error}/Please try again`;
         await this.renderWithRetry(url);
         // callback to client with error
         await callback({ code: 400, message: err.message }, null);
@@ -562,7 +562,7 @@
       if (err && err.message) {
         throw err.message;
       }
-      throw 'Something went wrong!';
+      throw 'Please try again';
     }
 
     // set environment to 'PRODUCTION' if stated by client, otherwise 'SANDBOX'
@@ -586,7 +586,7 @@
   init.prototype.sendMessage = sendMessage;
   init.prototype.close = close;
 
-  var version = { raw: '1.0.8' };
+  var version = { raw: '1.0.9' };
   version.raw;
 
   var index = { version: version, init: init };

@@ -160,7 +160,7 @@ export default async function placeOrder(order_details, callback) {
   } catch (err) {
     if (callback && typeof callback === 'function') {
       // render error UI
-      let url = `${PAGES.error}/Something went wrong!`;
+      let url = `${PAGES.error}/Please try again`;
       await this.renderWithRetry(url);
       // callback to client with error
       await callback({ code: 400, message: err.message }, null);
