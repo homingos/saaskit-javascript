@@ -85,10 +85,7 @@ function handleOrderUpdate() {
       hide: true
     },
     allowVideoLater: true,
-    theme: {
-      primaryColor: '#a62107',
-      secondaryColor: '#f2e0df'
-    }
+    showPreview: true
   };
 
   flam.placeOrder(orderDetails, (err, res) => {
@@ -236,7 +233,8 @@ function buyCard(productId, variantId) {
       primaryColor: '#c77f4f',
       secondaryColor: '#faf9f8',
       headerText: 'hello bacho'
-    }
+    },
+    showPreview: true
   };
 
   flam.placeOrder(orderDetails, (err, res) => {
