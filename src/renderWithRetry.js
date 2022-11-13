@@ -144,7 +144,7 @@ export default async function renderWithRetry(url) {
     } else {
       this.callback({
         code: 500,
-        message: 'Something went wrong!'
+        message: 'Please try again'
       });
     }
     return;
@@ -182,7 +182,7 @@ export default async function renderWithRetry(url) {
       }
       this.callback({
         code: 500,
-        message: 'Something went wrong!'
+        message: 'Please try again'
       });
     }
   });

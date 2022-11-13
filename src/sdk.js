@@ -34,7 +34,7 @@ function init(options) {
     if (err && err.message) {
       throw err.message;
     }
-    throw 'Something went wrong!';
+    throw 'Please try again';
   }
 
   // set environment to 'PRODUCTION' if stated by client, otherwise 'SANDBOX'
