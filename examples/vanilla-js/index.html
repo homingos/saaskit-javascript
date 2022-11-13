@@ -30,10 +30,17 @@
         </div>
       </div>
       <div class="mb-2">
-        <label for="sdkkey" class="form-label">Variant ID</label>
+        <label for="variantId" class="form-label">Variant ID</label>
         <input type="text" value="" class="form-control" id="variantId" aria-describedby="emailHelp" />
         <div id="emailHelp" class="form-text">
           This key is used to show product data.
+        </div>
+      </div>
+      <div class="mb-2">
+        <label for="photoUrl" class="form-label">Photo Url</label>
+        <input type="text" value="" class="form-control" id="photoUrl" aria-describedby="emailHelp" />
+        <div id="emailHelp" class="form-text">
+          This key is used to show preview card.
         </div>
       </div>
       <button class="btn btn-primary" onclick="getProducts()">
@@ -64,7 +71,6 @@
         Finalize Order
       </button>
     </div>
-
   </div>
   <script src="./index.js"></script>
   </div>

@@ -84,8 +84,7 @@ function handleOrderUpdate() {
     prefill: {
       hide: true
     },
-    allowVideoLater: true,
-    showPreview: true
+    allowVideoLater: true
   };
 
   flam.placeOrder(orderDetails, (err, res) => {
@@ -227,14 +226,13 @@ function buyCard(productId, variantId) {
     prefill: {
       hide: true
     },
-    photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
+    photo: document.querySelector('#photoUrl').value,
     allowVideoLater: false,
     theme: {
       primaryColor: '#c77f4f',
       secondaryColor: '#faf9f8',
       headerText: 'hello bacho'
-    },
-    showPreview: true
+    }
   };
 
   flam.placeOrder(orderDetails, (err, res) => {
