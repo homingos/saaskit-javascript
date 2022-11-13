@@ -84,7 +84,15 @@ function handleOrderUpdate() {
     prefill: {
       hide: true
     },
+<<<<<<< HEAD
     allowVideoLater: true
+=======
+    allowVideoLater: true,
+    theme: {
+      primaryColor: '#a62107',
+      secondaryColor: '#f2e0df'
+    }
+>>>>>>> 2f601fe0605c0546eb436390e0c205e75513ae66
   };
 
   flam.placeOrder(orderDetails, (err, res) => {
