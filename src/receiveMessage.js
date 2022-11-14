@@ -44,6 +44,7 @@ export default function receiveMessage(event) {
         this.close();
         break;
       case 'UPDATED':
+        console.log('UPDATED');
         this.callback(null, {
           code: 201,
           data: event.data.payload,
