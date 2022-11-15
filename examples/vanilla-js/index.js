@@ -120,7 +120,6 @@ async function apiCall(settings, url) {
 }
 
 const buyProduct = productId => {
-  console.log('Buyyy');
   SDKInstance = new FlamSaasSDK.init({
     environment: environment === 'PRODUCTION' ? 'PRODUCTION' : 'SANDBOX',
     key

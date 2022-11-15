@@ -132,7 +132,17 @@ export default async function renderWithRetry(url) {
 
   try {
     // check if website online
-    const res = await fetch(PAGES.main);
+    await fetch(PAGES.main);
+
+    // save window context for sending messages to iframe
+    this.iWindow = iFrame.contentWindow;
+
+    // message event handler
+    trackOrder = e => this.receiveMessage(e);
+
+    // event listener for receiving messages from iframe
+    window.addEventListener('message', trackOrder);
+
     iFrame.src = newUrl();
   } catch (err) {
     if (err.message === 'Failed to fetch') {
@@ -161,16 +171,7 @@ export default async function renderWithRetry(url) {
       // Show the iframe content
       iFrame.style.opacity = '1';
 
-      // message event handler
-      trackOrder = e => {
-        this.receiveMessage(e);
-      };
 
-      // event listener for receiving messages from iframe
-      window.addEventListener('message', trackOrder);
-
-      // save window context for sending messages to iframe
-      this.iWindow = document.getElementById('flam-sdk-iframe').contentWindow;
     } catch (err) {
       if (err.message === 'Failed to fetch') {
         this.close();
