@@ -35,32 +35,80 @@ const variantList = {
     {
       variantId: 'eccecce3-ccbf-4863-8968-cf1d71d20b96',
       photoUrl:
-        'https://i.ibb.co/4MMkMhT/eccecce3-ccbf-4863-8968-cf1d71d20b96.png'
+        'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/eccecce3-ccbf-4863-8968-cf1d71d20b96.png',
+      meta_data: {
+        inner_height: 1800,
+        inner_width: 1200,
+        outer_height: 2175,
+        outer_width: 1575,
+        color_code: '',
+        image_dpi: 300
+      }
     },
     {
       variantId: '04ba9f6b-2d86-4d0a-b876-9cba99c12184',
       photoUrl:
-        'https://i.ibb.co/94YZS8P/04ba9f6b-2d86-4d0a-b876-9cba99c12184.png'
+        'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/04ba9f6b-2d86-4d0a-b876-9cba99c12184.png',
+      meta_data: {
+        inner_height: 1200,
+        inner_width: 1800,
+        outer_height: 1575,
+        outer_width: 2175,
+        color_code: '',
+        image_dpi: 300
+      }
     },
     {
       variantId: 'd1ca9d88-6d4e-473e-b327-12ef9b8d289c',
       photoUrl:
-        'https://i.ibb.co/M6jbsHJ/d1ca9d88-6d4e-473e-b327-12ef9b8d289c.png'
+        'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/d1ca9d88-6d4e-473e-b327-12ef9b8d289c.png',
+      meta_data: {
+        inner_height: 1800,
+        inner_width: 1200,
+        outer_height: 2175,
+        outer_width: 1575,
+        color_code: '',
+        image_dpi: 300
+      }
     },
     {
       variantId: '0e7d9878-063f-440a-9378-b6db9d1b8385',
       photoUrl:
-        'https://i.ibb.co/D59xgBx/0e7d9878-063f-440a-9378-b6db9d1b8385.png'
+        'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/0e7d9878-063f-440a-9378-b6db9d1b8385.png',
+      meta_data: {
+        inner_height: 1200,
+        inner_width: 1800,
+        outer_height: 1575,
+        outer_width: 2175,
+        color_code: '',
+        image_dpi: 300
+      }
     },
     {
       variantId: 'd9396959-ae53-426f-ba9e-30da2ba92e62',
       photoUrl:
-        'https://i.ibb.co/cQXBYsR/d9396959-ae53-426f-ba9e-30da2ba92e62.png'
+        'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/d9396959-ae53-426f-ba9e-30da2ba92e62.png',
+      meta_data: {
+        inner_height: 1200,
+        inner_width: 1800,
+        outer_height: 1575,
+        outer_width: 2175,
+        color_code: '',
+        image_dpi: 300
+      }
     },
     {
       variantId: 'f5566341-02e0-4989-a0e0-95d7448c6491',
       photoUrl:
-        'https://i.ibb.co/gwVKbXJ/f5566341-02e0-4989-a0e0-95d7448c6491.png'
+        'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/f5566341-02e0-4989-a0e0-95d7448c6491.png',
+      meta_data: {
+        inner_height: 1200,
+        inner_width: 1800,
+        outer_height: 1575,
+        outer_width: 2175,
+        color_code: '',
+        image_dpi: 300
+      }
     }
   ]
 };
@@ -236,6 +284,7 @@ async function finalizeOrder() {
       return;
     }
     console.log('SDK', SDKRes);
+    console.log({ meta_data: selectedVariant.meta_data });
     const data = await apiCall(
       {
         method: 'POST',
@@ -246,14 +295,7 @@ async function finalizeOrder() {
         body: JSON.stringify({
           refId: SDKRes.refId,
           photoUrl: SDKRes.photoUrl,
-          meta_data: {
-            inner_height: 1800,
-            inner_width: 1200,
-            outer_height: 2175,
-            outer_width: 1575,
-            color_code: '',
-            image_dpi: 300
-          }
+          meta_data: selectedVariant.meta_data
         })
       },
       `https://api.flamapp.com/saas/api/v1/orders/finalize`
