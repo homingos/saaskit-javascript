@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gift Shop | Preview</title>
+    <link rel="stylesheet" href="style.css" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  </head>
+  <body>
+    <div class="py-[1rem] px-[1%] md:py-[3rem] md:px-[10%]">
+      <div class="flex gap-10 items-center">
+        <h1 class="text-3xl font-medium mb-3">Preview</h1>
+        <a href="./index.html">Go to SDK Demo</a>
+      </div>
+      <div class="flex flex-col gap-1">
+        <label for="ref-id">Ref Id</label>
+        <input
+          class="form-input"
+          type="text"
+          id="ref-id"
+          name="ref-id"
+          value=""
+          placeholder="Enter refId here"
+        />
+        <button
+          id="check-status-btn"
+          class="bg-black text-white px-3 py-2 text-lg w-40 my-4"
+        >
+          Check status
+        </button>
+      </div>
+      <div id="augment-image"></div>
+    </div>
+    <script src="./index.js"></script>
+  </body>
+</html>

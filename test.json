@@ -1,12 +1,20 @@
 {
-  "meta_data": { "QuadPosition": { "x": "0", "y": "0", "z": "0" } },
+  "meta_data": {
+    "QuadScale": { "x": 0.387096774, "y": 0.516129032, "z": 1 },
+    "QuadPosition": { "x": -0.193548387, "y": "0", "z": "0" }
+  },
   "image_preview_data": {
+    "image_width": "2175",
+    "preview_url": "https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/04ba9f6b-2d86-4d0a-b876-9cba99c12184.png",
+    "image_height": "1575",
     "offset_width": "185",
     "offset_height": "185",
-    "image_width": "2175",
-    "preview_url": "https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/d9396959-ae53-426f-ba9e-30da2ba92e62.png",
-    "image_height": "1575",
-    "playback_width": "933",
-    "playback_height": "1203"
+    "playback_width": "902",
+    "playback_height": "1203",
+    "filter_url": "",
+    "left": "",
+    "top": "",
+    "width": "",
+    "height": ""
   }
 }

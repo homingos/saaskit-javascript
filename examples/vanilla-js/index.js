@@ -7,7 +7,7 @@
 //   animation: 'airplane',
 //   photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
 //   video:'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-//   allowVideoLater: true,
+//   allowVideoLater: false,
 //   theme: {
 //     color: '#234f55'
 //   },
@@ -26,6 +26,7 @@ let selectedVariant = {
   photoUrl: ''
 };
 const environment = 'PRODUCTION';
+let customPhotoUrl = '';
 
 let SDKInstance;
 let SDKRes;
@@ -113,6 +114,66 @@ const variantList = {
   ]
 };
 
+const handleImageupload = async e => {
+  try {
+    const file = e.target.files[0];
+
+    console.log({
+      name: file.name,
+      type: file.type
+    });
+
+    console.log(
+      JSON.stringify({
+        num: 1,
+        data: [
+          {
+            filename: file.name,
+            contentType: file.type
+          }
+        ]
+      })
+    );
+
+    document.querySelector('#uploading').classList.remove('hidden');
+    const res = await fetch(
+      `https://api.flamapp.com/saas/orders/v2/signed_url`,
+      {
+        method: 'POST',
+        body: JSON.stringify({
+          num: 1,
+          data: [
+            {
+              filename: file.name,
+              contentType: file.type
+            }
+          ]
+        }),
+        headers: {
+          Authorization: `Token 7cc88f57ac9789058ea3e42e8329d0f52ef86acb`,
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+
+    const resObj = await res.json();
+
+    await fetch(resObj.data[0].uploadUrl, {
+      method: 'PUT',
+      body: file,
+      headers: {
+        'Content-Type': file.type
+      }
+    });
+
+    customPhotoUrl = resObj.data[0].resourceUrl;
+
+    document.querySelector('#uploading').classList.add('hidden');
+  } catch (err) {
+    console.log('Err', err);
+  }
+};
+
 const renderVariants = sdkKey => {
   key = sdkKey;
   const variantListDiv = document.querySelector('#variant-list-div');
@@ -120,6 +181,7 @@ const renderVariants = sdkKey => {
   variantListDiv.innerHTML = '';
 
   if (data) {
+    localStorage.setItem('key', key);
     variantListDiv.innerHTML +=
       '<p class="mb-2">Variants</p><div id="variant-list" class="flex gap-4 flex-wrap"></div>';
 
@@ -173,6 +235,8 @@ const buyProduct = productId => {
     key
   });
 
+  console.log({ customPhotoUrl });
+
   let orderDetails = {
     productId: productId,
     refId: uuidv4(),
@@ -180,7 +244,7 @@ const buyProduct = productId => {
     prefill: {
       hide: true
     },
-    photo: selectedVariant.photoUrl,
+    photo: customPhotoUrl || selectedVariant.photoUrl,
     allowVideoLater: false,
     theme: {
       primaryColor: '#c77f4f',
@@ -227,6 +291,14 @@ const renderProducts = productList => {
 
       document.querySelector('#products-list').innerHTML += productCard;
     });
+
+    const customImageDiv = document.querySelector('#custom-image-div');
+
+    customImageDiv.classList.remove('hidden');
+
+    document
+      .querySelector('#custom-image')
+      .addEventListener('change', handleImageupload);
   } else {
     alert('No products found!');
   }
@@ -272,9 +344,11 @@ function uuidv4() {
   );
 }
 
-document
-  .querySelector('#sdk-key')
-  .addEventListener('change', e => renderVariants(e.target.value));
+if (document.querySelector('#sdk-key')) {
+  document
+    .querySelector('#sdk-key')
+    .addEventListener('change', e => renderVariants(e.target.value));
+}
 
 async function finalizeOrder() {
   try {
@@ -295,12 +369,23 @@ async function finalizeOrder() {
         body: JSON.stringify({
           refId: SDKRes.refId,
           photoUrl: SDKRes.photoUrl,
-          meta_data: selectedVariant.meta_data
+          meta_data: customPhotoUrl
+            ? {
+                inner_height: 0,
+                inner_width: 0,
+                outer_height: 0,
+                outer_width: 0,
+                color_code: '',
+                image_dpi: 300
+              }
+            : selectedVariant.meta_data
         })
       },
       `https://api.flamapp.com/saas/api/v1/orders/finalize`
       // `https://dev.flamapp.com/saas/api/v1/orders/finalize`
     );
+
+    console.log({ data });
     alert('Order Finalized');
   } catch (err) {
     console.log(err);
@@ -318,7 +403,7 @@ function updateOrder() {
     refId: SDKRes.refId,
     variantId: SDKRes.variantId,
     orderId: SDKRes.orderId,
-    photo: selectedVariant.photoUrl,
+    photo: customPhotoUrl || selectedVariant.photoUrl,
     theme: {
       primaryColor: '#c77f4f',
       secondaryColor: '#faf9f8',
@@ -338,4 +423,37 @@ function updateOrder() {
       alert('Card updated successfully');
     }
   });
+}
+
+// preview
+const checkStatus = async e => {
+  try {
+    document.querySelector('#augment-image').innerHTML = '';
+
+    const refId = document.querySelector('#ref-id').value;
+    console.log({ refId, key: localStorage.getItem('key') });
+    const res = await apiCall(
+      {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          'x-api-key': localStorage.getItem('key')
+        }
+      },
+      environment === 'PRODUCTION'
+        ? `https://api.flamapp.com/saas/api/v1/orders/status?ref_id=${refId}`
+        : `https://api.flamapp.com/saas/api/v1/orders/status?ref_id=${refId}`
+    );
+    console.log('status res', res);
+    document.querySelector(
+      '#augment-image'
+    ).innerHTML = `<img class="w-80 h-auto" src="${res.data.augmentURL}" /><p>${res.data.orderStatus}</p>`;
+  } catch (err) {
+    console.log('Status err', err);
+  }
+};
+if (document.querySelector('#check-status-btn')) {
+  document
+    .querySelector('#check-status-btn')
+    .addEventListener('click', checkStatus);
 }

@@ -16,8 +16,17 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
   </head>
   <body>
+    <div
+      id="uploading"
+      class="fixed bg-black/70 z-10 inset-0 flex items-center justify-center hidden"
+    >
+      <p>Uploading...</p>
+    </div>
     <div class="py-[1rem] px-[1%] md:py-[3rem] md:px-[10%]">
-      <h1 class="text-3xl font-medium mb-3">Flam SDK Demo</h1>
+      <div class="flex items-center gap-10">
+        <h1 class="text-3xl font-medium mb-3">Flam SDK Demo</h1>
+        <a href="./preview.html">Go to Preview</a>
+      </div>
       <div class="flex flex-col gap-1">
         <label for="sdk-key">SDK key</label>
         <input
@@ -37,7 +46,25 @@
       >
         Get Products
       </button>
+      <div id="custom-image-div" class="hidden my-2">
+        <div class="flex flex-col gap-1">
+          <label for="custom-image"
+            >Custom image (Leave this empty to use default image shown
+            above)</label
+          >
+          <input
+            class="form-input"
+            type="file"
+            accept="image/jpg, image/jpeg, image/png"
+            id="custom-image"
+            name="custom-image"
+            value=""
+            placeholder="Upload custom image"
+          />
+        </div>
+      </div>
       <div id="products-list-div" class="my-4"></div>
+
       <div id="other-actions" class="hidden">
         <p>Other Actions</p>
         <div class="flex gap-2 items-center my-2">
