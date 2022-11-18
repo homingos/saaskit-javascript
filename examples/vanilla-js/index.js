@@ -118,6 +118,10 @@ const handleImageupload = async e => {
   try {
     const file = e.target.files[0];
 
+    if (file && file.size > 3000000) {
+      alert('Please enter a image less than 3mb');
+      return;
+    }
     console.log({
       name: file.name,
       type: file.type
