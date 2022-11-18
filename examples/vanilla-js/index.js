@@ -385,7 +385,7 @@ async function finalizeOrder() {
       // `https://dev.flamapp.com/saas/api/v1/orders/finalize`
     );
 
-    console.log({ data });
+    console.log('Finalized data', data);
     alert('Order Finalized');
   } catch (err) {
     console.log(err);
