@@ -30,13 +30,13 @@ let customPhotoUrl = '';
 
 let SDKInstance;
 let SDKRes;
-
+// https://homingos-magik.s3.ap-south-1.amazonaws.com/web-test/0e7d9878-063f-440a-9378-b6db9d1b8385.png
 const variantList = {
   EiXPI1y2fEv_6q6JOf3GNnMPNE4: [
     {
       variantId: 'eccecce3-ccbf-4863-8968-cf1d71d20b96',
       photoUrl:
-        'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/eccecce3-ccbf-4863-8968-cf1d71d20b96.png',
+        'https://homingos-magik.s3.ap-south-1.amazonaws.com/web-test/eccecce3-ccbf-4863-8968-cf1d71d20b96.png',
       meta_data: {
         inner_height: 1800,
         inner_width: 1200,
@@ -49,7 +49,7 @@ const variantList = {
     {
       variantId: '04ba9f6b-2d86-4d0a-b876-9cba99c12184',
       photoUrl:
-        'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/04ba9f6b-2d86-4d0a-b876-9cba99c12184.png',
+        'https://homingos-magik.s3.ap-south-1.amazonaws.com/web-test/04ba9f6b-2d86-4d0a-b876-9cba99c12184.png',
       meta_data: {
         inner_height: 1200,
         inner_width: 1800,
@@ -62,7 +62,7 @@ const variantList = {
     {
       variantId: 'd1ca9d88-6d4e-473e-b327-12ef9b8d289c',
       photoUrl:
-        'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/d1ca9d88-6d4e-473e-b327-12ef9b8d289c.png',
+        'https://homingos-magik.s3.ap-south-1.amazonaws.com/web-test/d1ca9d88-6d4e-473e-b327-12ef9b8d289c.png',
       meta_data: {
         inner_height: 1800,
         inner_width: 1200,
@@ -75,7 +75,7 @@ const variantList = {
     {
       variantId: '0e7d9878-063f-440a-9378-b6db9d1b8385',
       photoUrl:
-        'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/0e7d9878-063f-440a-9378-b6db9d1b8385.png',
+        'https://homingos-magik.s3.ap-south-1.amazonaws.com/web-test/0e7d9878-063f-440a-9378-b6db9d1b8385.png',
       meta_data: {
         inner_height: 1200,
         inner_width: 1800,
@@ -88,7 +88,7 @@ const variantList = {
     {
       variantId: 'd9396959-ae53-426f-ba9e-30da2ba92e62',
       photoUrl:
-        'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/d9396959-ae53-426f-ba9e-30da2ba92e62.png',
+        'https://homingos-magik.s3.ap-south-1.amazonaws.com/web-test/d9396959-ae53-426f-ba9e-30da2ba92e62.png',
       meta_data: {
         inner_height: 1200,
         inner_width: 1800,
@@ -101,7 +101,7 @@ const variantList = {
     {
       variantId: 'f5566341-02e0-4989-a0e0-95d7448c6491',
       photoUrl:
-        'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/web/printique_preview/f5566341-02e0-4989-a0e0-95d7448c6491.png',
+        'https://homingos-magik.s3.ap-south-1.amazonaws.com/web-test/f5566341-02e0-4989-a0e0-95d7448c6491.png',
       meta_data: {
         inner_height: 1200,
         inner_width: 1800,
