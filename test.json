@@ -1,20 +1,20 @@
 {
   "meta_data": {
-    "QuadScale": { "x": 0.399569892, "y": 0.516129032, "z": 1 },
-    "QuadPosition": { "x": -0.199784946, "y": "0", "z": "0" }
+    "QuadScale": null,
+    "QuadPosition": { "x": "0", "y": "0", "z": "0" }
   },
   "image_preview_data": {
+    "top": "25%",
+    "left": "32%",
+    "width": "36%",
+    "height": "auto",
+    "filter_url": "https://saas-assets.flamapp.com/flam/web/printique_preview/santa_2_filter_preview",
     "image_width": "2175",
+    "preview_url": "https://saas-assets.flamapp.com/flam/web/printique_preview/f5566341-02e0-4989-a0e0-95d7448c6491.png",
     "image_height": "1575",
-    "offset_width": "155",
-    "offset_height": "155",
-    "playback_width": "963",
-    "playback_height": "1260",
-    "preview_url": "https://homingos-magik.s3.ap-south-1.amazonaws.com/web-test/d9396959-ae53-426f-ba9e-30da2ba92e62.png",
-    "filter_url": "https://homingos-magik.s3.ap-south-1.amazonaws.com/web-test/classic_filter_preview.webm",
-    "left": "14%",
-    "top": "5%",
-    "width": "70%",
-    "height": "auto"
+    "offset_width": "185",
+    "offset_height": "185",
+    "playback_width": "1810",
+    "playback_height": "1203"
   }
 }
