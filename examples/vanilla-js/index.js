@@ -111,6 +111,47 @@ const variantList = {
         image_dpi: 300
       }
     }
+  ],
+  byJGfNLSuCsWZLbHqYO0wHUpxhg: [
+    {
+      variantId: 'f3c4e211-b5ca-47e3-b9de-e54d9d96aff6',
+      photoUrl:
+        'https://homingos-magik.s3.ap-south-1.amazonaws.com/web-test/eccecce3-ccbf-4863-8968-cf1d71d20b96.png',
+      meta_data: {
+        inner_height: 1800,
+        inner_width: 1200,
+        outer_height: 2175,
+        outer_width: 1575,
+        color_code: '',
+        image_dpi: 300
+      }
+    },
+    {
+      variantId: '3253d96b-47d2-4929-a68b-af9111c3b887',
+      photoUrl:
+        'https://homingos-magik.s3.ap-south-1.amazonaws.com/web-test/eccecce3-ccbf-4863-8968-cf1d71d20b96.png',
+      meta_data: {
+        inner_height: 1800,
+        inner_width: 1200,
+        outer_height: 2175,
+        outer_width: 1575,
+        color_code: '',
+        image_dpi: 300
+      }
+    },
+    {
+      variantId: 'a658c4da-56ca-4044-8825-a9c8e6b9cbd6',
+      photoUrl:
+        'https://homingos-magik.s3.ap-south-1.amazonaws.com/web-test/eccecce3-ccbf-4863-8968-cf1d71d20b96.png',
+      meta_data: {
+        inner_height: 1800,
+        inner_width: 1200,
+        outer_height: 2175,
+        outer_width: 1575,
+        color_code: '',
+        image_dpi: 300
+      }
+    }
   ]
 };
 
