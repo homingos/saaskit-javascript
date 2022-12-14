@@ -1,4 +1,4 @@
-import init from './sdk';
+import init from './core/index';
 import version from './version';
 
 export { version, init };

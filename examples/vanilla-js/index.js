@@ -1,19 +1,31 @@
+const sdk = new FlamSaasSDK.init({
+  environment: 'PRODUCTION',
+  key: '123455'
+});
+
 function launchSDK() {
-  SDKInstance = new FlamSaasSDK.init({
-    environment: 'PRODUCTION',
-    key: '123455'
-  });
-
-  let orderDetails = {
-    first_name: 'Yuvraj',
-    last_name: 'Singh'
+  const data = {
+    productId: '12345',
+    varientId: '',
+    refId: '12345',
+    photo: {
+      changable: true,
+      url: '',
+      allowCrop: true,
+      maxSize: ''
+    },
+    video: {
+      changable: true,
+      url: '',
+      allowTrim: true,
+      maxSize: ''
+    },
+    prefill: {
+      name: '',
+      email: '',
+      contact: ''
+    },
+    color: ''
   };
-
-  SDKInstance.placeOrder(orderDetails, (err, res) => {
-    if (err) {
-      console.log('ERR from callback', err);
-    } else {
-      console.log('RES from callback', res);
-    }
-  });
+  sdk.placeOrder(data);
 }
