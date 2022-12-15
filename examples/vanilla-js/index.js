@@ -1,16 +1,16 @@
 const sdk = new FlamSaasSDK.init({
   environment: 'PRODUCTION',
-  key: '123455'
+  key: '5dcac254-4b87-4ef7-96fe-b79cecdd54cf'
 });
 
 function launchSDK() {
   const data = {
-    productId: '12345',
-    varientId: '',
-    refId: '12345',
+    productId: 'a623e6a2-b366-4fb0-b193-ec1ad2d36b5d',
+    varientId: 'a623e6a2-b366-4fb0-b193-ec1ad2d36b5d',
+    refId: '1234poiuq',
     photo: {
       changable: true,
-      url: '',
+      url: 'https://plus.unsplash.com/premium_photo-1661962407604-711dda73e4d1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwxOXx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=60',
       allowCrop: true,
       maxSize: ''
     },
@@ -25,7 +25,7 @@ function launchSDK() {
       email: '',
       contact: ''
     },
-    color: ''
+    color: '#1EA18A'
   };
   sdk.placeOrder(data);
 }

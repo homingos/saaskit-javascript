@@ -80,6 +80,6 @@ export const renderIframe = () => {
   const body = document.querySelector('body');
   const wrapper = document.createElement('div');
   wrapper.id = 'flam-sdk-wrapper';
-  wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="http://localhost:3000/" sandbox="allow-scripts allow-same-origin" allow="cross-origin-isolated" crossorigin="anonymous" style="opacity: 0"></iframe>`;
+  wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="http://localhost:3000/" style="opacity: 0"></iframe>`;
   body.appendChild(wrapper);
 };
