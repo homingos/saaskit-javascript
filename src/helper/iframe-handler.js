@@ -1,5 +1,12 @@
-export const renderIframe = () => {
-  const styleSheet = document.createElement('style');
+import windowHelper from './window';
+
+function IframeHandler(options) {
+  this.url = options.url;
+}
+
+IframeHandler.prototype.init = function () {
+  var _window = windowHelper.getWindow();
+  const styleSheet = _window.document.createElement('style');
   styleSheet.id = 'saas-sdk-style';
   styleSheet.innerText = `
     body {
@@ -76,10 +83,12 @@ export const renderIframe = () => {
     }
   `;
 
-  document.head.appendChild(styleSheet);
-  const body = document.querySelector('body');
-  const wrapper = document.createElement('div');
+  _window.document.head.appendChild(styleSheet);
+  const body = _window.document.querySelector('body');
+  const wrapper = _window.document.createElement('div');
   wrapper.id = 'flam-sdk-wrapper';
-  wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="http://localhost:3000/" style="opacity: 0"></iframe>`;
+  wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="${this.url}" style="opacity: 0"></iframe>`;
   body.appendChild(wrapper);
 };
+
+export default IframeHandler;

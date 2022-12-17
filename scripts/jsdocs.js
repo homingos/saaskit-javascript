@@ -12,5 +12,5 @@ execSync('npm run jsdocs', { stdio: 'inherit' });
 if (fs.existsSync('docs')) {
   execSync('rm -r docs', { stdio: 'inherit' });
 }
-execSync(`mv out/FlamSaasSDK/${library.version}/ docs`, { stdio: 'inherit' });
+execSync(`mv out/auth0-js/${library.version}/ docs`, { stdio: 'inherit' });
 execSync('git add docs');

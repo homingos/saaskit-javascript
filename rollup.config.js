@@ -1,12 +1,13 @@
-import commonjs from 'rollup-plugin-commonjs';
-import json from 'rollup-plugin-json';
-import license from 'rollup-plugin-license';
 import resolve from 'rollup-plugin-node-resolve';
+import commonjs from 'rollup-plugin-commonjs';
 import replace from 'rollup-plugin-replace';
 import { terser } from 'rollup-plugin-terser';
+import dev from 'rollup-plugin-dev';
+import license from 'rollup-plugin-license';
+import json from 'rollup-plugin-json';
 import { argv } from 'yargs';
-
 import pkg from './package.json';
+import createApp from './scripts/oidc-provider';
 
 const isProduction = argv.prod === true;
 const OUTPUT_PATH = 'dist';
@@ -30,7 +31,7 @@ const getPlugins = prod => [
   license({
     banner: `
     <%= pkg.name %> v<%= pkg.version %>
-    Author: bucharitesh
+    Author: FlamSaasSDK
     Date: <%= moment().format('YYYY-MM-DD') %>
     License: MIT
     `
@@ -67,12 +68,25 @@ const devFiles = [
       sourcemap: isProduction ? false : 'inline',
       exports: 'named'
     },
-    plugins: [...getPlugins(false)]
+    plugins: [
+      ...getPlugins(false),
+      !isProduction &&
+        dev({
+          dirs: ['dist', 'example'],
+          port: 3000,
+          extend(app, modules) {
+            app.use(modules.mount(createApp({ port: 3000 })));
+          }
+        })
+      // !isProduction && livereload()
+    ]
   }
 ];
 
 const finalFiles = [...devFiles];
+
 if (isProduction) {
   finalFiles.push(...prodFiles);
 }
+
 export default finalFiles;
