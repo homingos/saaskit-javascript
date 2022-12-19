@@ -13,10 +13,10 @@ function handleListener(data) {
       }
       break;
     case 'SUCCESS':
-      console.log(data.message);
+      window.successHandler(JSON.parse(data.message));
       break;
     case 'FAIL':
-      console.log(data.message);
+      window.failHandler(data.message);
       break;
     default:
       console.log(data);
