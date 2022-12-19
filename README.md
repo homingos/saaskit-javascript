@@ -1,8 +1,8 @@
-# SaasSdk
+# Saaskit Javascript
 
-Client Side SDK toolkit for SaaS.
+Client Side SDK toolkit for Zingcam.
 
-If you want to read the full API documentation of SaasSdk, see [here](<[https://business.flamapp.com](https://business.flamapp.com/)>).
+If you want to read the full API documentation of Saaskit, see [here](<[https://business.flamapp.com](https://zingcam.xyz/)>).
 
 ## Index
 
@@ -12,7 +12,7 @@ If you want to read the full API documentation of SaasSdk, see [here](<[https://
 - [Author](#author)
 - [License](#license)
 
-#### You can checkout the demo [here](https://homingos.github.io/saas-SDK/examples/vanilla-js/)
+#### You can checkout the demo [here](https://homingos.github.io/saaskit-javascript/examples/vanilla-js/)
 
 ## Install
 
@@ -20,7 +20,7 @@ From CDN:
 
 ```html
 <!-- Latest patch release -->
-<script src="https://unpkg.com/flamsdk@1.0.10/dist/FlamSaasSDK.min.js"></script>
+<script src="https://unpkg.com/flamsdk@latest/dist/FlamSaasSDK.min.js"></script>
 ```
 
 From [npm](<[https://npmjs.org](https://npmjs.org/)>):
