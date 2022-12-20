@@ -94,7 +94,9 @@ async function getVariants(key) {
       });
       renderVariants(res.data.flat());
     } else {
-      alert('No variants found for this key!');
+      if (key !== '') {
+        alert('No variants found for this key!');
+      }
     }
   } catch (err) {
     console.log('ERrr', err);
