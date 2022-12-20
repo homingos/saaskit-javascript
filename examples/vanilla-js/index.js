@@ -237,6 +237,8 @@ document.querySelector('#launch-btn').addEventListener('click', e => {
       handleFailure: data => console.log(data)
     };
 
+    console.log('orderData', orderData);
+
     sdkInstance.placeOrder(orderData);
   }
 });

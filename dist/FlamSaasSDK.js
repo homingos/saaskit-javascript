@@ -26,10 +26,10 @@
         }
         break;
       case 'SUCCESS':
-        window.handleSuccess(data.mesage);
+        window.handleSuccess(JSON.parse(data.mesage));
         break;
       case 'FAIL':
-        window.handleFailure(data.message);
+        window.handleFailure(JSON.parse(data.message));
         break;
       default:
         console.log(data);
@@ -136,8 +136,6 @@
       window.handleFailure = data.handleFailure;
       const iframe = document.getElementById('flam-sdk-iframe');
       iframe.style.display = 'block';
-
-      console.log(data, 'data');
 
       handleSend({ type: 'CLIENT_DATA', message: JSON.stringify(data) });
     } catch (err) {
