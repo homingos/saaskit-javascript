@@ -1,7 +1,7 @@
 /**
  * flamsdk v1.0.10
  * Author: bucharitesh
- * Date: 2022-12-19
+ * Date: 2022-12-20
  * License: MIT
  */
 
@@ -26,10 +26,10 @@
         }
         break;
       case 'SUCCESS':
-        console.log(data.message);
+        window.handleSuccess(data.mesage);
         break;
       case 'FAIL':
-        console.log(data.message);
+        window.handleFailure(data.message);
         break;
       default:
         console.log(data);
@@ -38,7 +38,7 @@
 
   const handleSend = message => {
     const iframe = document.getElementById('flam-sdk-iframe');
-    iframe.contentWindow.postMessage(message, 'https://v1.sdk.zingcam.tech/');
+    iframe.contentWindow.postMessage(message, '*');
   };
 
   const renderIframe = () => {
@@ -132,6 +132,8 @@
       if ((!data.productId, !data.refId)) {
         throw 'ProductID and RefId are required';
       }
+      window.handleSuccess = data.handleSuccess;
+      window.handleFailure = data.handleFailure;
       const iframe = document.getElementById('flam-sdk-iframe');
       iframe.style.display = 'block';
       handleSend({ type: 'CLIENT_DATA', message: JSON.stringify(data) });

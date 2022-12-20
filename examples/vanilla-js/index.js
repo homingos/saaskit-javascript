@@ -34,7 +34,9 @@ function launchSDK() {
       email: '',
       contact: ''
     },
-    color: '#1EA18A'
+    color: '#1EA18A',
+    handleSuccess: data => console.log(data),
+    handleFailure: data => console.log(data)
   };
   sdk.placeOrder(data);
 }
