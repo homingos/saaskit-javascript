@@ -17,6 +17,7 @@ async function apiCall(settings, url) {
     console.log(error);
   }
 }
+document.getElementById('launch-btn').style.display = 'none';
 
 function debounce(func, wait, immediate) {
   var timeout;
@@ -92,6 +93,11 @@ async function getVariants(key) {
         environment: 'PRODUCTION',
         key
       });
+
+      setTimeout(() => {
+        document.getElementById('launch-btn').style.display = 'block';
+      }, 1000);
+
       renderVariants(res.data.flat());
     } else {
       if (key !== '') {
