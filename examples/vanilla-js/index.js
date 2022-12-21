@@ -17,6 +17,7 @@ async function apiCall(settings, url) {
     console.log(error);
   }
 }
+
 document.getElementById('launch-btn').style.display = 'none';
 
 function debounce(func, wait, immediate) {
