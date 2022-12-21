@@ -1,7 +1,7 @@
 /**
  * flamsdk v1.0.10
  * Author: bucharitesh
- * Date: 2022-12-20
+ * Date: 2022-12-21
  * License: MIT
  */
 
@@ -26,10 +26,11 @@
         }
         break;
       case 'SUCCESS':
-        window.handleSuccess(JSON.parse(data.mesage));
+        console.log(data);
+        window.handleSuccess(data.message);
         break;
       case 'FAIL':
-        window.handleFailure(JSON.parse(data.message));
+        window.handleFailure(data.message);
         break;
       default:
         console.log(data);
@@ -38,7 +39,7 @@
 
   const handleSend = message => {
     const iframe = document.getElementById('flam-sdk-iframe');
-    iframe.contentWindow.postMessage(message, 'https://v1.sdk.zingcam.tech');
+    iframe.contentWindow.postMessage(message, '*');
   };
 
   const renderIframe = () => {
@@ -55,17 +56,14 @@
       right: 0;
       bottom: 0;
       left: 0;
-
       min-height: 100vh;
       min-width: 100vw;
       overflow: hidden;
       border: none;
       background: rgba(0,0,0, 0.4);
-
       display: flex;
       justify-content: center;
       align-items: center;
-
       z-index: 1000;
     }
 
@@ -123,7 +121,7 @@
     const body = document.querySelector('body');
     const wrapper = document.createElement('div');
     wrapper.id = 'flam-sdk-wrapper';
-    wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://v1.sdk.zingcam.tech" style="opacity: 0"></iframe>`;
+    wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="http://localhost:3000" style="opacity: 0"></iframe>`;
     body.appendChild(wrapper);
   };
 

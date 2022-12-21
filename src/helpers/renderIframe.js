@@ -12,17 +12,14 @@ export const renderIframe = () => {
       right: 0;
       bottom: 0;
       left: 0;
-
       min-height: 100vh;
       min-width: 100vw;
       overflow: hidden;
       border: none;
       background: rgba(0,0,0, 0.4);
-
       display: flex;
       justify-content: center;
       align-items: center;
-
       z-index: 1000;
     }
 
@@ -80,6 +77,6 @@ export const renderIframe = () => {
   const body = document.querySelector('body');
   const wrapper = document.createElement('div');
   wrapper.id = 'flam-sdk-wrapper';
-  wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://v1.sdk.zingcam.tech" style="opacity: 0"></iframe>`;
+  wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="http://localhost:3000" style="opacity: 0"></iframe>`;
   body.appendChild(wrapper);
 };

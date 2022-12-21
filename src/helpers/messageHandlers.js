@@ -13,10 +13,11 @@ function handleListener(data) {
       }
       break;
     case 'SUCCESS':
-      window.handleSuccess(JSON.parse(data.mesage));
+      console.log(data);
+      window.handleSuccess(data.message);
       break;
     case 'FAIL':
-      window.handleFailure(JSON.parse(data.message));
+      window.handleFailure(data.message);
       break;
     default:
       console.log(data);
@@ -25,7 +26,7 @@ function handleListener(data) {
 
 const handleSend = message => {
   const iframe = document.getElementById('flam-sdk-iframe');
-  iframe.contentWindow.postMessage(message, 'https://v1.sdk.zingcam.tech');
+  iframe.contentWindow.postMessage(message, '*');
 };
 
 export { handleListener, handleSend };
