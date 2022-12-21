@@ -38,7 +38,7 @@
 
   const handleSend = message => {
     const iframe = document.getElementById('flam-sdk-iframe');
-    iframe.contentWindow.postMessage(message, '*');
+    iframe.contentWindow.postMessage(message, 'https://v1.sdk.zingcam.tech');
   };
 
   // https://v1.sdk.zingcam.tech
@@ -123,9 +123,12 @@
     const body = document.querySelector('body');
     const wrapper = document.createElement('div');
     wrapper.id = 'flam-sdk-wrapper';
-    wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="http://localhost:3000" style="opacity: 0"></iframe>`;
+    wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://v1.sdk.zingcam.tech" style="opacity: 0"></iframe>`;
     body.appendChild(wrapper);
   };
+
+  // https://v1.sdk.zingcam.tech
+  // http://localhost:3000
 
   function placeOrder(data) {
     try {
