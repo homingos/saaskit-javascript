@@ -182,6 +182,8 @@ const exampleState = {};
 
 let sdkInstance;
 
+let sdkRes;
+
 async function handleInputChange(e) {
   switch (e.target.name) {
     case 'video-file':
@@ -204,6 +206,69 @@ async function handleInputChange(e) {
       break;
     default:
       console.log('Default case');
+  }
+}
+
+async function showFinalize() {
+  const finalizeDivWrap = document.querySelector('#finalize');
+  finalizeDivWrap.innerHTML = '';
+
+  finalizeDivWrap.innerHTML = `
+      <div
+      class="border-t border-indigo-300 h-full bg-indigo-50 text-indigo-900 px-3 py-5"
+    >
+      <div class="mb-2">
+        <p>Ref ID</p>
+        <p class="truncate">${sdkRes.ref_id}</p>
+      </div>
+      <button
+        class="self-start bg-indigo-500 text-white px-4 py-1 rounded-md text-lg"
+        id="finalize-btn"
+        onclick="finalizeOrder()"
+      >
+        Finalize Order
+      </button>
+    </div>
+  `;
+}
+
+async function finalizeOrder() {
+  console.log('finalize order');
+  try {
+    const launchBtn = document.querySelector('#finalize-btn');
+    launchBtn.innerHTML = 'loading';
+    launchBtn.setAttribute('disabled', true);
+
+    const res = await apiCall(
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json;charset=utf-8',
+          'x-api-key': exampleState.sdkKey
+        },
+        body: JSON.stringify({
+          photo_url: exampleState.photo_file,
+          ref_id: sdkRes.ref_id,
+          meta_data: {
+            inner_height: 0,
+            inner_width: 0,
+            outer_height: 0,
+            outer_width: 0,
+            color_code: 'red',
+            image_dpi: 0
+          }
+        })
+      },
+      `https://dev.flamapp.com/zingcam/order/finalize`
+    );
+
+    console.log('RES', res);
+    alert('Order finalized!');
+
+    launchBtn.innerHTML = 'Finalized';
+  } catch (err) {
+    console.log('ERrr', err);
+    alert('Failed to finalize order!');
   }
 }
 
@@ -235,8 +300,14 @@ document.querySelector('#launch-btn').addEventListener('click', e => {
         contact: exampleState['prefill-contact'] || ''
       },
       color: exampleState.color || '',
-      handleSuccess: data => console.log(data),
-      handleFailure: data => console.log(data)
+      handleSuccess: data => {
+        sdkRes = data;
+        console.log('sdkRes', sdkRes);
+        showFinalize();
+      },
+      handleFailure: data => {
+        console.log(data);
+      }
     };
 
     console.log('orderData', orderData);

@@ -13,7 +13,6 @@ function handleListener(data) {
       }
       break;
     case 'SUCCESS':
-      console.log(data);
       window.handleSuccess(data.message);
       break;
     case 'FAIL':
@@ -30,3 +29,6 @@ const handleSend = message => {
 };
 
 export { handleListener, handleSend };
+
+// https://v1.sdk.zingcam.tech
+// http://localhost:3000/
