@@ -17,10 +17,10 @@
       class="px-4 md:px-10 lg:px-[10%] py-5 bg-indigo-500 flex flex-col md:flex-row gap-3 md:gap-6 md:gap-10 items-start md:items-center shadow-lg"
     >
       <h2 class="text-white text-xl font-semibold">Zingcam Web SDK Test</h2>
-      <ul class="flex items-center gap-3">
+      <!-- <ul class="flex items-center gap-3">
         <li><a href="./index.html" class="font-bold text-white">Home</a></li>
         <li><a href="./status.html" class="text-gray-200">Status</a></li>
-      </ul>
+      </ul> -->
     </nav>
 
     <div class="px-4 md:px-10 lg:px-[10%] py-5">
@@ -45,6 +45,7 @@
                     type="checkbox"
                     class="cursor-pointer"
                     name="photo-change"
+                    checked="true"
                   />
                   <label for="photo-change" class="font-medium cursor-pointer"
                     >Allow Change</label
@@ -56,6 +57,7 @@
                     type="checkbox"
                     class="cursor-pointer"
                     name="photo-crop"
+                    checked="true"
                   />
                   <label for="photo-crop" class="font-medium cursor-pointer"
                     >Allow Crop</label
@@ -63,10 +65,15 @@
                 </div>
               </div>
               <div class="cursor-pointer flex flex-col gap-2">
-                <label for="photo-file" class="font-medium cursor-pointer"
-                  >Upload Photo (optional)</label
-                >
-                <p>Can be uploaded Later</p>
+                <div>
+                  <label for="photo-file" class="font-medium cursor-pointer"
+                    >Upload Photo (optional)</label
+                  >
+                  <p class="text-xs text-indigo-900">
+                    Can be uploaded Later through SDK
+                  </p>
+                  <p id="photo-file-loading" class="hidden">Uploading...</p>
+                </div>
                 <input
                   id="photo-file"
                   type="file"
@@ -89,6 +96,7 @@
                     type="checkbox"
                     class="cursor-pointer"
                     name="video-change"
+                    checked="true"
                   />
                   <label for="video-change" class="font-medium cursor-pointer"
                     >Allow Change</label
@@ -100,6 +108,7 @@
                     type="checkbox"
                     class="cursor-pointer"
                     name="video-trim"
+                    checked="true"
                   />
                   <label for="video-trim" class="font-medium cursor-pointer"
                     >Allow Trim</label
@@ -107,10 +116,15 @@
                 </div>
               </div>
               <div class="cursor-pointer flex flex-col gap-2">
-                <label for="video-file" class="font-medium cursor-pointer"
-                  >Upload Video (optional)</label
-                >
-                <p>Can be uploaded Later</p>
+                <div>
+                  <label for="video-file" class="font-medium cursor-pointer"
+                    >Upload Video (optional)</label
+                  >
+                  <p class="text-xs text-indigo-900">
+                    Can be uploaded Later through SDK
+                  </p>
+                  <p id="video-file-loading" class="hidden">Uploading...</p>
+                </div>
                 <input
                   id="video-file"
                   type="file"
@@ -158,6 +172,7 @@
                   id="sdk-color"
                   class="outline-none border border-indigo-200 p-0"
                   name="sdk-color"
+                  value="#000000"
                 />
               </div>
             </div>
@@ -183,7 +198,7 @@
             </div>
             <div id="variant-list-wrap"></div>
             <button
-              class="self-start bg-indigo-500 text-white px-4 py-1 rounded-md text-lg"
+              class="self-start bg-indigo-500 text-white px-4 py-1 rounded-md text-lg disabled:grayscale disabled:cursor-not-allowed"
               id="launch-btn"
             >
               Launch SDK

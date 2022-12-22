@@ -9,12 +9,16 @@ function uuidv4() {
 
 async function apiCall(settings, url) {
   try {
-    const data = await fetch(url, settings)
-      .then(res => res.json())
-      .then(data => data);
-    return data;
+    const res = await fetch(url, settings);
+    if (res) {
+      const data = await res.json();
+      return data;
+    } else {
+      return null;
+    }
   } catch (error) {
-    console.log(error);
+    console.log('Err', error);
+    return { error };
   }
 }
 
@@ -44,6 +48,15 @@ function debounce(func, wait, immediate) {
 
 async function handleFileUpload(name, file) {
   try {
+    if (!file) {
+      exampleState[name] = '';
+      return;
+    }
+
+    setLoading(name, true);
+
+    // start loading and disable input here
+    // handle no file input, empty the url
     const res = await apiCall(
       {
         method: 'POST',
@@ -70,10 +83,24 @@ async function handleFileUpload(name, file) {
       res.data.uploadUrl
     );
 
+    // stop loading and enable input here
     exampleState[name] = res.data.resourceUrl;
+
+    setLoading(name, false);
   } catch (err) {
+    // stop loading, show alert and empty the url
     console.log('Err', err);
   }
+}
+
+function setLoading(name, value) {
+  document.querySelector(`#${name}`).disabled = value;
+  const launchBtn = document.querySelector(`#launch-btn`);
+  if (launchBtn) {
+    launchBtn.disabled = value;
+  }
+
+  document.querySelector(`#${name}-loading`).classList.toggle('hidden');
 }
 
 async function getVariants(key) {
@@ -100,13 +127,26 @@ async function getVariants(key) {
       }, 1000);
 
       renderVariants(res.data.flat());
+
+      const launchBtn = document.querySelector(`#launch-btn`);
+      if (launchBtn) {
+        launchBtn.disabled = false;
+      }
     } else {
       if (key !== '') {
+        const launchBtn = document.querySelector(`#launch-btn`);
+        if (launchBtn) {
+          launchBtn.disabled = true;
+        }
         alert('No variants found for this key!');
       }
     }
   } catch (err) {
     console.log('ERrr', err);
+    const launchBtn = document.querySelector(`#launch-btn`);
+    if (launchBtn) {
+      launchBtn.disabled = true;
+    }
     alert('Failed to fetch variants!');
   }
 }
@@ -185,7 +225,20 @@ function selectVariant(variantId, productId) {
 }
 
 // order state
-const exampleState = {};
+const exampleState = {
+  'photo-change': true,
+  'video-change': true,
+  'photo-crop': true,
+  'video-trim': true,
+  color: '#000000'
+};
+
+let loadingState = {
+  'photo-file': false,
+  'video-file': false,
+  sdkInit: false,
+  finalize: false
+};
 
 let sdkInstance;
 
