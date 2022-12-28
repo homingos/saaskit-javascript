@@ -89,7 +89,7 @@
           >
             <h4 class="text-lg font-medium mb-5">Video</h4>
             <div class="flex flex-col gap-6">
-              <div class="flex gap-6">
+              <div class="flex gap-6 flex-wrap">
                 <div class="flex gap-2 items-center cursor-pointer">
                   <input
                     id="video-change"
@@ -100,6 +100,18 @@
                   />
                   <label for="video-change" class="font-medium cursor-pointer"
                     >Allow Change</label
+                  >
+                </div>
+                <div class="flex gap-2 items-center cursor-pointer">
+                  <input
+                    id="video-adjust"
+                    type="checkbox"
+                    class="cursor-pointer"
+                    name="video-adjust"
+                    checked="true"
+                  />
+                  <label for="video-adjust" class="font-medium cursor-pointer"
+                    >Allow Position Adjust</label
                   >
                 </div>
                 <div class="flex gap-2 items-center cursor-pointer">
