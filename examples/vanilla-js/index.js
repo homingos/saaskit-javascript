@@ -230,6 +230,7 @@ const exampleState = {
   'video-change': true,
   'photo-crop': true,
   'video-trim': true,
+  'video-adjust': true,
   color: '#000000'
 };
 
@@ -254,10 +255,10 @@ async function handleInputChange(e) {
     case 'video-change':
     case 'photo-crop':
     case 'video-trim':
+    case 'video-adjust':
       exampleState[e.target.name] = e.target.checked;
       break;
     case 'sdk-color':
-      console.log('yo bro', e.target.value);
       exampleState.color = e.target.value;
       break;
     case 'sdk-key':
@@ -352,6 +353,7 @@ document.querySelector('#launch-btn').addEventListener('click', e => {
         changable: exampleState['video-change'] || false,
         url: exampleState['video-file'] || '',
         allowTrim: exampleState['video-trim'] || false,
+        allowPosAdjust: exampleState['video-adjust'] || false,
         maxSize: ''
       },
       prefill: {

@@ -1,7 +1,7 @@
 /**
  * flamsdk v1.0.10
  * Author: bucharitesh
- * Date: 2022-12-23
+ * Date: 2022-12-28
  * License: MIT
  */
 
@@ -38,9 +38,10 @@
 
   const handleSend = message => {
     const iframe = document.getElementById('flam-sdk-iframe');
-    iframe.contentWindow.postMessage(message, 'https://v1.sdk.zingcam.tech/');
+    iframe.contentWindow.postMessage(message, 'http://192.168.1.64:3000');
   };
 
+  // http://192.168.1.64:3000
   // https://v1.sdk.zingcam.tech
   // http://localhost:3000/
 
@@ -123,10 +124,11 @@
     const body = document.querySelector('body');
     const wrapper = document.createElement('div');
     wrapper.id = 'flam-sdk-wrapper';
-    wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://v1.sdk.zingcam.tech/" style="opacity: 0"></iframe>`;
+    wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="http://192.168.1.64:3000" style="opacity: 0"></iframe>`;
     body.appendChild(wrapper);
   };
 
+  // http://192.168.1.64:3000
   // https://v1.sdk.zingcam.tech
   // http://localhost:3000
 
