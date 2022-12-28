@@ -1,7 +1,7 @@
 /**
  * flamsdk v1.0.10
  * Author: bucharitesh
- * Date: 2022-12-15
+ * Date: 2022-12-28
  * License: MIT
  */
 
@@ -26,10 +26,10 @@
         }
         break;
       case 'SUCCESS':
-        console.log(data.message);
+        window.handleSuccess(data.message);
         break;
       case 'FAIL':
-        console.log(data.message);
+        window.handleFailure(data.message);
         break;
       default:
         console.log(data);
@@ -38,8 +38,12 @@
 
   const handleSend = message => {
     const iframe = document.getElementById('flam-sdk-iframe');
-    iframe.contentWindow.postMessage(message, 'http://localhost:3000/');
+    iframe.contentWindow.postMessage(message, 'http://192.168.1.64:3000');
   };
+
+  // http://192.168.1.64:3000
+  // https://v1.sdk.zingcam.tech
+  // http://localhost:3000/
 
   const renderIframe = () => {
     const styleSheet = document.createElement('style');
@@ -55,17 +59,14 @@
       right: 0;
       bottom: 0;
       left: 0;
-
       min-height: 100vh;
       min-width: 100vw;
       overflow: hidden;
       border: none;
       background: rgba(0,0,0, 0.4);
-
       display: flex;
       justify-content: center;
       align-items: center;
-
       z-index: 1000;
     }
 
@@ -123,17 +124,24 @@
     const body = document.querySelector('body');
     const wrapper = document.createElement('div');
     wrapper.id = 'flam-sdk-wrapper';
-    wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="http://localhost:3000/" style="opacity: 0"></iframe>`;
+    wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="http://192.168.1.64:3000" style="opacity: 0"></iframe>`;
     body.appendChild(wrapper);
   };
+
+  // http://192.168.1.64:3000
+  // https://v1.sdk.zingcam.tech
+  // http://localhost:3000
 
   function placeOrder(data) {
     try {
       if ((!data.productId, !data.refId)) {
         throw 'ProductID and RefId are required';
       }
+      window.handleSuccess = data.handleSuccess;
+      window.handleFailure = data.handleFailure;
       const iframe = document.getElementById('flam-sdk-iframe');
       iframe.style.display = 'block';
+
       handleSend({ type: 'CLIENT_DATA', message: JSON.stringify(data) });
     } catch (err) {
       console.log(err);
