@@ -7,10 +7,6 @@
     <title>Gift Shop</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css" />
-
-    <!-- flam sdk lib below -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/flamsdk@1.0.10/dist/FlamSaasSDK.min.js"></script> -->
-    <script src="../../dist/FlamSaasSDK.js"></script>
   </head>
   <body class="h-full overflow-y-scroll">
     <nav
@@ -41,44 +37,44 @@
               <div class="flex gap-6">
                 <div class="flex gap-2 items-center cursor-pointer">
                   <input
-                    id="photo-change"
+                    id="photoChange"
                     type="checkbox"
                     class="cursor-pointer"
-                    name="photo-change"
+                    name="photoChange"
                     checked="true"
                   />
-                  <label for="photo-change" class="font-medium cursor-pointer"
+                  <label for="photoChange" class="font-medium cursor-pointer"
                     >Allow Change</label
                   >
                 </div>
                 <div class="flex gap-2 items-center cursor-pointer">
                   <input
-                    id="photo-crop"
+                    id="photoCrop"
                     type="checkbox"
                     class="cursor-pointer"
-                    name="photo-crop"
+                    name="photoCrop"
                     checked="true"
                   />
-                  <label for="photo-crop" class="font-medium cursor-pointer"
+                  <label for="photoCrop" class="font-medium cursor-pointer"
                     >Allow Crop</label
                   >
                 </div>
               </div>
               <div class="cursor-pointer flex flex-col gap-2">
                 <div>
-                  <label for="photo-file" class="font-medium cursor-pointer"
+                  <label for="photoFile" class="font-medium cursor-pointer"
                     >Upload Photo (optional)</label
                   >
                   <p class="text-xs text-indigo-900">
                     Can be uploaded Later through SDK
                   </p>
-                  <p id="photo-file-loading" class="hidden">Uploading...</p>
+                  <p id="photoFile-loading" class="hidden">Uploading...</p>
                 </div>
                 <input
-                  id="photo-file"
+                  id="photoFile"
                   type="file"
                   class="cursor-pointer"
-                  name="photo-file"
+                  name="photoFile"
                   accept="image/*"
                 />
               </div>
@@ -92,56 +88,56 @@
               <div class="flex gap-6 flex-wrap">
                 <div class="flex gap-2 items-center cursor-pointer">
                   <input
-                    id="video-change"
+                    id="videoChange"
                     type="checkbox"
                     class="cursor-pointer"
-                    name="video-change"
+                    name="videoChange"
                     checked="true"
                   />
-                  <label for="video-change" class="font-medium cursor-pointer"
+                  <label for="videoChange" class="font-medium cursor-pointer"
                     >Allow Change</label
                   >
                 </div>
                 <div class="flex gap-2 items-center cursor-pointer">
                   <input
-                    id="video-adjust"
+                    id="videoAdjust"
                     type="checkbox"
                     class="cursor-pointer"
-                    name="video-adjust"
+                    name="videoAdjust"
                     checked="true"
                   />
-                  <label for="video-adjust" class="font-medium cursor-pointer"
+                  <label for="videoAdjust" class="font-medium cursor-pointer"
                     >Allow Position Adjust</label
                   >
                 </div>
                 <div class="flex gap-2 items-center cursor-pointer">
                   <input
-                    id="video-trim"
+                    id="videoTrim"
                     type="checkbox"
                     class="cursor-pointer"
-                    name="video-trim"
+                    name="videoTrim"
                     checked="true"
                   />
-                  <label for="video-trim" class="font-medium cursor-pointer"
+                  <label for="videoTrim" class="font-medium cursor-pointer"
                     >Allow Trim</label
                   >
                 </div>
               </div>
               <div class="cursor-pointer flex flex-col gap-2">
                 <div>
-                  <label for="video-file" class="font-medium cursor-pointer"
+                  <label for="videoFile" class="font-medium cursor-pointer"
                     >Upload Video (optional)</label
                   >
                   <p class="text-xs text-indigo-900">
                     Can be uploaded Later through SDK
                   </p>
-                  <p id="video-file-loading" class="hidden">Uploading...</p>
+                  <p id="videoFile-loading" class="hidden">Uploading...</p>
                 </div>
                 <input
                   id="video-file"
                   type="file"
                   class="cursor-pointer"
-                  name="video-file"
+                  name="videoFile"
                   accept="video/*"
                 />
               </div>
@@ -199,7 +195,7 @@
         </h3>
         <div class="bg-indigo-50 text-indigo-900">
           <div class="px-3 py-5 flex flex-col gap-4">
-            <div class="flex flex-col gap-2">
+            <!-- <div class="flex flex-col gap-2">
               <label for="sdk-key" class="font-medium pl-1">SDK Key</label>
               <input
                 id="sdk-key"
@@ -207,19 +203,50 @@
                 placeholder="Enter SDK Key"
                 name="sdk-key"
               />
-            </div>
+            </div> -->
             <div id="variant-list-wrap"></div>
-            <button
-              class="self-start bg-indigo-500 text-white px-4 py-1 rounded-md text-lg disabled:grayscale disabled:cursor-not-allowed"
-              id="launch-btn"
+            <!-- <button
+              class="zingcam-sdk-btn self-start bg-indigo-500 text-white px-4 py-1 rounded-md text-lg disabled:grayscale disabled:cursor-not-allowed"
+              data-product-id="a623e6a2-b366-4fb0-b193-ec1ad2d36b5d"
+              data-variant-id="fe6748e1-6b3d-4db1-817e-57575f78f42f"
+              data-ref-id=""
             >
               Launch SDK
-            </button>
+            </button> -->
           </div>
         </div>
         <div id="finalize"></div>
       </div>
     </div>
+    <!-- flam sdk lib below -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/flamsdk@1.0.10/dist/FlamSaasSDK.min.js"></script> -->
     <script src="./index.js"></script>
+    <script src="../../dist/FlamSaasSDK.js"></script>
+    <script>
+      let sdkInstance = new FlamSaasSDK.init({
+        environment: 'PRODUCTION',
+        key: '5dcac254-4b87-4ef7-96fe-b79cecdd54cf'
+      });
+
+      sdkInstance.assignHandler({
+        handleSuccess() {
+          console.log('success handle');
+        },
+        handleFailure() {
+          console.log('failure handle');
+        }
+      });
+
+      // client handles when to do this
+      window.onload = () => {
+        console.log('document loaded');
+        const buttons = document.querySelectorAll('.zingcam-sdk-btn');
+
+        buttons.forEach(button => {
+          button.disabled = false;
+        });
+        sdkInstance.loadButtons();
+      };
+    </script>
   </body>
 </html>

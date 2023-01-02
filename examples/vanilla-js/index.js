@@ -22,7 +22,7 @@ async function apiCall(settings, url) {
   }
 }
 
-document.getElementById('launch-btn').style.display = 'none';
+// document.getElementById('launch-btn').style.display = 'none';
 
 function debounce(func, wait, immediate) {
   var timeout;
@@ -84,7 +84,14 @@ async function handleFileUpload(name, file) {
     );
 
     // stop loading and enable input here
-    exampleState[name] = res.data.resourceUrl;
+    // exampleState[name] = res.data.resourceUrl;
+
+    console.log({ btn: document.querySelector('.zingcam-sdk-btn').dataset });
+
+    document.querySelector('.zingcam-sdk-btn').dataset[name] =
+      res.data.resourceUrl;
+
+    // console.log({ name });
 
     setLoading(name, false);
   } catch (err) {
@@ -95,7 +102,7 @@ async function handleFileUpload(name, file) {
 
 function setLoading(name, value) {
   document.querySelector(`#${name}`).disabled = value;
-  const launchBtn = document.querySelector(`#launch-btn`);
+  const launchBtn = document.querySelector(`.zingcam-sdk-btn`);
   if (launchBtn) {
     launchBtn.disabled = value;
   }
@@ -117,29 +124,9 @@ async function getVariants(key) {
     );
 
     if (res.data && res.data.length > 0) {
-      sdkInstance = new FlamSaasSDK.init({
-        environment: 'PRODUCTION',
-        key
-      });
-
-      setTimeout(() => {
-        document.getElementById('launch-btn').style.display = 'block';
-      }, 1000);
-
       renderVariants(res.data.flat());
-
-      const launchBtn = document.querySelector(`#launch-btn`);
-      if (launchBtn) {
-        launchBtn.disabled = false;
-      }
     } else {
-      if (key !== '') {
-        const launchBtn = document.querySelector(`#launch-btn`);
-        if (launchBtn) {
-          launchBtn.disabled = true;
-        }
-        alert('No variants found for this key!');
-      }
+      alert('Failed to fetch variants!');
     }
   } catch (err) {
     console.log('ERrr', err);
@@ -178,6 +165,9 @@ function renderVariants(variantList) {
     const variantId = variant._id;
     const productId = variant.product_service_id._id;
 
+    const variantDivWrapper = document.createElement('div');
+    variantDivWrapper.className = 'variant-wrap flex flex-col gap-2';
+
     const variantDiv = document.createElement('div');
 
     variantDiv.className =
@@ -199,12 +189,38 @@ function renderVariants(variantList) {
         <p class="truncate">${productId}</p>
       </div>
     `;
-    variantListDiv.appendChild(variantDiv);
+
+    variantDivWrapper.appendChild(variantDiv);
+
+    const button = document.createElement('button');
+    button.className =
+      'zingcam-sdk-btn self-start bg-indigo-500 text-white px-4 py-1 rounded-md text-lg disabled:grayscale disabled:cursor-not-allowed';
+    button.textContent = 'Launch SDK';
+    button.disabled = true;
+
+    button.dataset.productId = variant.product_service_id._id;
+    button.dataset.variantId = variant._id;
+    button.dataset.refId = '';
+
+    button.dataset.photoChange = true;
+    button.dataset.photoCrop = true;
+    button.dataset.photoFile = '';
+
+    button.dataset.videoChange = true;
+    button.dataset.videoAdjust = true;
+    button.dataset.videoTrim = true;
+    button.dataset.videoFile = '';
+
+    button.dataset.color = '#000000';
+
+    variantDivWrapper.appendChild(button);
+
+    variantListDiv.appendChild(variantDivWrapper);
   });
 
   variantListWrapDiv.appendChild(variantListDiv);
 
-  selectVariant(variantList[0]._id, variantList[0].product_service_id._id);
+  // selectVariant(variantList[0]._id, variantList[0].product_service_id._id);
 }
 
 function selectVariant(variantId, productId) {
@@ -225,14 +241,14 @@ function selectVariant(variantId, productId) {
 }
 
 // order state
-const exampleState = {
-  'photo-change': true,
-  'video-change': true,
-  'photo-crop': true,
-  'video-trim': true,
-  'video-adjust': true,
-  color: '#000000'
-};
+// const exampleState = {
+//   'photo-change': true,
+//   'video-change': true,
+//   'photo-crop': true,
+//   'video-trim': true,
+//   'video-adjust': true,
+//   color: '#000000'
+// };
 
 let loadingState = {
   'photo-file': false,
@@ -241,29 +257,25 @@ let loadingState = {
   finalize: false
 };
 
-let sdkInstance;
-
 let sdkRes;
 
 async function handleInputChange(e) {
   switch (e.target.name) {
-    case 'video-file':
-    case 'photo-file':
+    case 'videoFile':
+    case 'photoFile':
+      console.log('file', e.target.name);
       handleFileUpload(e.target.name, e.target.files[0]);
       break;
-    case 'photo-change':
-    case 'video-change':
-    case 'photo-crop':
-    case 'video-trim':
-    case 'video-adjust':
-      exampleState[e.target.name] = e.target.checked;
+    case 'photoChange':
+    case 'videoChange':
+    case 'photoCrop':
+    case 'videoTrim':
+    case 'videoAdjust':
+      document.querySelector('.zingcam-sdk-btn').dataset[e.target.name] =
+        e.target.checked;
       break;
     case 'sdk-color':
-      exampleState.color = e.target.value;
-      break;
-    case 'sdk-key':
-      exampleState.sdkKey = e.target.value;
-      getVariants(e.target.value);
+      document.querySelector('.zingcam-sdk-btn').dataset.color = e.target.value;
       break;
     default:
       console.log('Default case');
@@ -335,45 +347,4 @@ async function finalizeOrder() {
 
 document.addEventListener('input', debounce(handleInputChange, 250));
 
-document.querySelector('#launch-btn').addEventListener('click', e => {
-  if (!exampleState.sdkKey) {
-    alert('Please enter a key');
-  } else {
-    const orderData = {
-      productId: exampleState.productId,
-      varientId: exampleState.variantId,
-      refId: uuidv4(),
-      photo: {
-        changable: exampleState['photo-change'] || false,
-        url: exampleState['photo-file'] || '',
-        allowCrop: exampleState['photo-crop'] || false,
-        maxSize: ''
-      },
-      video: {
-        changable: exampleState['video-change'] || false,
-        url: exampleState['video-file'] || '',
-        allowTrim: exampleState['video-trim'] || false,
-        allowPosAdjust: exampleState['video-adjust'] || false,
-        maxSize: ''
-      },
-      prefill: {
-        name: exampleState['prefill-name'] || '',
-        email: exampleState['prefill-email'] || '',
-        contact: exampleState['prefill-contact'] || ''
-      },
-      color: exampleState.color || '',
-      handleSuccess: data => {
-        sdkRes = data;
-        console.log('sdkRes', sdkRes);
-        showFinalize();
-      },
-      handleFailure: data => {
-        console.log(data);
-      }
-    };
-
-    console.log('orderData', orderData);
-
-    sdkInstance.placeOrder(orderData);
-  }
-});
+getVariants('5dcac254-4b87-4ef7-96fe-b79cecdd54cf');

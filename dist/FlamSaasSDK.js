@@ -1,7 +1,7 @@
 /**
  * flamsdk v1.0.10
  * Author: bucharitesh
- * Date: 2022-12-29
+ * Date: 2023-01-02
  * License: MIT
  */
 
@@ -132,6 +132,18 @@
   // https://v1.sdk.zingcam.tech
   // http://localhost:3000
 
+  function assignHandler(data) {
+    try {
+      if (!data.handleSuccess && !data.handleFailure) {
+        throw 'Please assign success and failure handlers!';
+      }
+      window.handleSuccess = data.handleSuccess;
+      window.handleFailure = data.handleFailure;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   function placeOrder(data) {
     try {
       if ((!data.productId, !data.refId)) {
@@ -169,7 +181,75 @@
     // return placeOrder;
   }
 
+  function alphaNumericUUID() {
+    let mask = '';
+    const chars = '#A';
+    if (chars.indexOf('A') > -1) mask += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    if (chars.indexOf('#') > -1) mask += '0123456789';
+    let result = 'FLM';
+    for (let i = 5; i > 0; --i)
+      result += mask[Math.round(Math.random() * (mask.length - 1))];
+    return result;
+  }
+
+  function loadButtons() {
+    const buttons = document.querySelectorAll('.zingcam-sdk-btn');
+
+    buttons.forEach(button => {
+      button.addEventListener('click', event => {
+        // Your event handler code goes here
+        console.log({ dataset: button.dataset });
+
+        const orderData = {
+          productId: button.dataset.productId,
+          varientId: button.dataset.variantId,
+          refId: button.dataset.refId || alphaNumericUUID(),
+          photo: {
+            changable: button.dataset.photoChange === 'true' || false,
+            url: button.dataset.photoFile || '',
+            allowCrop: button.dataset.photoCrop === 'true' || false,
+            maxSize: ''
+          },
+          video: {
+            changable: button.dataset.videoChange === 'true' || false,
+            url: button.dataset.videoFile || '',
+            allowTrim: button.dataset.videoTrim === 'true' || false,
+            allowPosAdjust: button.dataset.videoAdjust === 'true' || false,
+            maxSize: ''
+          },
+          prefill: {
+            name: '',
+            email: '',
+            contact: ''
+          },
+          color: button.dataset.color,
+          handleSuccess: window.handleSuccess,
+          handleFailure: window.handleFailure
+        };
+
+        console.log({ orderData });
+
+        placeOrder(orderData);
+      });
+    });
+  }
+
   init.prototype.placeOrder = placeOrder;
+  init.prototype.assignHandler = assignHandler;
+  init.prototype.loadButtons = loadButtons;
+
+  // videoAdjust
+  // :
+  // "true"
+  // videoChange
+  // :
+  // "true"
+  // videoFile
+  // :
+  // "true"
+  // videoTrim
+  // :
+  // "true"
 
   var version = { raw: '1.0.10' };
   version.raw;
