@@ -12,7 +12,7 @@ If you want to read the full API documentation of SaasSdk, see [here](<[https://
 - [Author](#author)
 - [License](#license)
 
-#### You can checkout the demo [here](https://homingos.github.io/saas-SDK/examples/vanilla-js/)
+#### You can checkout the demo [here](https://homingos.github.io/saaskit-javascript/examples/vanilla-js/)
 
 ## Install
 
