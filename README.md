@@ -1,4 +1,5 @@
-# SaasSdk
+
+# Saaskit-javascript
 
 Client Side SDK toolkit for SaaS.
 
@@ -20,7 +21,7 @@ From CDN:
 
 ```html
 <!-- Latest patch release -->
-<script src="https://unpkg.com/flamsdk@1.0.10/dist/FlamSaasSDK.min.js"></script>
+<script src="https://unpkg.com/flamsdk@2.0.0/dist/FlamSaasSDK.min.js"></script>
 ```
 
 From [npm](<[https://npmjs.org](https://npmjs.org/)>):
@@ -78,46 +79,25 @@ All parameters can be considered optional unless otherwise stated.
 | Option            | Type                | Description                                                                                                                                                                                                                                                       |
 | :---------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `productId`       | string (required)   | Product ID for the product to be ordered from SDK                                                                                                                                                                                                                 |
-| `variantId`       | string (required)   | Variant ID for the product to be ordered from SDK                                                                                                                                                                                                                 |
-| `refId`           | string (required)   | Reference ID set up by the client for their convenience and tracking                                                                                                                                                                                              |
-| `orderId`         | string (required)   | Order ID of the ongoing order, taken from placeOrder response, need to be sent in case of video and theme update flow                                                                                                                                             |
-| `allowVideoLater` | boolean (optional)  | Allow users to upload the video later (default: false)                                                                                                                                                                                                            |
-| `photo`           | string (optional)   | This can be passed if client wants the user to upload images on their own website instead of the FlamSDK                                                                                                                                                          |
-| `video`           | string (optional)   | This can be passed if client wants the user to upload video on their own website instead of the FlamSDK                                                                                                                                                           |
-| `prefill`         | object (optional)   | This is an object which contains the following options: `name: string`, `email: string`, `phone: string`, `hide: boolean` for the user to contact the client in case of any errors and for branding, `hide` can be set to `true` to disable branding on sdk popup |
-| `animation`       | string (optional)   | This is the animation to be added on the experience which would be received from the `/products` API. In case not provided default one is used for the particular product                                                                                         |
-| `theme`           | object (optional)   | This is an object which contains `primaryColor : string` , `secondaryColor : string` in the form of **HEX**, which can be passed by the client to customise the primary and secondary colour of the SDK UI according to their needs.                              |
-| `logo`            | string (optional)   | This is the logo of the client's organisation to be shown on the SDK. In case not provided a default logo would be used                                                                                                                                           |
-| `callback`        | function (required) | This is a custom function which the client can pass to handle success and error states that occur in SDK.                                                                                                                                                         |
+| `varientId`       | string (required)   | Variant ID for the product to be ordered from SDK                                                                                                                                                                                                                 |
+| `refId`           | string (required)   | Reference ID set up by the client for their convenience and tracking                                                                                                                                                                                                                                                                                                                                                                                                    |
+| `photo`           | object (optional)   | The object with url can be passed if client wants the user to upload images on their own website instead of the FlamSDK                                                                                                                                                          |
+| `video`           | object (optional)   | The object with url can be passed if client wants the user to upload video on their own website instead of the FlamSDK                                                                                                                                                    |
+| `color` | object (optional)   | color in the form of **HEX**, which can be passed by the client to customise the primary and secondary colour of the SDK UI according to their needs.                              |
 
 ```js
 sdk.placeOrder(
   {
     productId: '96f0d15e-63cd-485b-8f37-bb474d287129',
-    variantId: 'VARIANT-1',
+    varientId: 'VARIANT-1',
     refId: '04607c6a-9964-47de-a0c2-853b3f89bd88',
-    orderId: 'fv607c6a-2739-47de-fv-853b3fdf873h',
-    allowVideoLater: true,
-    photo: 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
-    video:
-      'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    animation: 'CONFETTI',
-    theme: {
-      primaryColor: '#a62107',
-      secondaryColor: '#f2e0df'
-    },
-    prefill: {
-      hide: false,
-      name: 'John Doe Prints',
-      email: 'support@email.com',
-      phone: '+91 98765 43210'
-    },
-    logo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png',
-    showPreview: true,
-  },
-  function (err, result) {
-    // Order pacement result or error
-  }
+    photo: {
+	     url : 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
+    }
+    video: {
+	      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      }
+    color: '#a62107',
 );
 ```
 
@@ -132,16 +112,3 @@ If you have found a bug or if you have a feature request, please report them at 
 ## License
 
 This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more info.
-
-<!-- Vaaaaarrrrsss -->
-
-[npm-image]: [https://img.shields.io/npm/v/auth0-js.svg?style=flat-square](https://img.shields.io/npm/v/auth0-js.svg?style=flat-square)
-[npm-url]: [https://npmjs.org/package/auth0-js](https://npmjs.org/package/auth0-js)
-[circleci-image]: [https://img.shields.io/circleci/project/github/auth0/auth0.js.svg?branch=master&style=flat-square](https://img.shields.io/circleci/project/github/auth0/auth0.js.svg?branch=master&style=flat-square)
-[circleci-url]: [https://circleci.com/gh/auth0/auth0.js](https://circleci.com/gh/auth0/auth0.js)
-[codecov-image]: [https://img.shields.io/codecov/c/github/auth0/auth0.js/master.svg?style=flat-square](https://img.shields.io/codecov/c/github/auth0/auth0.js/master.svg?style=flat-square)
-[codecov-url]: [https://codecov.io/github/auth0/auth0.js?branch=master](https://codecov.io/github/auth0/auth0.js?branch=master)
-[license-image]: [https://img.shields.io/npm/l/auth0-js.svg?style=flat-square](https://img.shields.io/npm/l/auth0-js.svg?style=flat-square)
-[license-url]: #license
-[downloads-image]: [https://img.shields.io/npm/dm/auth0-js.svg?style=flat-square](https://img.shields.io/npm/dm/auth0-js.svg?style=flat-square)
-[downloads-url]: [https://npmjs.org/package/auth0-js](https://npmjs.org/package/auth0-js)
