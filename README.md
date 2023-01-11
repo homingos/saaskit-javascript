@@ -93,10 +93,10 @@ sdk.placeOrder(
     refId: '04607c6a-9964-47de-a0c2-853b3f89bd88',
     photo: {
 	     url : 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
-    }
+    },
     video: {
 	      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-      }
+      },
     color: '#a62107',
 );
 ```
