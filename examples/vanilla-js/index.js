@@ -315,7 +315,7 @@ async function finalizeOrder() {
             inner_width: 0,
             outer_height: 0,
             outer_width: 0,
-            color_code: 'red',
+            color_code: '',
             image_dpi: 0
           }
         })
