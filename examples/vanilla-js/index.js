@@ -226,11 +226,6 @@ function selectVariant(variantId, productId) {
 
 // order state
 const exampleState = {
-  'photo-change': true,
-  'video-change': true,
-  'photo-crop': true,
-  'video-trim': true,
-  'video-adjust': true,
   color: '#000000'
 };
 
@@ -250,13 +245,6 @@ async function handleInputChange(e) {
     case 'video-file':
     case 'photo-file':
       handleFileUpload(e.target.name, e.target.files[0]);
-      break;
-    case 'photo-change':
-    case 'video-change':
-    case 'photo-crop':
-    case 'video-trim':
-    case 'video-adjust':
-      exampleState[e.target.name] = e.target.checked;
       break;
     case 'sdk-color':
       exampleState.color = e.target.value;
@@ -315,7 +303,7 @@ async function finalizeOrder() {
             inner_width: 0,
             outer_height: 0,
             outer_width: 0,
-            color_code: '',
+            color_code: '000000',
             image_dpi: 0
           }
         })
@@ -344,17 +332,10 @@ document.querySelector('#launch-btn').addEventListener('click', e => {
       varientId: exampleState.variantId,
       refId: uuidv4(),
       photo: {
-        changable: exampleState['photo-change'] || false,
         url: exampleState['photo-file'] || '',
-        allowCrop: exampleState['photo-crop'] || false,
-        maxSize: ''
       },
       video: {
-        changable: exampleState['video-change'] || false,
         url: exampleState['video-file'] || '',
-        allowTrim: exampleState['video-trim'] || false,
-        allowPosAdjust: exampleState['video-adjust'] || false,
-        maxSize: ''
       },
       prefill: {
         name: exampleState['prefill-name'] || '',

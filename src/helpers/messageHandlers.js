@@ -25,11 +25,10 @@ function handleListener(data) {
 
 const handleSend = message => {
   const iframe = document.getElementById('flam-sdk-iframe');
-  iframe.contentWindow.postMessage(message, 'https://v1.sdk.zingcam.tech');
+  iframe.contentWindow.postMessage(
+    message,
+    'https://zingcam-sdk-v2-dev.vercel.app'
+  );
 };
 
 export { handleListener, handleSend };
-
-// http://192.168.1.64:3000
-// https://v1.sdk.zingcam.tech
-// http://localhost:3000/

@@ -1,7 +1,7 @@
 /**
- * flamsdk v1.0.10
+ * flamsdk v2.0.0
  * Author: bucharitesh
- * Date: 2022-12-28
+ * Date: 2023-01-13
  * License: MIT
  */
 
@@ -38,12 +38,11 @@
 
   const handleSend = message => {
     const iframe = document.getElementById('flam-sdk-iframe');
-    iframe.contentWindow.postMessage(message, 'http://192.168.1.64:3000');
+    iframe.contentWindow.postMessage(
+      message,
+      'https://zingcam-sdk-v2-dev.vercel.app'
+    );
   };
-
-  // http://192.168.1.64:3000
-  // https://v1.sdk.zingcam.tech
-  // http://localhost:3000/
 
   const renderIframe = () => {
     const styleSheet = document.createElement('style');
@@ -124,12 +123,13 @@
     const body = document.querySelector('body');
     const wrapper = document.createElement('div');
     wrapper.id = 'flam-sdk-wrapper';
-    wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="http://192.168.1.64:3000" style="opacity: 0"></iframe>`;
+    wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://zingcam-sdk-v2-dev.vercel.app" style="opacity: 0"></iframe>`;
     body.appendChild(wrapper);
   };
 
   // http://192.168.1.64:3000
   // https://v1.sdk.zingcam.tech
+  // https://zingcam-sdk-v2-dev.vercel.app
   // http://localhost:3000
 
   function placeOrder(data) {
@@ -171,7 +171,7 @@
 
   init.prototype.placeOrder = placeOrder;
 
-  var version = { raw: '1.0.10' };
+  var version = { raw: '2.0.0' };
   version.raw;
 
   var index = { version: version, init: init };

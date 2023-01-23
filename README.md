@@ -13,7 +13,7 @@ If you want to read the full API documentation of SaasSdk, see [here](<[https://
 - [Author](#author)
 - [License](#license)
 
-#### You can checkout the demo [here](https://homingos.github.io/saas-SDK/examples/vanilla-js/)
+#### You can checkout the demo [here](https://homingos.github.io/saaskit-javascript/examples/vanilla-js/)
 
 ## Install
 
@@ -98,6 +98,10 @@ sdk.placeOrder(
 	      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
       },
     color: '#a62107',
+  },
+  function (err, result) {
+    // Order pacement result or error
+  }
 );
 ```
 
