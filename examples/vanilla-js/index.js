@@ -303,7 +303,7 @@ async function finalizeOrder() {
             inner_width: 0,
             outer_height: 0,
             outer_width: 0,
-            color_code: '#ffffff',
+            color_code: '000000',
             image_dpi: 0
           }
         })
