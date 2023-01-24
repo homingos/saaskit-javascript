@@ -43,7 +43,7 @@
     "husky": "^8.0.1",
     "istanbul": "^0.4.5",
     "jsdoc": "^3.6.8",
-    "jsdoc-to-markdown": "7.1.1",
+    "jsdoc-to-markdown": "8.0.0",
     "jsdom": "^20.0.0",
     "jsdom-global": "^3.0.2",
     "jsonwebtoken": "^8.5.1",
