@@ -278,7 +278,7 @@ async function showFinalize() {
         <p class="truncate">${sdkRes.order_id}</p>
       </div>
       <div class="my-2">
-        <p>Print Url</p>
+        <p>Print Url (click below link to copy)</p>
         <p class="truncate" id="print_url">finalize to see this.</p>
       </div>
       <button
