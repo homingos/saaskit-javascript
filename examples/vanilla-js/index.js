@@ -241,6 +241,8 @@ let sdkInstance;
 
 let sdkRes;
 
+let finalizeRes = {};
+
 async function handleInputChange(e) {
   switch (e.target.name) {
     case 'video-file':
@@ -271,6 +273,14 @@ async function showFinalize() {
         <p>Ref ID</p>
         <p class="truncate">${sdkRes.ref_id}</p>
       </div>
+      <div class="mb-2">
+        <p>Order ID</p>
+        <p class="truncate">${sdkRes.order_id}</p>
+      </div>
+      <div class="my-2">
+        <p>Print Url</p>
+        <p class="truncate" id="print_url">finalize to see this.</p>
+      </div>
       <button
         class="self-start bg-indigo-500 text-white px-4 py-1 rounded-md text-lg"
         id="finalize-btn"
@@ -278,8 +288,21 @@ async function showFinalize() {
       >
         Finalize Order
       </button>
+      
     </div>
   `;
+
+  const printUrlEle = document.getElementById('print_url');
+
+  printUrlEle.addEventListener('click', async () => {
+    console.log(finalizeRes, finalizeRes.data.print_url);
+    if (finalizeRes && finalizeRes.data.print_url) {
+      await navigator.clipboard.writeText(finalizeRes.data.print_url);
+      alert('copied to clipboard');
+    }
+  });
+
+  // printUrlEle.textContent = finalizeRes.print_url;
 }
 
 async function finalizeOrder() {
@@ -315,6 +338,11 @@ async function finalizeOrder() {
 
     console.log('RES', res);
     alert('Order finalized!');
+
+    finalizeRes = res;
+
+    document.getElementById('print_url').textContent =
+      finalizeRes.data.print_url;
 
     launchBtn.innerHTML = 'Finalized';
   } catch (err) {
