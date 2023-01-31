@@ -26,7 +26,6 @@ export function placeOrder(data) {
     window.handleFailure = data.handleFailure;
 
     const loader = document.getElementById('flam-sdk-loading-wrapper');
-    console.log('loader', loader);
     loader.style.display = 'flex';
 
     renderFrameOnReady(data);
