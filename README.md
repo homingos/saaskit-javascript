@@ -98,9 +98,14 @@ sdk.placeOrder(
 	      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
       },
     color: '#a62107',
-  },
-  function (err, result) {
-    // Order pacement result or error
+    handleSuccess: data => {
+        sdkRes = data;
+        console.log('sdkRes', sdkRes);
+        showFinalize();
+    },
+    handleFailure: data => {
+       console.log(data);
+    }
   }
 );
 ```
