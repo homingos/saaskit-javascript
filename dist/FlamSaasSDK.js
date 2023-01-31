@@ -1,5 +1,5 @@
 /**
- * flamsdk v2.0.1
+ * flamsdk v2.0.2-beta.0
  * Author: bucharitesh
  * Date: 2023-01-31
  * License: MIT
@@ -145,7 +145,6 @@
       window.handleFailure = data.handleFailure;
 
       const loader = document.getElementById('flam-sdk-loading-wrapper');
-      console.log('loader', loader);
       loader.style.display = 'flex';
 
       renderFrameOnReady(data);
@@ -177,7 +176,7 @@
 
   init.prototype.placeOrder = placeOrder;
 
-  var version = { raw: '2.0.1' };
+  var version = { raw: '2.0.2-beta.0' };
   version.raw;
 
   var index = { version: version, init: init };
