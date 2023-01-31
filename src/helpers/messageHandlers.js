@@ -25,7 +25,7 @@ function handleListener(data) {
 
 const handleSend = message => {
   const iframe = document.getElementById('flam-sdk-iframe');
-  iframe.contentWindow.postMessage(message, 'https://dev.sdk.zingcam.tech');
+  iframe.contentWindow.postMessage(message, 'https://prod.sdk.zingcam.tech');
 };
 
 export { handleListener, handleSend };
