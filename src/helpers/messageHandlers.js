@@ -5,6 +5,7 @@ function handleListener(data) {
         type: 'INITIAL_DATA',
         message: localStorage.getItem('options')
       });
+      window.__SDK_READY = true;
       break;
     case 'CLOSE':
       {
