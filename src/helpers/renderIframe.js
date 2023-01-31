@@ -6,7 +6,8 @@ export const renderIframe = () => {
       overflow: hidden;
     }
 
-    .flam-sdk-loading-wrapper {
+    #flam-sdk-loading-wrapper {
+      display: none;
       position: fixed;
       top: 0;
       right: 0;
@@ -17,7 +18,6 @@ export const renderIframe = () => {
       overflow: hidden;
       border: none;
       background: rgba(0,0,0, 0.4);
-      display: flex;
       justify-content: center;
       align-items: center;
       z-index: 1000;
@@ -36,39 +36,23 @@ export const renderIframe = () => {
       z-index: 1000;
     }
 
-    .flam-sdk-loading {
-      position: relative;
-      width: 80px;
-      height: 80px;
-    }
-
-    .flam-sdk-loading div {
-      box-sizing: border-box;
-      display: block;
-      position: absolute;
-      width: 64px;
-      height: 64px;
-      margin: 8px;
-      border: 3px solid #000;
+    #flam-sdk-loading {
+      width: 48px;
+      height: 48px;
+      border: 5px solid #FFF;
+      border-bottom-color: transparent;
       border-radius: 50%;
-      animation: flam-sdk-loading 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-      border-color: #000 transparent transparent transparent;
-    }
-    .flam-sdk-loading div:nth-child(1) {
-      animation-delay: -0.45s;
-    }
-    .flam-sdk-loading div:nth-child(2) {
-      animation-delay: -0.3s;
-    }
-    .flam-sdk-loading div:nth-child(3) {
-      animation-delay: -0.15s;
-    }
-    @keyframes flam-sdk-loading {
+      display: inline-block;
+      box-sizing: border-box;
+      animation: sdkrotation 1s linear infinite;
+      }
+  
+    @keyframes sdkrotation {
       0% {
-        transform: rotate(0deg);
+          transform: rotate(0deg);
       }
       100% {
-        transform: rotate(360deg);
+          transform: rotate(360deg);
       }
     }
   `;
@@ -77,7 +61,12 @@ export const renderIframe = () => {
   const body = document.querySelector('body');
   const wrapper = document.createElement('div');
   wrapper.id = 'flam-sdk-wrapper';
-  wrapper.innerHTML = `<iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://dev.sdk.zingcam.tech" style="opacity: 0"></iframe>`;
+  wrapper.innerHTML = `
+    <iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://dev.sdk.zingcam.tech" style="opacity: 0"></iframe>
+    <div id="flam-sdk-loading-wrapper">
+      <span id="flam-sdk-loading"></span>
+    </div>
+  `;
   body.appendChild(wrapper);
 };
 
