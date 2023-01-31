@@ -62,7 +62,7 @@ export const renderIframe = () => {
   const wrapper = document.createElement('div');
   wrapper.id = 'flam-sdk-wrapper';
   wrapper.innerHTML = `
-    <iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://dev.sdk.zingcam.tech" style="opacity: 0"></iframe>
+    <iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://prod.sdk.zingcam.tech" style="opacity: 0"></iframe>
     <div id="flam-sdk-loading-wrapper">
       <span id="flam-sdk-loading"></span>
     </div>

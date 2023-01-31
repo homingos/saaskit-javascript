@@ -1,5 +1,5 @@
 /**
- * flamsdk v2.0.2-beta.0
+ * flamsdk v2.0.3
  * Author: bucharitesh
  * Date: 2023-01-31
  * License: MIT
@@ -39,7 +39,7 @@
 
   const handleSend = message => {
     const iframe = document.getElementById('flam-sdk-iframe');
-    iframe.contentWindow.postMessage(message, 'https://dev.sdk.zingcam.tech');
+    iframe.contentWindow.postMessage(message, 'https://prod.sdk.zingcam.tech');
   };
 
   const renderIframe = () => {
@@ -106,7 +106,7 @@
     const wrapper = document.createElement('div');
     wrapper.id = 'flam-sdk-wrapper';
     wrapper.innerHTML = `
-    <iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://dev.sdk.zingcam.tech" style="opacity: 0"></iframe>
+    <iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://prod.sdk.zingcam.tech" style="opacity: 0"></iframe>
     <div id="flam-sdk-loading-wrapper">
       <span id="flam-sdk-loading"></span>
     </div>
@@ -176,7 +176,7 @@
 
   init.prototype.placeOrder = placeOrder;
 
-  var version = { raw: '2.0.2-beta.0' };
+  var version = { raw: '2.0.3' };
   version.raw;
 
   var index = { version: version, init: init };
