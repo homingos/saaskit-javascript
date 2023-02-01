@@ -368,7 +368,8 @@ document.querySelector('#launch-btn').addEventListener('click', e => {
         url: exampleState['photo-file'] || ''
       },
       video: {
-        url: exampleState['video-file'] || ''
+        url: exampleState['video-file'] || '',
+        default: 'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/app/videos/1_LT_Flam.mp4'
       },
       prefill: {
         name: exampleState['prefill-name'] || '',
