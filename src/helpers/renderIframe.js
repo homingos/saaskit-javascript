@@ -69,8 +69,3 @@ export const renderIframe = () => {
   `;
   body.appendChild(wrapper);
 };
-
-// http://192.168.1.64:3000
-// https://v1.sdk.zingcam.tech
-// https://zingcam-sdk-v2-dev.vercel.app
-// http://localhost:3000

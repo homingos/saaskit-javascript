@@ -1,1 +1,1 @@
-module.exports = { raw: '2.0.3' };
+module.exports = { raw: '2.0.4-beta.0' };
