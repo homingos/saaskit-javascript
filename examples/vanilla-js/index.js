@@ -118,7 +118,7 @@ async function getVariants(key) {
 
     if (res.data && res.data.length > 0) {
       sdkInstance = new FlamSaasSDK.init({
-        environment: 'SANDBOX',
+        environment: 'PRODUCTION',
         key
       });
 
