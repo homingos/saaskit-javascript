@@ -21,7 +21,7 @@ From CDN:
 
 ```html
 <!-- Latest patch release -->
-<script src="https://unpkg.com/flamsdk@2.0.0/dist/FlamSaasSDK.min.js"></script>
+<script src="https://unpkg.com/flamsdk@2.0.4/dist/FlamSaasSDK.min.js"></script>
 ```
 
 From [npm](<[https://npmjs.org](https://npmjs.org/)>):
@@ -50,7 +50,7 @@ Provides support for the initialization flow.
 
 ```js
 const clientInit = {
-  enviornment: 'sandbox | production', //optional, default to sandbox
+  environment: 'SANDBOX' | 'PRODUCTION'
   key: '{YOUR_FLAMSDK_KEY}'
 };
 
@@ -63,14 +63,14 @@ All parameters can be considered optional unless otherwise stated.
 
 | Option        | Type              | Description                                                        |
 | :------------ | ----------------- | ------------------------------------------------------------------ |
-| `enviornment` | string (optional) | Environment to be loaded. If not given it uses sandbox.            |
-| `key`         | string (required) | Flam SDK key recieved from `business.flamapp.com` after signin up. |
+| `environment` | string (required) | Environment to be loaded.       |
+| `key`         | string (required) | Flam SDK key received from `business.flamapp.com` after signin up. |
 
 ### API
 
-#### sdk.placeOrder(options, callback)
+#### sdk.placeOrder(options)
 
-Loads an instance of the SDK in iframe on the client website. It takes all the necessary details from the client and injects it to the SDK for the user to place order and the status of the same can be fetched using a custom callback function passed by the client.
+Loads an instance of the SDK in iframe on the client website. It takes all the necessary details from the client and injects it to the SDK for the user to place order.
 
 **Parameters**
 
@@ -79,28 +79,34 @@ All parameters can be considered optional unless otherwise stated.
 | Option            | Type                | Description                                                                                                                                                                                                                                                       |
 | :---------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `productId`       | string (required)   | Product ID for the product to be ordered from SDK                                                                                                                                                                                                                 |
-| `varientId`       | string (required)   | Variant ID for the product to be ordered from SDK                                                                                                                                                                                                                 |
+| `varientId`       | string (required)   | Varient ID for the product to be ordered from SDK                                                                                                                                                                                                                 |
 | `refId`           | string (required)   | Reference ID set up by the client for their convenience and tracking                                                                                                                                                                                                                                                                                                                                                                                                    |
-| `photo`           | object (optional)   | The object with url can be passed if client wants the user to upload images on their own website instead of the FlamSDK                                                                                                                                                          |
-| `video`           | object (optional)   | The object with url can be passed if client wants the user to upload video on their own website instead of the FlamSDK                                                                                                                                                    |
-| `color` | object (optional)   | color in the form of **HEX**, which can be passed by the client to customise the primary and secondary colour of the SDK UI according to their needs.                              |
+| `photo`           | object (required)  | The object with `url` can be passed if client wants the user to upload images on their own website instead of the FlamSDK                                                                                                                                                          |
+| `video`           | object (required)   | The object with `url` can be passed if client wants the user to upload video on their own website instead of the FlamSDK and a `default` field to pass a video which user can select inside the SDK.                                                                                                                                                    |
+| `color` | string (optional)   | color in the form of **HEX**, which can be passed by the client to customise the primary and secondary colour of the SDK UI according to their needs.                              |
+| `handleSuccess` | function (required)  | This method is used to perform action on create success.                 |
+| `handleFailure` | function (required)  | This method is used to perform action on create failure.                 |
 
 ```js
 sdk.placeOrder(
   {
-    productId: '96f0d15e-63cd-485b-8f37-bb474d287129',
-    varientId: 'VARIANT-1',
-    refId: '04607c6a-9964-47de-a0c2-853b3f89bd88',
-    photo: {
-	     url : 'https://images.pexels.com/photos/2274725/pexels-photo-2274725.jpeg',
-    },
-    video: {
-	      url: 'http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+      productId: '<product-id>',
+      varientId: '<varient-id>',
+      refId: "<ref-id>",
+      photo: {
+        url: '<photo-url>'
       },
-    color: '#a62107',
-  },
-  function (err, result) {
-    // Order pacement result or error
+      video: {
+        url: '<video-url>',
+        default: '<default-video-url>'
+      },
+      color: '#000000',
+      handleSuccess: data => {
+        console.log('sdkRes', data);
+      },
+      handleFailure: err => {
+        console.log(err);
+      }
   }
 );
 ```
