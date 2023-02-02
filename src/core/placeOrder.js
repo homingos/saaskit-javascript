@@ -1,4 +1,5 @@
 import { handleSend } from '../helpers/messageHandlers';
+import { warn } from '../helpers/warn';
 
 function renderFrameOnReady(data) {
   setTimeout(() => {
@@ -19,9 +20,30 @@ function renderFrameOnReady(data) {
 
 export function placeOrder(data) {
   try {
-    if ((!data.productId, !data.refId)) {
-      throw 'ProductID and RefId are required';
+    if (!data || typeof data !== 'object') {
+      throw new Error('Invalid paramerters passed');
     }
+
+    if (!data.productId || typeof data.productId !== 'string') {
+      throw new Error('PRODUCT ID is invalid or missing');
+    }
+
+    if (!data.varientId || typeof data.varientId !== 'string') {
+      throw new Error('VARIENT ID is invalid or missing');
+    }
+
+    if (!data.refId || typeof data.refId !== 'string') {
+      throw new Error('REF ID is invalid or missing');
+    }
+
+    if (!data.photo || typeof data.photo !== 'object') {
+      throw new Error('photo options are invalid or missing');
+    }
+
+    if (!data.video || typeof data.video !== 'object') {
+      throw new Error('video options are invalid or missing');
+    }
+
     window.handleSuccess = data.handleSuccess;
     window.handleFailure = data.handleFailure;
 
@@ -30,6 +52,6 @@ export function placeOrder(data) {
 
     renderFrameOnReady(data);
   } catch (err) {
-    console.log(err);
+    warn(err.message);
   }
 }

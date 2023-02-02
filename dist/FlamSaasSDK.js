@@ -1,7 +1,7 @@
 /**
- * flamsdk v2.0.2-beta.0
+ * flamsdk v2.0.4-beta.0
  * Author: bucharitesh
- * Date: 2023-01-31
+ * Date: 2023-02-02
  * License: MIT
  */
 
@@ -114,10 +114,14 @@
     body.appendChild(wrapper);
   };
 
-  // http://192.168.1.64:3000
-  // https://v1.sdk.zingcam.tech
-  // https://zingcam-sdk-v2-dev.vercel.app
-  // http://localhost:3000
+  function warn (message) {
+    const styles = ['color: black', 'background: yellow'].join(';');
+
+    const name = '[ZINGCAM SDK]';
+
+    message = name + ': ' + message;
+    console.log('%c%s', styles, message);
+  }
 
   function renderFrameOnReady(data) {
     setTimeout(() => {
@@ -138,9 +142,30 @@
 
   function placeOrder(data) {
     try {
-      if ((!data.productId, !data.refId)) {
-        throw 'ProductID and RefId are required';
+      if (!data || typeof data !== 'object') {
+        throw new Error('Invalid paramerters passed');
       }
+
+      if (!data.productId || typeof data.productId !== 'string') {
+        throw new Error('PRODUCT ID is invalid or missing');
+      }
+
+      if (!data.varientId || typeof data.varientId !== 'string') {
+        throw new Error('VARIENT ID is invalid or missing');
+      }
+
+      if (!data.refId || typeof data.refId !== 'string') {
+        throw new Error('REF ID is invalid or missing');
+      }
+
+      if (!data.photo || typeof data.photo !== 'object') {
+        throw new Error('photo options are invalid or missing');
+      }
+
+      if (!data.video || typeof data.video !== 'object') {
+        throw new Error('video options are invalid or missing');
+      }
+
       window.handleSuccess = data.handleSuccess;
       window.handleFailure = data.handleFailure;
 
@@ -149,15 +174,25 @@
 
       renderFrameOnReady(data);
     } catch (err) {
-      console.log(err);
+      warn(err.message);
     }
   }
 
+  // import assert from '../helpers/assert';
   function init(options) {
     try {
-      if (!options.key) {
-        throw 'Please add your key!';
+      if (!options || typeof options !== 'object') {
+        throw new Error('Invalid paramerters passed');
       }
+
+      if (!options.key || typeof options.key !== 'string') {
+        throw new Error('KEY is required or missing !!');
+      }
+
+      if (!options.environment || typeof options.environment !== 'string') {
+        throw new Error('ENVIRONMENT must be STAGE or PRODUCTION !!');
+      }
+
       localStorage.setItem('options', JSON.stringify(options));
       window.addEventListener(
         'message',
@@ -168,15 +203,13 @@
       );
       renderIframe();
     } catch (err) {
-      console.log(err);
+      warn(err.message);
     }
-
-    // return placeOrder;
   }
 
   init.prototype.placeOrder = placeOrder;
 
-  var version = { raw: '2.0.2-beta.0' };
+  var version = { raw: '2.0.4-beta.0' };
   version.raw;
 
   var index = { version: version, init: init };

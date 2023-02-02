@@ -117,7 +117,6 @@ async function getVariants(key) {
     );
 
     if (res.data && res.data.length > 0) {
-      console.log('Hello');
       sdkInstance = new FlamSaasSDK.init({
         environment: 'PRODUCTION',
         key
