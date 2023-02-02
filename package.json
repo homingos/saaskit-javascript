@@ -1,10 +1,6 @@
 {
   "name": "flamsdk",
-<<<<<<< HEAD
-  "version": "2.0.3",
-=======
   "version": "2.0.4-beta.0",
->>>>>>> d50154a (chore: minor fix and bugs)
   "description": "flamSdk for saas",
   "author": "bucharitesh",
   "license": "MIT",
