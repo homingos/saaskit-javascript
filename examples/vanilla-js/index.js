@@ -118,7 +118,7 @@ async function getVariants(key) {
 
     if (res.data && res.data.length > 0) {
       sdkInstance = new FlamSaasSDK.init({
-        environment: 'PRODUCTION',
+        environment: 'SANDBOX',
         key
       });
 
@@ -246,6 +246,7 @@ async function handleInputChange(e) {
   switch (e.target.name) {
     case 'video-file':
     case 'photo-file':
+    case 'default-video-file':
       handleFileUpload(e.target.name, e.target.files[0]);
       break;
     case 'sdk-color':
@@ -368,7 +369,7 @@ document.querySelector('#launch-btn').addEventListener('click', e => {
       },
       video: {
         url: exampleState['video-file'] || '',
-        default: 'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/app/videos/1_LT_Flam.mp4'
+        default: exampleState['default-video-file'] || ''
       },
       prefill: {
         name: exampleState['prefill-name'] || '',

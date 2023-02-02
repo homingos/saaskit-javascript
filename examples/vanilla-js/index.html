@@ -77,6 +77,28 @@
                   accept="video/*"
                 />
               </div>
+              <div class="cursor-pointer flex flex-col gap-2">
+                <div>
+                  <label
+                    for="default-video-file"
+                    class="font-medium cursor-pointer"
+                    >Upload Default Video (optional)</label
+                  >
+                  <p class="text-xs text-indigo-900">
+                    this is shown as option to select inside SDK
+                  </p>
+                  <p id="default-video-file-loading" class="hidden">
+                    Uploading...
+                  </p>
+                </div>
+                <input
+                  id="default-video-file"
+                  type="file"
+                  class="cursor-pointer"
+                  name="default-video-file"
+                  accept="video/*"
+                />
+              </div>
             </div>
           </div>
           <div class="px-4 py-5">
