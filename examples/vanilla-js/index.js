@@ -260,6 +260,15 @@ async function handleInputChange(e) {
   }
 }
 
+const params = new Proxy(new URLSearchParams(window.location.search), {
+  get: (searchParams, prop) => searchParams.get(prop),
+});
+
+if(params.key) {
+  exampleState.sdkKey = params.key;
+  getVariants(params.key);
+}
+
 async function showFinalize() {
   const finalizeDivWrap = document.querySelector('#finalize');
   finalizeDivWrap.innerHTML = '';
