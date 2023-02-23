@@ -7,6 +7,9 @@ function uuidv4() {
   );
 }
 
+const environment = 'PRODUCTION';
+const api = 'dev';
+
 async function apiCall(settings, url) {
   try {
     const res = await fetch(url, settings);
@@ -69,7 +72,7 @@ async function handleFileUpload(name, file) {
           content_type: file.type
         })
       },
-      `https://dev.flamapp.com/zingcam/v1/signed-url`
+      `https://${api}.flamapp.com/zingcam/v1/signed-url`
     );
 
     const res2 = await apiCall(
@@ -113,12 +116,12 @@ async function getVariants(key) {
           'x-api-key': key
         }
       },
-      `https://dev.flamapp.com/zingcam/product/client/product-variant`
+      `https://${api}.flamapp.com/zingcam/product/client/product-variant`
     );
 
     if (res.data && res.data.length > 0) {
       sdkInstance = new FlamSaasSDK.init({
-        environment: 'PRODUCTION',
+        environment: environment,
         key
       });
 
@@ -261,6 +264,18 @@ async function handleInputChange(e) {
   }
 }
 
+<<<<<<< Updated upstream
+=======
+const params = new Proxy(new URLSearchParams(window.location.search), {
+  get: (searchParams, prop) => searchParams.get(prop)
+});
+
+if (params.key) {
+  exampleState.sdkKey = params.key;
+  getVariants(params.key);
+}
+
+>>>>>>> Stashed changes
 async function showFinalize() {
   const finalizeDivWrap = document.querySelector('#finalize');
   finalizeDivWrap.innerHTML = '';
@@ -281,14 +296,22 @@ async function showFinalize() {
         <p>Print Url (click below link to copy)</p>
         <p class="truncate" id="print_url">finalize to see this.</p>
       </div>
-      <button
-        class="self-start bg-indigo-500 text-white px-4 py-1 rounded-md text-lg"
-        id="finalize-btn"
-        onclick="finalizeOrder()"
-      >
-        Finalize Order
-      </button>
-      
+      <div class="flex gap-2 items-center">
+          <button
+            class="self-start bg-indigo-500 text-white px-4 py-1 rounded-md text-lg"
+            id="finalize-btn"
+            onclick="updateOrder()"
+          >
+            Update Order
+          </button>
+          <button
+            class="self-start bg-indigo-500 text-white px-4 py-1 rounded-md text-lg"
+            id="update-btn"
+            onclick="finalizeOrder()"
+          >
+            Finalize Order
+          </button>
+      </div>
     </div>
   `;
 
@@ -333,7 +356,7 @@ async function finalizeOrder() {
           }
         })
       },
-      `https://dev.flamapp.com/zingcam/order/finalize`
+      `https://${api}.flamapp.com/zingcam/order/finalize`
     );
 
     console.log('RES', res);
@@ -349,6 +372,24 @@ async function finalizeOrder() {
     console.log('ERrr', err);
     alert('Failed to finalize order!');
   }
+}
+
+async function updateOrder() {
+  console.log('sdkRes update', sdkRes);
+  sdkInstance.updateOrder({
+    refId: sdkRes?.ref_id,
+    handleSuccess: data => {
+      alert('Order updated!');
+    },
+    handleFailure: data => {
+      console.log('handleFailure');
+      console.log(data);
+    },
+    handleClose: () => {
+      console.log('handleClose');
+      alert('closed brooo');
+    }
+  });
 }
 
 document.addEventListener('input', debounce(handleInputChange, 250));
@@ -369,7 +410,12 @@ document.querySelector('#launch-btn').addEventListener('click', e => {
       },
       video: {
         url: exampleState['video-file'] || '',
+<<<<<<< Updated upstream
         default: exampleState['default-video-file'] || ''
+=======
+        default:
+          'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/app/videos/1_LT_Flam.mp4'
+>>>>>>> Stashed changes
       },
       prefill: {
         name: exampleState['prefill-name'] || '',
@@ -384,6 +430,9 @@ document.querySelector('#launch-btn').addEventListener('click', e => {
       },
       handleFailure: data => {
         console.log(data);
+      },
+      handleClose: () => {
+        console.log('handleClose');
       }
     };
 

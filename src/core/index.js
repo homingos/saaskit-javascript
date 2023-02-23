@@ -1,7 +1,7 @@
 import { handleListener } from '../helpers/messageHandlers';
 import { renderIframe } from '../helpers/renderIframe';
 import { warn } from '../helpers/warn';
-import { placeOrder } from './placeOrder';
+import { placeOrder, updateOrder } from './placeOrder';
 
 // import assert from '../helpers/assert';
 function init(options) {
@@ -18,20 +18,31 @@ function init(options) {
       throw new Error('ENVIRONMENT must be STAGE or PRODUCTION !!');
     }
 
+    // const devLink = 'http://localhost:3000/';
+    const devLink = 'https://dev.sdk.zingcam.tech/';
+
+    const link =
+      options.environment === 'PRODUCTION'
+        ? devLink
+        : 'https://stage.sdk.zingcam.tech';
+
+    // const link = options.enviornment === 'PRODUCTION' ? 'https://prod.sdk.zingcam.tech' : 'https://stage.sdk.zingcam.tech';
+
     localStorage.setItem('options', JSON.stringify(options));
     window.addEventListener(
       'message',
       e => {
-        handleListener(e.data);
+        handleListener(e.data, link);
       },
       false
     );
-    renderIframe();
+    renderIframe(link);
   } catch (err) {
     warn(err.message);
   }
 }
 
 init.prototype.placeOrder = placeOrder;
+init.prototype.updateOrder = updateOrder;
 
 export default init;

@@ -46,11 +46,35 @@ export function placeOrder(data) {
 
     window.handleSuccess = data.handleSuccess;
     window.handleFailure = data.handleFailure;
+    window.handleClose = data.handleClose;
 
     const loader = document.getElementById('flam-sdk-loading-wrapper');
     loader.style.display = 'flex';
 
     renderFrameOnReady(data);
+  } catch (err) {
+    warn(err.message);
+  }
+}
+
+export function updateOrder(data) {
+  try {
+    if (!data || typeof data !== 'object') {
+      throw new Error('Invalid paramerters passed');
+    }
+
+    if (!data.refId || typeof data.refId !== 'string') {
+      throw new Error('REF ID is invalid or missing');
+    }
+
+    window.handleSuccess = data.handleSuccess;
+    window.handleFailure = data.handleFailure;
+    window.handleClose = data.handleClose;
+
+    const loader = document.getElementById('flam-sdk-loading-wrapper');
+    loader.style.display = 'flex';
+
+    renderFrameOnReady({ ...data, existingOrder: true });
   } catch (err) {
     warn(err.message);
   }

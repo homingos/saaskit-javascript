@@ -1,7 +1,7 @@
 /**
  * flamsdk v2.0.4-beta.0
  * Author: bucharitesh
- * Date: 2023-02-02
+ * Date: 2023-02-23
  * License: MIT
  */
 
@@ -11,27 +11,35 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FlamSaasSDK = {}));
 })(this, (function (exports) { 'use strict';
 
-  function handleListener(data) {
+  function handleListener(data, link) {
     switch (data.type) {
-      case 'READY':
+      case 'READY': {
         handleSend({
           type: 'INITIAL_DATA',
           message: localStorage.getItem('options')
         });
         window.__SDK_READY = true;
         break;
-      case 'CLOSE':
-        {
-          const iframe = document.getElementById('flam-sdk-iframe');
-          iframe.style.display = 'none';
-        }
+      }
+      case 'CLOSE': {
+        const iframe = document.getElementById('flam-sdk-iframe');
+        iframe.style.display = 'none';
         break;
-      case 'SUCCESS':
+      }
+      case 'DIRECT_CLOSE': {
+        const iframe = document.getElementById('flam-sdk-iframe');
+        iframe.style.display = 'none';
+        window.handleClose();
+        break;
+      }
+      case 'SUCCESS': {
         window.handleSuccess(data.message);
         break;
-      case 'FAIL':
+      }
+      case 'FAIL': {
         window.handleFailure(data.message);
         break;
+      }
       default:
         console.log(data);
     }
@@ -39,10 +47,14 @@
 
   const handleSend = message => {
     const iframe = document.getElementById('flam-sdk-iframe');
+<<<<<<< Updated upstream
     iframe.contentWindow.postMessage(message, 'https://dev.sdk.zingcam.tech');
+=======
+    iframe.contentWindow.postMessage(message, '*');
+>>>>>>> Stashed changes
   };
 
-  const renderIframe = () => {
+  const renderIframe = link => {
     const styleSheet = document.createElement('style');
     styleSheet.id = 'saas-sdk-style';
     styleSheet.innerText = `
@@ -106,7 +118,11 @@
     const wrapper = document.createElement('div');
     wrapper.id = 'flam-sdk-wrapper';
     wrapper.innerHTML = `
+<<<<<<< Updated upstream
     <iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://dev.sdk.zingcam.tech" style="opacity: 0"></iframe>
+=======
+    <iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src='${link}' style="opacity: 0"></iframe>
+>>>>>>> Stashed changes
     <div id="flam-sdk-loading-wrapper">
       <span id="flam-sdk-loading"></span>
     </div>
@@ -168,11 +184,35 @@
 
       window.handleSuccess = data.handleSuccess;
       window.handleFailure = data.handleFailure;
+      window.handleClose = data.handleClose;
 
       const loader = document.getElementById('flam-sdk-loading-wrapper');
       loader.style.display = 'flex';
 
       renderFrameOnReady(data);
+    } catch (err) {
+      warn(err.message);
+    }
+  }
+
+  function updateOrder(data) {
+    try {
+      if (!data || typeof data !== 'object') {
+        throw new Error('Invalid paramerters passed');
+      }
+
+      if (!data.refId || typeof data.refId !== 'string') {
+        throw new Error('REF ID is invalid or missing');
+      }
+
+      window.handleSuccess = data.handleSuccess;
+      window.handleFailure = data.handleFailure;
+      window.handleClose = data.handleClose;
+
+      const loader = document.getElementById('flam-sdk-loading-wrapper');
+      loader.style.display = 'flex';
+
+      renderFrameOnReady({ ...data, existingOrder: true });
     } catch (err) {
       warn(err.message);
     }
@@ -193,21 +233,32 @@
         throw new Error('ENVIRONMENT must be STAGE or PRODUCTION !!');
       }
 
+      // const devLink = 'http://localhost:3000/';
+      const devLink = 'https://dev.sdk.zingcam.tech/';
+
+      const link =
+        options.environment === 'PRODUCTION'
+          ? devLink
+          : 'https://stage.sdk.zingcam.tech';
+
+      // const link = options.enviornment === 'PRODUCTION' ? 'https://prod.sdk.zingcam.tech' : 'https://stage.sdk.zingcam.tech';
+
       localStorage.setItem('options', JSON.stringify(options));
       window.addEventListener(
         'message',
         e => {
-          handleListener(e.data);
+          handleListener(e.data, link);
         },
         false
       );
-      renderIframe();
+      renderIframe(link);
     } catch (err) {
       warn(err.message);
     }
   }
 
   init.prototype.placeOrder = placeOrder;
+  init.prototype.updateOrder = updateOrder;
 
   var version = { raw: '2.0.4-beta.0' };
   version.raw;
