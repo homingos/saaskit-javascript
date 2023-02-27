@@ -376,7 +376,7 @@ async function finalizeOrder() {
 async function updateOrder() {
   console.log('sdkRes update', sdkRes);
   sdkInstance.updateOrder({
-    refId: sdkRes?.ref_id,
+    refId: sdkRes?.flamcard_id,
     handleSuccess: data => {
       alert('Order updated!');
     },
