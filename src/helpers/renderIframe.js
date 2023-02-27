@@ -62,11 +62,7 @@ export const renderIframe = link => {
   const wrapper = document.createElement('div');
   wrapper.id = 'flam-sdk-wrapper';
   wrapper.innerHTML = `
-<<<<<<< Updated upstream
-    <iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://dev.sdk.zingcam.tech" style="opacity: 0"></iframe>
-=======
     <iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src='${link}' style="opacity: 0"></iframe>
->>>>>>> Stashed changes
     <div id="flam-sdk-loading-wrapper">
       <span id="flam-sdk-loading"></span>
     </div>

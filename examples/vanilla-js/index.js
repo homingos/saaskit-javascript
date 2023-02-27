@@ -119,9 +119,11 @@ async function getVariants(key) {
       `https://${api}.flamapp.com/zingcam/product/client/product-variant`
     );
 
+    console.log('RES', res.data);
+
     if (res.data && res.data.length > 0) {
       sdkInstance = new FlamSaasSDK.init({
-        environment: environment,
+        environment,
         key
       });
 
@@ -264,8 +266,6 @@ async function handleInputChange(e) {
   }
 }
 
-<<<<<<< Updated upstream
-=======
 const params = new Proxy(new URLSearchParams(window.location.search), {
   get: (searchParams, prop) => searchParams.get(prop)
 });
@@ -275,7 +275,6 @@ if (params.key) {
   getVariants(params.key);
 }
 
->>>>>>> Stashed changes
 async function showFinalize() {
   const finalizeDivWrap = document.querySelector('#finalize');
   finalizeDivWrap.innerHTML = '';
@@ -410,12 +409,8 @@ document.querySelector('#launch-btn').addEventListener('click', e => {
       },
       video: {
         url: exampleState['video-file'] || '',
-<<<<<<< Updated upstream
-        default: exampleState['default-video-file'] || ''
-=======
         default:
           'https://flam-videoshop-assets.s3.ap-south-1.amazonaws.com/flam/app/videos/1_LT_Flam.mp4'
->>>>>>> Stashed changes
       },
       prefill: {
         name: exampleState['prefill-name'] || '',

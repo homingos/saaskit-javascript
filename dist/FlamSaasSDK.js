@@ -1,7 +1,7 @@
 /**
  * flamsdk v2.0.4-beta.0
  * Author: bucharitesh
- * Date: 2023-02-23
+ * Date: 2023-02-27
  * License: MIT
  */
 
@@ -47,11 +47,7 @@
 
   const handleSend = message => {
     const iframe = document.getElementById('flam-sdk-iframe');
-<<<<<<< Updated upstream
-    iframe.contentWindow.postMessage(message, 'https://dev.sdk.zingcam.tech');
-=======
     iframe.contentWindow.postMessage(message, '*');
->>>>>>> Stashed changes
   };
 
   const renderIframe = link => {
@@ -118,11 +114,7 @@
     const wrapper = document.createElement('div');
     wrapper.id = 'flam-sdk-wrapper';
     wrapper.innerHTML = `
-<<<<<<< Updated upstream
-    <iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src="https://dev.sdk.zingcam.tech" style="opacity: 0"></iframe>
-=======
     <iframe id="flam-sdk-iframe" style="display: none" name="flam-sdk-iframe" src='${link}' style="opacity: 0"></iframe>
->>>>>>> Stashed changes
     <div id="flam-sdk-loading-wrapper">
       <span id="flam-sdk-loading"></span>
     </div>

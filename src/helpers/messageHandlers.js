@@ -34,11 +34,7 @@ function handleListener(data, link) {
 
 const handleSend = message => {
   const iframe = document.getElementById('flam-sdk-iframe');
-<<<<<<< Updated upstream
-  iframe.contentWindow.postMessage(message, 'https://dev.sdk.zingcam.tech');
-=======
   iframe.contentWindow.postMessage(message, '*');
->>>>>>> Stashed changes
 };
 
 export { handleListener, handleSend };
