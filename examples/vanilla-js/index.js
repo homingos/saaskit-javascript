@@ -266,14 +266,14 @@ async function handleInputChange(e) {
   }
 }
 
-const params = new Proxy(new URLSearchParams(window.location.search), {
-  get: (searchParams, prop) => searchParams.get(prop)
-});
+// const params = new Proxy(new URLSearchParams(window.location.search), {
+//   get: (searchParams, prop) => searchParams.get(prop)
+// });
 
-if (params.key) {
-  exampleState.sdkKey = params.key;
-  getVariants(params.key);
-}
+// if (params.key) {
+//   exampleState.sdkKey = params.key;
+//   getVariants(params.key);
+// }
 
 async function showFinalize() {
   const finalizeDivWrap = document.querySelector('#finalize');
@@ -430,8 +430,6 @@ document.querySelector('#launch-btn').addEventListener('click', e => {
         console.log('handleClose');
       }
     };
-
-    console.log('orderData', orderData);
 
     sdkInstance.placeOrder(orderData);
   }
