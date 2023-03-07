@@ -376,7 +376,8 @@ async function finalizeOrder() {
 async function updateOrder() {
   console.log('sdkRes update', sdkRes);
   sdkInstance.updateOrder({
-    refId: sdkRes?.flamcard_id,
+    refId: `${sdkRes?.flamcard_id}`,
+    color: '#32a852',
     handleSuccess: data => {
       alert('Order updated!');
     },
@@ -390,7 +391,7 @@ async function updateOrder() {
     }
   });
 }
-
+// fa991ccd-792a-4b4a-9ec1-982e99fec63f
 document.addEventListener('input', debounce(handleInputChange, 250));
 
 document.querySelector('#launch-btn').addEventListener('click', e => {
@@ -432,5 +433,20 @@ document.querySelector('#launch-btn').addEventListener('click', e => {
     };
 
     sdkInstance.placeOrder(orderData);
+
+    // const orderData = {
+    //   color: '#5e0d2a',
+    //   refId: 'fa991ccd-792a-4b4a-9ec1-982e99fec63f',
+    //   handleSuccess: async data => {
+    //     alert('Success');
+    //   },
+    //   handleFailure: async data => {
+    //     alert('Failure');
+    //   },
+    //   handleClose: async () => {
+    //     alert('Close');
+    //   }
+    // };
+    // sdkInstance?.updateOrder(orderData);
   }
 });

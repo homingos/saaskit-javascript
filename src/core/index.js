@@ -19,14 +19,17 @@ function init(options) {
     }
 
     // const devLink = 'http://localhost:3000/';
-    const devLink = 'https://dev.sdk.zingcam.tech/';
+    // const devLink = 'https://dev.sdk.zingcam.tech/';
+
+    // const link =
+    //   options.environment === 'PRODUCTION'
+    //     ? devLink
+    //     : 'https://stage.sdk.zingcam.tech';
 
     const link =
-      options.environment === 'PRODUCTION'
-        ? devLink
+      options.enviornment === 'PRODUCTION'
+        ? 'https://prod.sdk.zingcam.tech'
         : 'https://stage.sdk.zingcam.tech';
-
-    // const link = options.enviornment === 'PRODUCTION' ? 'https://prod.sdk.zingcam.tech' : 'https://stage.sdk.zingcam.tech';
 
     localStorage.setItem('options', JSON.stringify(options));
     window.addEventListener(

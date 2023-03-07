@@ -1,7 +1,7 @@
 /**
  * flamsdk v2.0.4-beta.0
  * Author: bucharitesh
- * Date: 2023-02-27
+ * Date: 2023-03-02
  * License: MIT
  */
 
@@ -225,8 +225,8 @@
         throw new Error('ENVIRONMENT must be STAGE or PRODUCTION !!');
       }
 
-      // const devLink = 'http://localhost:3000/';
-      const devLink = 'https://dev.sdk.zingcam.tech/';
+      const devLink = 'http://localhost:3000/';
+      // const devLink = 'https://dev.sdk.zingcam.tech/';
 
       const link =
         options.environment === 'PRODUCTION'
