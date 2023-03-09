@@ -1,4 +1,5 @@
 
+
 # Saaskit-javascript
 
 Client Side SDK toolkit for SaaS.
@@ -21,7 +22,7 @@ From CDN:
 
 ```html
 <!-- Latest patch release -->
-<script src="https://unpkg.com/flamsdk@2.0.4/dist/FlamSaasSDK.min.js"></script>
+<script src="https://unpkg.com/flamsdk@2.0.7/dist/FlamSaasSDK.min.js"></script>
 ```
 
 From [npm](<[https://npmjs.org](https://npmjs.org/)>):
@@ -110,6 +111,40 @@ sdk.placeOrder(
   }
 );
 ```
+
+#### sdk.updateOrder(options)
+
+
+**Parameters**
+
+All parameters can be considered optional unless otherwise stated.
+
+| Option            | Type                | Description                                                                                                                                                                                                                                                       |
+| :---------------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `refId`       | string (required)   | Order ID for the product to be ordered from SDK                                                                                                                                                                                                                 |
+| `color` | string (optional)   | color in the form of **HEX**, which can be passed by the client to customise the primary and secondary colour of the SDK UI according to their needs.                              |
+| `handleSuccess` | function (required)  | This method is used to perform action on create success.                 |
+| `handleFailure` | function (required)  | This method is used to perform action on create failure.                 |
+| `handleClose` | function (required)  | This method is used to perform action on close button.                 |
+
+```js
+sdk.updateOrder(
+  {
+		  refId: '',
+      color: '#000000',
+      handleSuccess: data => {
+        console.log('sdkRes', data);
+      },
+      handleFailure: err => {
+        console.log(err);
+      },
+      handleClose: err => {
+        console.log(err);
+      }
+  }
+);
+```
+
 
 ## Issue Reporting
 
