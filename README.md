@@ -130,7 +130,7 @@ All parameters can be considered optional unless otherwise stated.
 ```js
 sdk.updateOrder(
   {
-		  refId: '',
+      refId: '<order-id>',
       color: '#000000',
       handleSuccess: data => {
         console.log('sdkRes', data);
