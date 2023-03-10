@@ -229,7 +229,7 @@
   // BETA | STABLE
   const RELEASE_TYPE = 'BETA';
 
-  const DEV_LINK = 'http://localhost:3000'; // 'https://dev.sdk.zingcam.tech';
+  const DEV_LINK = 'https://dev.sdk.zingcam.tech'; // 'https://dev.sdk.zingcam.tech';
   const STAGE_LINK = 'https://stage.sdk.zingcam.tech';
   const PROD_LINK = 'https://prod.sdk.zingcam.tech';
 
@@ -254,8 +254,6 @@
 
       const link =
         links[RELEASE_TYPE][options.environment === 'PRODUCTION' ? 0 : 1];
-
-      console.log('LINK', link);
 
       localStorage.setItem('options', JSON.stringify(options));
       localStorage.setItem('__FLAM_SDK_LINK', link);
