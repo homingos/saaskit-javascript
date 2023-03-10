@@ -1,25 +1,36 @@
+const unmountSDK = () => {
+  const iframeWrapper = document.getElementById('flam-sdk-wrapper');
+  iframeWrapper.remove();
+
+  const styleSheet = document.getElementById('saas-sdk-style');
+  styleSheet.remove();
+
+  window.__SDK_READY = false;
+  window.removeEventListener('message', window.__FlamSDKListener);
+};
+
 function handleListener(data, link) {
   switch (data.type) {
     case 'READY': {
+      window.__SDK_READY = true;
+      console.log('READY_READY test');
       handleSend({
         type: 'INITIAL_DATA',
         message: localStorage.getItem('options')
       });
-      window.__SDK_READY = true;
       break;
     }
     case 'CLOSE': {
-      const iframe = document.getElementById('flam-sdk-iframe');
-      iframe.style.display = 'none';
+      unmountSDK();
       break;
     }
     case 'DIRECT_CLOSE': {
-      const iframe = document.getElementById('flam-sdk-iframe');
-      iframe.style.display = 'none';
+      unmountSDK();
       window.handleClose();
       break;
     }
     case 'SUCCESS': {
+      unmountSDK();
       window.handleSuccess(data.message);
       break;
     }

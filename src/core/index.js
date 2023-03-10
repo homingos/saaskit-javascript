@@ -1,9 +1,18 @@
-import { handleListener } from '../helpers/messageHandlers';
-import { renderIframe } from '../helpers/renderIframe';
 import { warn } from '../helpers/warn';
 import { placeOrder, updateOrder } from './placeOrder';
 
-// import assert from '../helpers/assert';
+// BETA | STABLE
+const RELEASE_TYPE = 'BETA';
+
+const DEV_LINK = 'https://dev.sdk.zingcam.tech'; // 'https://dev.sdk.zingcam.tech';
+const STAGE_LINK = 'https://stage.sdk.zingcam.tech';
+const PROD_LINK = 'https://prod.sdk.zingcam.tech';
+
+const links = {
+  BETA: [DEV_LINK, STAGE_LINK],
+  STABLE: [PROD_LINK, STAGE_LINK]
+};
+
 function init(options) {
   try {
     if (!options || typeof options !== 'object') {
@@ -18,28 +27,11 @@ function init(options) {
       throw new Error('ENVIRONMENT must be STAGE or PRODUCTION !!');
     }
 
-    // const devLink = 'http://localhost:3000/';
-    // const devLink = 'https://dev.sdk.zingcam.tech/';
-
-    // const link =
-    //   options.environment === 'PRODUCTION'
-    //     ? devLink
-    //     : 'https://stage.sdk.zingcam.tech';
-
     const link =
-      options.enviornment === 'PRODUCTION'
-        ? 'https://prod.sdk.zingcam.tech'
-        : 'https://stage.sdk.zingcam.tech';
+      links[RELEASE_TYPE][options.environment === 'PRODUCTION' ? 0 : 1];
 
     localStorage.setItem('options', JSON.stringify(options));
-    window.addEventListener(
-      'message',
-      e => {
-        handleListener(e.data, link);
-      },
-      false
-    );
-    renderIframe(link);
+    localStorage.setItem('__FLAM_SDK_LINK', link);
   } catch (err) {
     warn(err.message);
   }

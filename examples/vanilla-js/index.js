@@ -8,7 +8,7 @@ function uuidv4() {
 }
 
 const environment = 'PRODUCTION';
-const api = 'dev';
+// const api = 'api';
 
 async function apiCall(settings, url) {
   try {
@@ -72,7 +72,7 @@ async function handleFileUpload(name, file) {
           content_type: file.type
         })
       },
-      `https://${api}.flamapp.com/zingcam/v1/signed-url`
+      `https://dev.flamapp.com/zingcam/v1/signed-url`
     );
 
     const res2 = await apiCall(
@@ -116,7 +116,7 @@ async function getVariants(key) {
           'x-api-key': key
         }
       },
-      `https://${api}.flamapp.com/zingcam/product/client/product-variant`
+      `https://dev.flamapp.com/zingcam/product/client/product-variant`
     );
 
     console.log('RES', res.data);
@@ -355,7 +355,7 @@ async function finalizeOrder() {
           }
         })
       },
-      `https://${api}.flamapp.com/zingcam/order/finalize`
+      `https://dev.flamapp.com/zingcam/order/finalize`
     );
 
     console.log('RES', res);
@@ -444,7 +444,8 @@ document.querySelector('#launch-btn').addEventListener('click', e => {
     //     alert('Failure');
     //   },
     //   handleClose: async () => {
-    //     alert('Close');
+    //     // alert('Close');
+    //     currVal++;
     //   }
     // };
     // sdkInstance?.updateOrder(orderData);

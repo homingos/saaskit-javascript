@@ -1,7 +1,7 @@
 /**
  * flamsdk v2.0.4-beta.0
  * Author: bucharitesh
- * Date: 2023-03-02
+ * Date: 2023-03-10
  * License: MIT
  */
 
@@ -11,28 +11,48 @@
   (global = typeof globalThis !== 'undefined' ? globalThis : global || self, factory(global.FlamSaasSDK = {}));
 })(this, (function (exports) { 'use strict';
 
+  function warn (message) {
+    const styles = ['color: black', 'background: yellow'].join(';');
+
+    const name = '[ZINGCAM SDK]';
+
+    message = name + ': ' + message;
+    console.log('%c%s', styles, message);
+  }
+
+  const unmountSDK = () => {
+    const iframeWrapper = document.getElementById('flam-sdk-wrapper');
+    iframeWrapper.remove();
+
+    const styleSheet = document.getElementById('saas-sdk-style');
+    styleSheet.remove();
+
+    window.__SDK_READY = false;
+    window.removeEventListener('message', window.__FlamSDKListener);
+  };
+
   function handleListener(data, link) {
     switch (data.type) {
       case 'READY': {
+        window.__SDK_READY = true;
+        console.log('READY_READY test');
         handleSend({
           type: 'INITIAL_DATA',
           message: localStorage.getItem('options')
         });
-        window.__SDK_READY = true;
         break;
       }
       case 'CLOSE': {
-        const iframe = document.getElementById('flam-sdk-iframe');
-        iframe.style.display = 'none';
+        unmountSDK();
         break;
       }
       case 'DIRECT_CLOSE': {
-        const iframe = document.getElementById('flam-sdk-iframe');
-        iframe.style.display = 'none';
+        unmountSDK();
         window.handleClose();
         break;
       }
       case 'SUCCESS': {
+        unmountSDK();
         window.handleSuccess(data.message);
         break;
       }
@@ -122,16 +142,26 @@
     body.appendChild(wrapper);
   };
 
-  function warn (message) {
-    const styles = ['color: black', 'background: yellow'].join(';');
+  function loadFrame(data) {
+    window.__FlamSDKListener = e => {
+      handleListener(e.data, localStorage.getItem('__FLAM_SDK_LINK'));
+    };
 
-    const name = '[ZINGCAM SDK]';
+    window.addEventListener('message', window.__FlamSDKListener, false);
 
-    message = name + ': ' + message;
-    console.log('%c%s', styles, message);
+    renderIframe(localStorage.getItem('__FLAM_SDK_LINK'));
+
+    window.handleSuccess = data.handleSuccess;
+    window.handleFailure = data.handleFailure;
+    window.handleClose = data.handleClose;
+
+    const loader = document.getElementById('flam-sdk-loading-wrapper');
+    loader.style.display = 'flex';
+
+    displayFrameOnReady(data);
   }
 
-  function renderFrameOnReady(data) {
+  function displayFrameOnReady(data) {
     setTimeout(() => {
       if (window.__SDK_READY) {
         const loader = document.getElementById('flam-sdk-loading-wrapper');
@@ -144,8 +174,8 @@
 
         return;
       }
-      renderFrameOnReady(data);
-    }, 0);
+      displayFrameOnReady(data);
+    }, 500);
   }
 
   function placeOrder(data) {
@@ -174,14 +204,7 @@
         throw new Error('video options are invalid or missing');
       }
 
-      window.handleSuccess = data.handleSuccess;
-      window.handleFailure = data.handleFailure;
-      window.handleClose = data.handleClose;
-
-      const loader = document.getElementById('flam-sdk-loading-wrapper');
-      loader.style.display = 'flex';
-
-      renderFrameOnReady(data);
+      loadFrame(data);
     } catch (err) {
       warn(err.message);
     }
@@ -197,20 +220,24 @@
         throw new Error('REF ID is invalid or missing');
       }
 
-      window.handleSuccess = data.handleSuccess;
-      window.handleFailure = data.handleFailure;
-      window.handleClose = data.handleClose;
-
-      const loader = document.getElementById('flam-sdk-loading-wrapper');
-      loader.style.display = 'flex';
-
-      renderFrameOnReady({ ...data, existingOrder: true });
+      loadFrame({ ...data, existingOrder: true });
     } catch (err) {
       warn(err.message);
     }
   }
 
-  // import assert from '../helpers/assert';
+  // BETA | STABLE
+  const RELEASE_TYPE = 'BETA';
+
+  const DEV_LINK = 'http://localhost:3000'; // 'https://dev.sdk.zingcam.tech';
+  const STAGE_LINK = 'https://stage.sdk.zingcam.tech';
+  const PROD_LINK = 'https://prod.sdk.zingcam.tech';
+
+  const links = {
+    BETA: [DEV_LINK, STAGE_LINK],
+    STABLE: [PROD_LINK, STAGE_LINK]
+  };
+
   function init(options) {
     try {
       if (!options || typeof options !== 'object') {
@@ -225,25 +252,13 @@
         throw new Error('ENVIRONMENT must be STAGE or PRODUCTION !!');
       }
 
-      const devLink = 'http://localhost:3000/';
-      // const devLink = 'https://dev.sdk.zingcam.tech/';
-
       const link =
-        options.environment === 'PRODUCTION'
-          ? devLink
-          : 'https://stage.sdk.zingcam.tech';
+        links[RELEASE_TYPE][options.environment === 'PRODUCTION' ? 0 : 1];
 
-      // const link = options.enviornment === 'PRODUCTION' ? 'https://prod.sdk.zingcam.tech' : 'https://stage.sdk.zingcam.tech';
+      console.log('LINK', link);
 
       localStorage.setItem('options', JSON.stringify(options));
-      window.addEventListener(
-        'message',
-        e => {
-          handleListener(e.data, link);
-        },
-        false
-      );
-      renderIframe(link);
+      localStorage.setItem('__FLAM_SDK_LINK', link);
     } catch (err) {
       warn(err.message);
     }

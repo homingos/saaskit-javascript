@@ -1,7 +1,27 @@
-import { handleSend } from '../helpers/messageHandlers';
+import { handleSend, handleListener } from '../helpers/messageHandlers';
 import { warn } from '../helpers/warn';
+import { renderIframe } from '../helpers/renderIframe';
 
-function renderFrameOnReady(data) {
+export function loadFrame(data) {
+  window.__FlamSDKListener = e => {
+    handleListener(e.data, localStorage.getItem('__FLAM_SDK_LINK'));
+  };
+
+  window.addEventListener('message', window.__FlamSDKListener, false);
+
+  renderIframe(localStorage.getItem('__FLAM_SDK_LINK'));
+
+  window.handleSuccess = data.handleSuccess;
+  window.handleFailure = data.handleFailure;
+  window.handleClose = data.handleClose;
+
+  const loader = document.getElementById('flam-sdk-loading-wrapper');
+  loader.style.display = 'flex';
+
+  displayFrameOnReady(data);
+}
+
+function displayFrameOnReady(data) {
   setTimeout(() => {
     if (window.__SDK_READY) {
       const loader = document.getElementById('flam-sdk-loading-wrapper');
@@ -14,8 +34,8 @@ function renderFrameOnReady(data) {
 
       return;
     }
-    renderFrameOnReady(data);
-  }, 0);
+    displayFrameOnReady(data);
+  }, 500);
 }
 
 export function placeOrder(data) {
@@ -44,14 +64,7 @@ export function placeOrder(data) {
       throw new Error('video options are invalid or missing');
     }
 
-    window.handleSuccess = data.handleSuccess;
-    window.handleFailure = data.handleFailure;
-    window.handleClose = data.handleClose;
-
-    const loader = document.getElementById('flam-sdk-loading-wrapper');
-    loader.style.display = 'flex';
-
-    renderFrameOnReady(data);
+    loadFrame(data);
   } catch (err) {
     warn(err.message);
   }
@@ -67,14 +80,7 @@ export function updateOrder(data) {
       throw new Error('REF ID is invalid or missing');
     }
 
-    window.handleSuccess = data.handleSuccess;
-    window.handleFailure = data.handleFailure;
-    window.handleClose = data.handleClose;
-
-    const loader = document.getElementById('flam-sdk-loading-wrapper');
-    loader.style.display = 'flex';
-
-    renderFrameOnReady({ ...data, existingOrder: true });
+    loadFrame({ ...data, existingOrder: true });
   } catch (err) {
     warn(err.message);
   }
