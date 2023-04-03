@@ -298,14 +298,14 @@ async function showFinalize() {
       <div class="flex gap-2 items-center">
           <button
             class="self-start bg-indigo-500 text-white px-4 py-1 rounded-md text-lg"
-            id="finalize-btn"
+            id="update-btn"
             onclick="updateOrder()"
           >
             Update Order
           </button>
           <button
             class="self-start bg-indigo-500 text-white px-4 py-1 rounded-md text-lg"
-            id="update-btn"
+            id="finalize-btn"
             onclick="finalizeOrder()"
           >
             Finalize Order
