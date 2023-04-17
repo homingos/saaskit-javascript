@@ -72,7 +72,7 @@ async function handleFileUpload(name, file) {
           content_type: file.type
         })
       },
-      `https://dev.flamapp.com/zingcam/v1/signed-url`
+      `https://zingcam.dev.flamapp.com/zingcam/v1/signed-url`
     );
 
     const res2 = await apiCall(
@@ -116,7 +116,7 @@ async function getVariants(key) {
           'x-api-key': key
         }
       },
-      `https://dev.flamapp.com/zingcam/product/client/product-variant`
+      `https://zingcam.dev.flamapp.com/zingcam/product/client/product-variant`
     );
 
     console.log('RES', res.data);
@@ -355,7 +355,7 @@ async function finalizeOrder() {
           }
         })
       },
-      `https://dev.flamapp.com/zingcam/order/finalize`
+      `https://zingcam.dev.flamapp.com/zingcam/order/finalize`
     );
 
     console.log('RES', res);
